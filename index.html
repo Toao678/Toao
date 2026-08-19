@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>toao 预测</title>
+<style>
+body{background:#0b0e1a;color:#e8eaf0;font-family:-apple-system,"PingFang SC",sans-serif;padding:10px;max-width:480px;margin:0 auto;font-size:14px}
+.card{background:#141b2d;border:1px solid #1e293b;border-radius:12px;padding:14px;margin-bottom:10px}
+.btn{width:100%;padding:10px;border:none;border-radius:8px;background:#3b82f6;color:#fff;font-weight:700;font-size:13px;cursor:pointer}
+.btn:disabled{opacity:.5}
+#status{text-align:center;font-size:12px;color:#64748b;margin-top:8px;min-height:18px}
+.balls{display:flex;gap:8px;justify-content:center;margin:12px 0}
+.ball{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:16px}
+.ball.r{background:#7f1d1d;border:2px solid #ef4444}.ball.g{background:#14532d;border:2px solid #22c55e}
+#cd{text-align:center;color:#3b82f6;font-weight:700;font-size:13px;margin-top:6px}
+table{width:100%;font-size:11px;border-collapse:collapse;margin-top:8px}
+th{padding:5px 2px;color:#64748b;border-bottom:1px solid #1e293b}
+td{padding:4px 2px;border-bottom:1px solid #1e293b;text-align:center}
+.win{color:#22c55e}.miss{color:#ef4444}
+</style>
+
+<div class="card">
+  <div style="font-weight:700;font-size:16px;margin-bottom:8px">toao · 预测 <span style="font-size:10px;color:#64748b">v4.0</span></div>
+  <button class="btn" id="btn" onclick="scan()">🔍 扫描最新</button>
+  <div id="status">等待扫描...</div>
+
+  <div class="balls">
+    <div class="ball r" id="b0">-</div>
+    <div class="ball g" id="b1">-</div>
+    <div class="ball g" id="b2">-</div>
+  </div>
+  <div id="info" style="text-align:center;font-weight:700"></div>
+  <div id="sum" style="text-align:center;font-size:11px;color:#64748b"></div>
+  <div id="cd">⏳ --:--</div>
+</div>
+
+<div class="card">
+  <div style="font-weight:700;margin-bottom:6px">近30期回测</div>
+  <table>
+    <thead><tr><th>期号</th><th>开奖</th><th>组合</th><th>结果</th></tr></thead>
+    <tbody id="list"></tbody>
+  </table>
+</div>
+
+<script>
+const API = "/api/yu28";
+
+async function scan(){
+  const btn = document.getElementById("btn");
+  const status = document.getElementById("status");
+  btn.disabled = true;
+  btn.textContent = "⏳ 请求中...";
+  status.textContent = "正在拉取...";
+
+  try {
+    const res = await fetch(API, { cache: "no-store" });
+    if(!res.ok) throw new Error("HTTP " + res.status);
+    const json = await res.json();
+    const data = json.data || [];
+    if(!data.length) throw new Error("返回为空");
+
+    render(data);
+    status.textContent = "✅ 最新 " + data[0].nbr + " 期 · 自动更新中";
+  } catch(e) {
+    status.textContent = "❌ " + e.message;
+  }
+
+  btn.disabled = false;
+  btn.textContent = "🔍 扫描最新";
+}
+
+function render(data){
+  const d = data[0];
+  const nums = (d.number||"").split("=")[0].split("+");
+  document.getElementById("b0").textContent = nums[0]||"-";
+  document.getElementById("b1").textContent = nums[1]||"-";
+  document.getElementById("b2").textContent = nums[2]||"-";
+  document.getElementById("info").textContent = d.nbr + " 期";
+  document.getElementById("sum").textContent = "和值：" + (d.sum||"--") + " / " + (d.combination||"--");
+
+  const rows = data.slice(0, 30);
+  document.getElementById("list").innerHTML = rows.map((cur, i) => {
+    const prev = data[i+1];
+    let hit = false;
+    if(prev){
+      const map = {"大单":"小双","大双":"小单","小单":"大双","小双":"大单"};
+      const pred = map[prev.combination] || "--";
+      hit = pred === cur.combination;
+    }
+    return `<tr><td>${cur.nbr}</td><td>${cur.number||"-"}</td><td>${cur.combination||"-"}</td><td class="${hit?'win':'miss'}">${prev? (hit?"✅":"❌") :"-"}</td></tr>`;
+  }).join("");
+}
+
+async function fetchCD(){
+  try {
+    const res = await fetch("/api/yu28-cd", { cache: "no-store" });
+    const json = await res.json();
+    if(json.countdown){
+      const [m,s] = json.countdown.split(":").map(Number);
+      const end = Date.now() + (m*60+s)*1000;
+      const tick = setInterval(()=>{
+        const left = end - Date.now();
+        if(left<=0){ document.getElementById("cd").textContent="开奖中..."; clearInterval(tick); return; }
+        const mm = String(Math.floor(left/60000)).padStart(2,"0");
+        const ss = String(Math.floor(left%60000/1000)).padStart(2,"0");
+        document.getElementById("cd").textContent = "⏳ "+mm+":"+ss;
+      },1000);
+    }
+  } catch(e){}
+}
+
+scan();
+fetchCD();
+setInterval(scan, 60000);
+setInterval(fetchCD, 30000);
+</script>
