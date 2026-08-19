@@ -23,7 +23,6 @@ td{padding:4px 2px;border-bottom:1px solid #1e293b;text-align:center}
   <div style="font-weight:700;font-size:16px;margin-bottom:8px">toao · 预测 <span style="font-size:10px;color:#64748b">v4.0</span></div>
   <button class="btn" id="btn" onclick="scan()">🔍 扫描最新</button>
   <div id="status">等待扫描...</div>
-
   <div class="balls">
     <div class="ball r" id="b0">-</div>
     <div class="ball g" id="b1">-</div>
@@ -51,20 +50,17 @@ async function scan(){
   btn.disabled = true;
   btn.textContent = "⏳ 请求中...";
   status.textContent = "正在拉取...";
-
   try {
     const res = await fetch(API, { cache: "no-store" });
     if(!res.ok) throw new Error("HTTP " + res.status);
     const json = await res.json();
     const data = json.data || [];
     if(!data.length) throw new Error("返回为空");
-
     render(data);
     status.textContent = "✅ 最新 " + data[0].nbr + " 期 · 自动更新中";
   } catch(e) {
     status.textContent = "❌ " + e.message;
   }
-
   btn.disabled = false;
   btn.textContent = "🔍 扫描最新";
 }
@@ -77,17 +73,12 @@ function render(data){
   document.getElementById("b2").textContent = nums[2]||"-";
   document.getElementById("info").textContent = d.nbr + " 期";
   document.getElementById("sum").textContent = "和值：" + (d.sum||"--") + " / " + (d.combination||"--");
-
-  const rows = data.slice(0, 30);
-  document.getElementById("list").innerHTML = rows.map((cur, i) => {
+  const rows = data.slice(0,30);
+  document.getElementById("list").innerHTML = rows.map((cur,i)=>{
     const prev = data[i+1];
     let hit = false;
-    if(prev){
-      const map = {"大单":"小双","大双":"小单","小单":"大双","小双":"大单"};
-      const pred = map[prev.combination] || "--";
-      hit = pred === cur.combination;
-    }
-    return `<tr><td>${cur.nbr}</td><td>${cur.number||"-"}</td><td>${cur.combination||"-"}</td><td class="${hit?'win':'miss'}">${prev? (hit?"✅":"❌") :"-"}</td></tr>`;
+    if(prev){const map={"大单":"小双","大双":"小单","小单":"大双","小双":"大单"};const pred=map[prev.combination]||"--";hit=pred===cur.combination}
+    return "<tr><td>"+cur.nbr+"</td><td>"+(cur.number||"-")+"</td><td>"+(cur.combination||"-")+"</td><td class=\""+(hit?"win":"miss")+"\">"+(prev?(hit?"✅":"❌"):"-")+"</td></tr>";
   }).join("");
 }
 
@@ -96,11 +87,12 @@ async function fetchCD(){
     const res = await fetch("/api/yu28-cd", { cache: "no-store" });
     const json = await res.json();
     if(json.countdown){
-      const [m,s] = json.countdown.split(":").map(Number);
+      const parts = json.countdown.split(":");
+      const m = parseInt(parts[0],10), s = parseInt(parts[1],10);
       const end = Date.now() + (m*60+s)*1000;
       const tick = setInterval(()=>{
         const left = end - Date.now();
-        if(left<=0){ document.getElementById("cd").textContent="开奖中..."; clearInterval(tick); return; }
+        if(left<=0){document.getElementById("cd").textContent="开奖中...";clearInterval(tick);return;}
         const mm = String(Math.floor(left/60000)).padStart(2,"0");
         const ss = String(Math.floor(left%60000/1000)).padStart(2,"0");
         document.getElementById("cd").textContent = "⏳ "+mm+":"+ss;
