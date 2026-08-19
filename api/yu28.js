@@ -1,18 +1,17 @@
-const fetch = require('node-fetch');
-
-const API_KEY = "yu28_dd02fb963ac7590c";
-const API_URL = "https://yu28.top/api/kj?nbr=30";
-
-module.exports = async (req, res) => {
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  try {
+try {
+    // Vercel 内置 fetch，无需 require
     const response = await fetch(API_URL, {
-      headers: { "X-Api-Key": API_KEY }
+        headers: { "X-Api-Key": API_KEY }
     });
-    if (!response.ok) return res.status(response.status).json({ error: "yu28 API " + response.status });
+    
+    // 如果上游接口报错，直接返回状态
+    if (!response.ok) {
+        return res.status(response.status).json({ error: `Upstream API error: ${response.status}` });
+    }
+    
     const data = await response.json();
     res.json(data);
-  } catch(e) {
+} catch (e) {
+    // 捕获代码执行错误
     res.status(500).json({ error: e.message });
-  }
-};
+}
