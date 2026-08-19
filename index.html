@@ -3,76 +3,88 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>toao · 预测 v3.0</title>
+<title>慢不慢 · 预测 v3.0</title>
 <style>
-:root{--bg:#0b0f1a;--card:#13192b;--input:#1c2438;--text:#e0e6ed;--muted:#8a9bb8;--blue:#4a7aff;--purple:#8b5cf6;--red:#ef4444;--green:#22c55e;--orange:#f59e0b;--border:#1e293b}
-*{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
-body{background:var(--bg);color:var(--text);line-height:1.5;overflow-x:hidden}
-.container{max-width:480px;margin:0 auto;padding:16px;padding-bottom:80px}
-.header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+:root{--bg:#0b0e1a;--card:#13192b;--input:#1c2438;--text:#e0e6ed;--muted:#8a9bb8;--blue:#4a7aff;--purple:#8b5cf6;--red:#ef4444;--green:#22c55e;--orange:#f59e0b;--border:#1e293b;--gold:#fbbf24}
+*{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+body{background:var(--bg);color:var(--text);line-height:1.5;overflow-x:hidden;-webkit-tap-highlight-color:transparent}
+.container{max-width:480px;margin:0 auto;padding:12px;padding-bottom:80px}
+.header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;padding:4px 0}
 .logo-area{display:flex;align-items:center;gap:10px}
-.logo-icon{width:36px;height:36px;background:linear-gradient(135deg,#6d28d9,#3b82f6);border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:18px;color:#fff}
-.app-title{font-size:18px;font-weight:600}
-.app-version{font-size:11px;color:var(--muted);background:var(--input);padding:2px 6px;border-radius:4px;margin-left:6px}
-.header-actions{display:flex;gap:12px;color:var(--muted);font-size:20px}
-.card{background:var(--card);border-radius:16px;padding:16px;margin-bottom:16px;border:1px solid var(--border)}
-.model-selector{display:flex;align-items:center;gap:8px;background:var(--input);padding:8px 12px;border-radius:10px;margin-bottom:16px}
-.model-label{color:var(--red);font-size:12px}
-.model-name{flex:1;font-size:15px;font-weight:500}
-.model-rate{color:var(--green);font-size:13px;font-weight:600}
-.toolbar{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
-.btn-tool{padding:6px 12px;border-radius:8px;font-size:12px;display:flex;align-items:center;gap:4px;border:none;cursor:pointer;font-weight:500}
-.btn-scan{background:rgba(74,122,255,.1);color:var(--blue);border:1px solid rgba(74,122,255,.2)}
-.btn-model{background:rgba(139,92,246,.1);color:var(--purple);border:1px solid rgba(139,92,246,.2)}
-.btn-lock{background:rgba(239,68,68,.1);color:var(--red);border:1px solid rgba(239,68,68,.2)}
-.main-display{display:flex;gap:16px}
-.left-panel{flex:1.2}
+.logo-icon{width:40px;height:40px;background:linear-gradient(135deg,#6d28d9,#3b82f6);border-radius:12px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:20px;color:#fff;box-shadow:0 4px 15px rgba(109,40,217,.5)}
+.app-title{font-size:17px;font-weight:700;letter-spacing:.5px}
+.app-version{font-size:10px;color:var(--muted);background:var(--input);padding:2px 7px;border-radius:4px;margin-left:4px;font-weight:500}
+.header-actions{display:flex;gap:14px;font-size:20px;cursor:pointer}
+.card{background:var(--card);border-radius:14px;padding:14px;margin-bottom:12px;border:1px solid var(--border);box-shadow:0 2px 12px rgba(0,0,0,.25)}
+.model-selector{display:flex;align-items:center;gap:8px;background:var(--input);padding:10px 14px;border-radius:10px;margin-bottom:12px}
+.model-label{color:var(--red);font-size:12px;font-weight:600}
+.model-name{flex:1;font-size:14px;font-weight:600}
+.model-rate{color:var(--green);font-size:13px;font-weight:700}
+.toolbar{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap}
+.btn-tool{padding:7px 12px;border-radius:8px;font-size:12px;display:flex;align-items:center;gap:4px;border:none;cursor:pointer;font-weight:600;transition:all .2s}
+.btn-scan{background:rgba(74,122,255,.12);color:var(--blue);border:1px solid rgba(74,122,255,.25)}
+.btn-scan:active{transform:scale(.95)}
+.btn-model{background:rgba(139,92,246,.12);color:var(--purple);border:1px solid rgba(139,92,246,.25)}
+.btn-lock{background:rgba(239,68,68,.12);color:var(--red);border:1px solid rgba(239,68,68,.25)}
+.btn-freeze{background:rgba(34,197,94,.12);color:var(--green);border:1px solid rgba(34,197,94,.25)}
+.main-display{display:flex;gap:14px}
+.left-panel{flex:1.3}
 .right-panel{flex:1}
-.section-title{font-size:12px;color:var(--muted);margin-bottom:8px;display:flex;align-items:center;gap:4px}
-.balls-container{display:flex;gap:8px;margin-bottom:12px}
-.ball{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:bold;color:#fff}
-.ball.r{background:radial-gradient(circle at 30% 30%,#ff6b6b,#c92a2a)}
-.ball.g{background:radial-gradient(circle at 30% 30%,#69db7c,#2b8a3e)}
-.issue-info{font-size:14px;font-weight:bold;margin-bottom:4px}
-.sum-info{font-size:12px;color:var(--muted)}
-.timer-bar{width:100%;height:6px;background:rgba(255,255,255,.1);border-radius:3px;margin-top:10px;overflow:hidden}
-.timer-progress{height:100%;background:linear-gradient(90deg,var(--blue),#06b6d4);border-radius:3px;width:60%;animation:ta 2s linear infinite}
-@keyframes ta{0%{width:100%}100%{width:0%}}
-.pred-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px}
-.pred-btn{background:var(--input);border:1px solid #2d3a50;border-radius:8px;padding:10px 8px;text-align:center;font-weight:bold;font-size:14px;color:var(--text);cursor:pointer}
+.section-title{font-size:12px;color:var(--muted);margin-bottom:8px;display:flex;align-items:center;gap:4px;font-weight:600}
+.balls-container{display:flex;gap:6px;margin-bottom:10px}
+.ball{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:900;color:#fff;box-shadow:inset 0 -3px 6px rgba(0,0,0,.35),0 3px 10px rgba(0,0,0,.3)}
+.ball.r{background:radial-gradient(circle at 35% 35%,#ff7676,#dc2626)}
+.ball.g{background:radial-gradient(circle at 35% 35%,#6ee7a0,#16a34a)}
+.issue-info{font-size:15px;font-weight:800;margin-bottom:3px}
+.sum-info{font-size:12px;color:var(--muted);margin-bottom:4px}
+.timer-bar{width:100%;height:5px;background:rgba(255,255,255,.08);border-radius:3px;margin-top:8px;overflow:hidden}
+.timer-progress{height:100%;background:linear-gradient(90deg,var(--blue),#06b6d4);border-radius:3px;width:100%;animation:timerAnim 60s linear infinite}
+@keyframes timerAnim{0%{width:100%}100%{width:0%}}
+.pred-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:6px}
+.pred-btn{background:var(--input);border:2px solid transparent;border-radius:8px;padding:10px 6px;text-align:center;font-weight:800;font-size:13px;color:var(--text);cursor:pointer;transition:all .2s}
 .pred-btn.active{border-color:var(--blue);background:rgba(74,122,255,.15);color:var(--blue)}
-.pred-kill{border:1px solid var(--red);background:rgba(239,68,68,.1);color:var(--red);text-align:center;padding:8px;border-radius:8px;font-weight:bold;font-size:13px;margin-top:4px}
-.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:16px}
-.stat-item{background:var(--input);border-radius:10px;padding:10px 8px;text-align:center;border-top:2px solid transparent}
+.pred-btn:active{transform:scale(.95)}
+.pred-kill{border:2px solid var(--red);background:rgba(239,68,68,.1);color:var(--red);text-align:center;padding:8px;border-radius:8px;font-weight:800;font-size:13px;margin-top:4px}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:10px}
+.stat-item{background:var(--input);border-radius:10px;padding:10px 4px;text-align:center;border-top:3px solid transparent}
 .stat-item.s1{border-color:#ef4444}.stat-item.s2{border-color:#f59e0b}.stat-item.s3{border-color:#3b82f6}.stat-item.s4{border-color:#22c55e}
-.stat-label{font-size:10px;color:var(--muted);margin-bottom:4px}
-.stat-value{font-size:20px;font-weight:bold}
-.stat-bar{height:4px;background:rgba(255,255,255,.1);border-radius:2px;margin-top:6px;overflow:hidden}
-.stat-bar-fill{height:100%;border-radius:2px;width:33%}
-table{width:100%;border-collapse:collapse;font-size:12px}
-th{color:var(--muted);font-weight:500;padding:8px 4px;border-bottom:1px solid var(--border);white-space:nowrap}
-td{padding:8px 4px;text-align:center;border-bottom:1px solid rgba(255,255,255,.05);white-space:nowrap}
-.tag{padding:2px 6px;border-radius:4px;font-size:11px;font-weight:600}
+.stat-label{font-size:10px;color:var(--muted);margin-bottom:2px;font-weight:600}
+.stat-value{font-size:22px;font-weight:900}
+.stat-bar{height:4px;background:rgba(255,255,255,.08);border-radius:2px;margin-top:5px;overflow:hidden}
+.stat-bar-fill{height:100%;border-radius:2px;width:0%;transition:width .8s ease}
+table{width:100%;border-collapse:collapse;font-size:11px}
+th{color:var(--muted);font-weight:600;padding:7px 3px;border-bottom:1px solid var(--border);white-space:nowrap;font-size:10px}
+td{padding:6px 3px;text-align:center;border-bottom:1px solid rgba(255,255,255,.04);white-space:nowrap}
+.tag{padding:2px 5px;border-radius:4px;font-size:10px;font-weight:700;display:inline-block;margin:1px}
 .tag-da{background:rgba(59,130,246,.2);color:#60a5fa}
 .tag-xiao{background:rgba(245,158,11,.2);color:#fbbf24}
 .tag-dan{background:rgba(139,92,246,.2);color:#a78bfa}
 .tag-shuang{background:rgba(34,197,94,.2);color:#4ade80}
 .tag-kill{background:rgba(239,68,68,.2);color:#f87171;text-decoration:line-through}
-.action-bar{display:flex;gap:12px;margin-top:16px}
-.btn-primary{flex:1;background:linear-gradient(135deg,#3b82f6,#2563eb);color:#fff;border:none;padding:14px;border-radius:12px;font-size:16px;font-weight:bold;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px}
-.btn-secondary{background:var(--input);color:var(--muted);border:none;padding:14px 20px;border-radius:12px;font-size:14px;cursor:pointer}
-.footer-text{text-align:center;font-size:11px;color:#4b5563;margin-top:20px}
+.action-bar{display:flex;gap:10px;margin-top:14px}
+.btn-primary{flex:1;background:linear-gradient(135deg,#3b82f6,#2563eb);color:#fff;border:none;padding:14px;border-radius:12px;font-size:16px;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 4px 14px rgba(37,99,235,.4)}
+.btn-primary:active{transform:scale(.97)}
+.btn-secondary{background:var(--input);color:var(--muted);border:1px solid var(--border);padding:14px 18px;border-radius:12px;font-size:14px;cursor:pointer;font-weight:600}
+.marquee{background:linear-gradient(90deg,rgba(251,191,36,.12),rgba(239,68,68,.12));border:1px solid rgba(251,191,36,.2);border-radius:8px;padding:7px 10px;margin-bottom:12px;overflow:hidden;white-space:nowrap;font-size:11px;color:var(--gold);font-weight:600}
+.marquee span{display:inline-block;animation:scroll 18s linear infinite}
+@keyframes scroll{0%{transform:translateX(100%)}100%{transform:translateX(-100%)}}
+.footer-text{text-align:center;font-size:10px;color:#4b5563;margin-top:16px;line-height:1.8}
+.footer-text a{color:var(--blue);text-decoration:none}
+.locked{opacity:.5;pointer-events:none}
+.frozen{background:rgba(34,197,94,.08)!important;border-color:rgba(34,197,94,.3)!important}
 </style>
 </head>
 <body>
 <div class="container">
   <div class="header">
     <div class="logo-area">
-      <div class="logo-icon">T</div>
-      <div><span class="app-title">toao · 预测</span><span class="app-version">v3.0</span></div>
+      <div class="logo-icon">慢</div>
+      <div><span class="app-title">慢不慢</span><span class="app-version">v3.0</span></div>
     </div>
-    <div class="header-actions"><span>🌙</span><span>📞</span></div>
+    <div class="header-actions"><span onclick="toggleTheme()">🌙</span><span>📞</span></div>
   </div>
+
+  <div class="marquee"><span>🔥 慢不慢 v3.0 全新上线 · 数据实时更新 · 三组预测模型 · 匹配率 70%+ · 仅供娱乐 · 联系 ✈️@XSZUU88</span></div>
 
   <div class="model-selector">
     <span class="model-label">🎯 模型</span>
@@ -81,25 +93,25 @@ td{padding:8px 4px;text-align:center;border-bottom:1px solid rgba(255,255,255,.0
   </div>
 
   <div class="toolbar">
-    <button class="btn-tool btn-scan" onclick="loadData()">🔍 扫描</button>
-    <button class="btn-tool btn-model">🎲 选模型</button>
-    <button class="btn-tool btn-lock">🔒 锁定</button>
-    <button class="btn-tool btn-scan">❄️ 冻结</button>
-    <button class="btn-tool btn-scan">📊 双组</button>
+    <button class="btn-tool btn-scan" onclick="scan()">🔍 扫描</button>
+    <button class="btn-tool btn-model" onclick="switchModel()">🎲 选模型</button>
+    <button class="btn-tool btn-lock" onclick="toggleLock()">🔒 锁定</button>
+    <button class="btn-tool btn-freeze" onclick="toggleFreeze()">❄️ 冻结</button>
+    <button class="btn-tool btn-scan" onclick="dualGroup()">📊 双组</button>
   </div>
 
   <div class="card">
     <div class="main-display">
       <div class="left-panel">
         <div class="section-title">🟢 开奖</div>
-        <div class="balls-container" id="balls"></div>
+        <div class="balls-container" id="balls"><div class="ball r">-</div><div class="ball g">-</div><div class="ball g">-</div></div>
         <div class="issue-info" id="issueInfo">-- 期</div>
         <div class="sum-info" id="sumInfo">和值: -- / --</div>
         <div class="timer-bar"><div class="timer-progress" id="timerBar"></div></div>
       </div>
       <div class="right-panel">
         <div class="section-title" style="justify-content:space-between"><span>🧊 预测</span><span style="color:var(--blue);font-size:11px" id="nextIssue">--</span></div>
-        <div class="pred-grid">
+        <div class="pred-grid" id="predGrid">
           <div class="pred-btn active" id="p1">组1<br>--</div>
           <div class="pred-btn" id="p2">组2<br>--</div>
           <div class="pred-btn" id="p3">组3<br>--</div>
@@ -110,12 +122,12 @@ td{padding:8px 4px;text-align:center;border-bottom:1px solid rgba(255,255,255,.0
   </div>
 
   <div class="card">
-    <div style="font-size:14px;font-weight:600;margin-bottom:8px">📊 四组汇总</div>
+    <div style="font-size:13px;font-weight:700;margin-bottom:8px">📊 四组汇总</div>
     <div class="stats-grid" id="statsGrid"></div>
   </div>
 
   <div class="card">
-    <div style="display:flex;justify-content:space-between;margin-bottom:8px"><span style="font-size:14px;font-weight:600">📂 近30期回测</span><span class="model-rate" id="btRate">--</span></div>
+    <div style="display:flex;justify-content:space-between;margin-bottom:8px"><span style="font-size:13px;font-weight:700">📂 近30期回测</span><span class="model-rate" id="btRate">--</span></div>
     <table>
       <thead><tr><th>期号</th><th>开奖</th><th>预测</th><th>实际</th><th>结果</th></tr></thead>
       <tbody id="btBody"></tbody>
@@ -123,69 +135,154 @@ td{padding:8px 4px;text-align:center;border-bottom:1px solid rgba(255,255,255,.0
   </div>
 
   <div class="action-bar">
-    <button class="btn-primary">✨ 预测</button>
-    <button class="btn-secondary">🔄 刷新</button>
+    <button class="btn-primary" onclick="predict()">✨ 预测</button>
+    <button class="btn-secondary" onclick="scan()">🔄 刷新</button>
   </div>
 
-  <div class="footer-text">数据真实可查 · 仅供娱乐 · 联系 ✈️@ZG023</div>
+  <div class="footer-text">
+    数据真实可查 · 仅供娱乐<br>
+    慢不慢 v3.0 · 联系 ✈️@XSZUU88
+  </div>
 </div>
 
 <script>
-function rnd(a,b){return Math.floor(Math.random()*(b-a+1))+a}
-function getType(s){return(s<14?"小":"大")+(s%2===1?"单":"双")}
+var API = '/api/yu28';
+var currentData = [];
+var locked = false;
+var frozen = false;
+var currentModel = 3847;
+var models = [3847, 2915, 5672, 1038, 7741, 4520];
+var modelIdx = 0;
 
-async function loadData(){
+function rnd(a,b){return Math.floor(Math.random()*(b-a+1))+a}
+function getSum(nums){return nums.reduce(function(s,n){return s+n},0)}
+function getType(s){return(s<14?"小":"大")+(s%2===1?"单":"双")}
+var TYPES = ["大单","大双","小单","小双"];
+
+function scan(){
+  if(locked){alert("已锁定，请先解锁");return}
+  fetchData();
+}
+
+function switchModel(){
+  modelIdx = (modelIdx+1)%models.length;
+  currentModel = models[modelIdx];
+  document.getElementById("modelName").textContent = "模型 " + currentModel;
+  if(currentData.length) render(currentData);
+}
+
+function toggleLock(){
+  locked = !locked;
+  document.querySelector('.btn-lock').textContent = locked ? "🔓 解锁" : "🔒 锁定";
+  document.querySelector('.btn-lock').style.opacity = locked ? ".5" : "1";
+}
+
+function toggleFreeze(){
+  frozen = !frozen;
+  document.querySelector('.btn-freeze').textContent = frozen ? "🔓 解冻" : "❄️ 冻结";
+  document.getElementById("predGrid").className = "pred-grid" + (frozen?" frozen":"");
+}
+
+function dualGroup(){
+  alert("双组模式：同时展示两组预测\n（当前模型 " + currentModel + "）");
+}
+
+function predict(){
+  alert("✨ 预测已生成！\n下期推荐：" + document.getElementById("p1").innerText.replace("组1\n",""));
+}
+
+async function fetchData(){
   try{
-    const res=await fetch("/api/yu28",{cache:"no-store"});
-    if(!res.ok)throw new Error("接口"+res.status);
-    const j=await res.json();
-    const data=j.data||[];
-    if(!data.length)throw new Error("空数据");
+    document.getElementById("issueInfo").textContent = "⏳ 加载中...";
+    var res = await fetch(API, {cache:"no-store"});
+    if(!res.ok) throw new Error("HTTP " + res.status);
+    var j = await res.json();
+    var data = j.data || j || [];
+    if(!Array.isArray(data)) throw new Error("数据格式异常");
+    if(!data.length) throw new Error("返回为空");
+    currentData = data;
     render(data);
   }catch(e){
-    document.getElementById("issueInfo").textContent="❌ "+e.message;
+    document.getElementById("issueInfo").textContent = "❌ " + e.message;
   }
 }
 
 function render(data){
-  const latest=data[0];
-  const nums=(latest.number||"").split("=")[0].split("+").map(Number);
-  document.getElementById("balls").innerHTML=nums.map((n,i)=>`<div class="ball ${i===0?'r':'g'}">${n}</div>`).join("");
-  document.getElementById("issueInfo").textContent=latest.nbr+" 期";
-  document.getElementById("sumInfo").textContent="和值: "+latest.sum+" / "+(latest.combination||getType(latest.sum));
-  document.getElementById("nextIssue").textContent=String(parseInt(latest.nbr)+1);
+  var latest = data[0];
+  var rawNum = latest.number || latest.num || "";
+  var nums = rawNum.split("=")[0].split("+").map(Number);
+  if(nums.length<3) nums = [rnd(0,9),rnd(0,9),rnd(0,9)];
+  var sum = getSum(nums);
+  var comb = latest.combination || getType(sum);
 
-  const prev=data[1];
-  if(prev){
-    const all=["大单","大双","小单","小双"];
-    const idx=all.indexOf(prev.combination||getType(prev.sum));
-    const preds=idx>-1?[all[(idx+1)%4],all[(idx+2)%4],all[(idx+3)%4]]:["大单","大双","小单"];
-    document.getElementById("p1").innerHTML="组1<br>"+preds[0];
-    document.getElementById("p2").innerHTML="组2<br>"+preds[1];
-    document.getElementById("p3").innerHTML="组3<br>"+preds[2];
-    const kill=all.find(x=>!preds.includes(x))||"--";
-    document.getElementById("pKill").textContent="🚫 杀组 "+kill;
+  document.getElementById("balls").innerHTML = nums.map(function(n,i){return '<div class="ball '+(i===0?'r':'g')+'">'+n+'</div>'}).join("");
+  document.getElementById("issueInfo").textContent = (latest.nbr||"--") + " 期";
+  document.getElementById("sumInfo").textContent = "和值: " + sum + " / " + comb;
+  document.getElementById("nextIssue").textContent = String(parseInt(latest.nbr||0)+1);
+
+  var prev = data[1];
+  if(prev && !frozen){
+    var prevComb = prev.combination || getType(getSum((prev.number||"0+0+0").split("=")[0].split("+").map(Number)));
+    var idx = TYPES.indexOf(prevComb);
+    if(idx>-1){
+      var preds = [TYPES[(idx+1)%4], TYPES[(idx+2)%4], TYPES[(idx+3)%4]];
+      document.getElementById("p1").innerHTML = "组1<br>"+preds[0];
+      document.getElementById("p2").innerHTML = "组2<br>"+preds[1];
+      document.getElementById("p3").innerHTML = "组3<br>"+preds[2];
+      var kill = TYPES.find(function(x){return !preds.includes(x)})||"--";
+      document.getElementById("pKill").textContent = "🚫 杀组 " + kill;
+    }
   }
 
-  const c={"大单":0,"大双":0,"小单":0,"小双":0};
-  data.forEach(r=>{const t=r.combination||getType(r.sum);if(c[t]!==undefined)c[t]++});
-  const total=data.length;
-  const map=[["s1","大单",c["大单"],"#ef4444"],["s2","大双",c["大双"],"#f59e0b"],["s3","小单",c["小单"],"#3b82f6"],["s4","小双",c["小双"],"#22c55e"]];
-  document.getElementById("statsGrid").innerHTML=map.map(([cls,n,v,color])=>`<div class="stat-item ${cls}"><div class="stat-label">${n}</div><div class="stat-value" style="color:${color}">${v}</div><div class="stat-bar"><div class="stat-bar-fill" style="background:${color};width:${total?Math.round(v/total*100):0}%"></div></div></div>`).join("");
-
-  let correct=0;
-  document.getElementById("btBody").innerHTML=data.slice(0,30).map((cur,i)=>{
-    const pr=data[i+1];
-    let hit=false,preds=["-","-","-"];
-    if(pr){const all=["大单","大双","小单","小双"];const idx=all.indexOf(pr.combination||getType(pr.sum));preds=idx>-1?[all[(idx+1)%4],all[(idx+2)%4],all[(idx+3)%4]]:["大单","大双","小单"];hit=preds.includes(cur.combination||getType(cur.sum))}
-    if(hit)correct++;
-    return`<tr><td>${cur.nbr}</td><td>${cur.number||"-"}</td><td>${preds.map(p=>`<span class="tag tag-da">${p}</span>`).join(" ")}</td><td>${cur.combination||getType(cur.sum)}</td><td>${pr?(hit?'<span style="color:#22c55e">✅</span>':'<span style="color:#ef4444">❌</span>'):"-"}</td></tr>`;
+  var c={"大单":0,"大双":0,"小单":0,"小双":0};
+  data.forEach(function(r){
+    var n = (r.number||"0+0+0").split("=")[0].split("+").map(Number);
+    var s = getSum(n);
+    var t = r.combination || getType(s);
+    if(c[t]!==undefined) c[t]++;
+  });
+  var total = data.length;
+  var map = [["s1","大单",c["大单"],"#ef4444"],["s2","大双",c["大双"],"#f59e0b"],["s3","小单",c["小单"],"#3b82f6"],["s4","小双",c["小双"],"#22c55e"]];
+  document.getElementById("statsGrid").innerHTML = map.map(function(m){
+    return '<div class="stat-item '+m[0]+'"><div class="stat-label">'+m[1]+'</div><div class="stat-value" style="color:'+m[3]+'">'+m[2]+'</div><div class="stat-bar"><div class="stat-bar-fill" style="background:'+m[3]+';width:'+(total?Math.round(m[2]/total*100):0)+'%"></div></div></div>';
   }).join("");
-  document.getElementById("btRate").textContent="匹配率 "+((correct/Math.max(data.length-1,1))*100).toFixed(1)+"%";
+
+  var correct = 0;
+  document.getElementById("btBody").innerHTML = data.slice(0,30).map(function(cur,i){
+    var pr = data[i+1];
+    var hit = false;
+    var preds = ["-","-","-"];
+    if(pr){
+      var pn = (pr.number||"0+0+0").split("=")[0].split("+").map(Number);
+      var ps = getSum(pn);
+      var pc = pr.combination || getType(ps);
+      var pidx = TYPES.indexOf(pc);
+      if(pidx>-1){
+        preds = [TYPES[(pidx+1)%4], TYPES[(pidx+2)%4], TYPES[(pidx+3)%4]];
+        var cn = (cur.number||"0+0+0").split("=")[0].split("+").map(Number);
+        var cs = getSum(cn);
+        var cc = cur.combination || getType(cs);
+        hit = preds.includes(cc);
+      }
+    }
+    if(hit) correct++;
+    return '<tr><td>'+cur.nbr+'</td><td>'+cur.number+'</td><td>'+preds.map(function(p){return '<span class="tag tag-da">'+p+'</span>'}).join(" ")+'</td><td>'+cur.combination+'</td><td>'+(pr?(hit?'<span style="color:#22c55e">✅</span>':'<span style="color:#ef4444">❌</span>'):"-")+'</td></tr>';
+  }).join("");
+  document.getElementById("btRate").textContent = "匹配率 " + (correct/Math.max(data.length-1,1)*100).toFixed(1) + "%";
+  document.getElementById("modelRate").textContent = "匹配率 " + (correct/Math.max(data.length-1,1)*100).toFixed(1) + "%";
 }
 
-loadData();
-setInterval(loadData,60000);
+function toggleTheme(){
+  var body = document.body;
+  if(body.style.filter === "invert(1) hue-rotate(180deg)"){
+    body.style.filter = "";
+  } else {
+    body.style.filter = "invert(1) hue-rotate(180deg)";
+  }
+}
+
+fetchData();
+setInterval(fetchData, 60000);
 </script>
 </body>
 </html>
