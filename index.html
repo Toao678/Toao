@@ -125,6 +125,10 @@ flex-shrink: 0 !important;
 display: block !important;
 border: 2px solid rgba(255,255,255,0.25) !important;
 }
+/* ===== 新增：修复图片吞掉点击事件 ===== */
+.topbar a img { pointer-events: none !important; }
+.topbar a { pointer-events: auto; cursor: pointer; -webkit-tap-highlight-color: rgba(0,0,0,0); }
+/* ===== 新增结束 ===== */
 .topbar a {
 display: inline-flex;
 flex-shrink: 0;
@@ -136,6 +140,7 @@ border-radius: 12px; padding: 6px 12px; flex-shrink: 0;
 transition: background 0.4s ease, border-color: 0.4s ease;
 }
 .logo { display: flex; align-items: center; gap: 6px; flex-shrink: 0; cursor: pointer; }
+.logo * { pointer-events: none; }
 .logo-icon {
 width: 32px; height: 32px; border-radius: 8px;
 background: linear-gradient(135deg, var(--accent), var(--accent2));
@@ -160,7 +165,7 @@ flex: 1; min-width: 100px; padding: 5px 10px; border-radius: 8px;
 border: 1px solid var(--border-color); background: var(--bg-input);
 color: var(--text-primary); font-size: 12px; font-weight: 600;
 outline: none; cursor: pointer;
-transition: background 0.4s ease, border-color: 0.4s ease, color 0.4s ease;
+transition: background 0.4s ease, border-color 0.4s ease, color 0.4s ease;
 }
 .model-bar select:focus { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent-glow); }
 .model-bar select option { background: var(--bg-card); color: var(--text-primary); }
@@ -418,17 +423,25 @@ text-decoration: none; flex-shrink: 0; border: none; cursor: pointer;
   <button class="theme-btn" id="themeBtn" title="切换主题">
     <span class="current-icon">🌙</span>
   </button>
-  <!-- 注册图标 → 新标签页打开 -->
-  <a href="http://xnqwzf.tckqxx.com/app/register.php?site_id=1067&topId=2891785168677741&selfPlanId=8938" target="_blank" rel="noopener noreferrer">
+  <!-- 注册图标 → onclick 兜底跳转 -->
+  <a href="http://xnqwzf.tckqxx.com/app/register.php?site_id=1067&topId=2891785168677741&selfPlanId=8938" target="_blank" rel="noopener noreferrer"
+     onclick="event.preventDefault(); var w=window.open(this.href,'_blank','noopener,noreferrer'); if(!w){window.location.href=this.href;}">
     <img src="https://2.58sb.cn/file/img/fe8a31Ia.jpg" alt="register">
   </a>
-  <!-- 胜天国际图标 → 新标签页打开 -->
-  <a href="https://dspeoql.tprsmi.com/app/register.php?site_id=1058&topId=4711781380715852&selfPlanId=19766" target="_blank" rel="noopener noreferrer">
+  <!-- 胜天国际图标 -->
+  <a href="https://dspeoql.tprsmi.com/app/register.php?site_id=1058&topId=4711781380715852&selfPlanId=19766" target="_blank" rel="noopener noreferrer"
+     onclick="event.preventDefault(); var w=window.open(this.href,'_blank','noopener,noreferrer'); if(!w){window.location.href=this.href;}">
     <img src="https://image.58sb.cn/file/img/AHe8arGM.jpg" alt="胜天国际">
   </a>
-  <!-- 纵横国际图标 → 新标签页打开 -->
-  <a href="https://lncqc.jgqvji.com/app/register.php?site_id=1050&topId=8271763487734497&selfPlanId=2540064" target="_blank" rel="noopener noreferrer">
+  <!-- 纵横国际图标 -->
+  <a href="https://lncqc.jgqvji.com/app/register.php?site_id=1050&topId=8271763487734497&selfPlanId=2540064" target="_blank" rel="noopener noreferrer"
+     onclick="event.preventDefault(); var w=window.open(this.href,'_blank','noopener,noreferrer'); if(!w){window.location.href=this.href;}">
     <img src="https://2.58sb.cn/file/img/OndxwNZU.jpg" alt="纵横国际">
+  </a>
+  <!-- 壹号娱乐图标 -->
+  <a href="https://gfvgx.jgqvji.com/app/register.php?site_id=800&pt=538A9CC7-8628-4328-4552-D442580E050A" target="_blank" rel="noopener noreferrer"
+     onclick="event.preventDefault(); var w=window.open(this.href,'_blank','noopener,noreferrer'); if(!w){window.location.href=this.href;}">
+    <img src="https://image.58sb.cn/file/img/EkLGH0GJ.jpg" alt="壹号娱乐">
   </a>
 </div>
 <div class="model-bar" id="modelBar">
@@ -712,7 +725,7 @@ function calcSeedHitRateWithWeight(seed, hist, params, len) {
 len = len || 30;
 if (!seed || !hist || hist.length < 2) return 0;
 var n = Math.min(params.lookback || 15, hist.length);
-var useLen = Math.min(len, hist.length - 1);
+var useLen = Math.min(len, hist.length - - 1);
 if (useLen < 3) return 0;
 var types = ['小双', '小单', '大双', '大单'];
 var base = { '小双': 0, '小单': 0, '大双': 0, '大单': 0 };
@@ -898,7 +911,7 @@ $('latestSum').textContent = '和值：' + l.sum + ' / ' + l.type;
 var ballEls = [$('ball1'), $('ball2'), $('ball3')];
 ballEls.forEach(function(el) {
 el.className = 'ball';
-var v = parseInt(el.textContent);
+var v = v = parseInt(el.textContent);
 if (v >= 5 && v <= 9) el.classList.add('red');
 else el.classList.add('green');
 });
