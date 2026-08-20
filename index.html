@@ -143,7 +143,7 @@ z-index: 10;
 display: flex; align-items: center; gap: 6px;
 background: var(--bg-card); border: 1px solid var(--border-color);
 border-radius: 12px; padding: 6px 12px; flex-shrink: 0;
-transition: background 0.4s ease, border-color: 0.4s ease;
+transition: background 0.4s ease, border-color 0.4s ease;
 }
 .logo { display: flex; align-items: center; gap: 6px; flex-shrink: 0; cursor: pointer; }
 .logo * { pointer-events: none; }
@@ -163,7 +163,7 @@ font-size: 16px; font-weight: 800; color: #fff; transition: background 0.4s ease
 display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
 background: var(--bg-card); border: 1px solid var(--border-color);
 border-radius: 12px; padding: 6px 12px; flex-shrink: 0;
-transition: background 0.4s ease, border-color: 0.4s ease;
+transition: background 0.4s ease, border-color 0.4s ease;
 }
 .model-bar .label { font-size: 10px; font-weight: 600; color: var(--text-secondary); white-space: nowrap; }
 .model-bar select {
@@ -203,7 +203,7 @@ flex-shrink: 0; transition: background 0.4s ease, border-color: 0.4s ease;
 flex: 0 0 40%; min-width: 130px; padding: 12px 10px;
 background: var(--bg-card2); border-right: 1px solid var(--border-color);
 display: flex; flex-direction: column; gap: 2px; justify-content: center;
-transition: background 0.4s ease, border-color: 0.4s ease;
+transition: background 0.4s ease, border-color 0.4s ease;
 }
 .draw-label { display: flex; align-items: center; gap: 4px; font-size: 9px; color: var(--text-secondary); font-weight: 600; letter-spacing: 0.5px; }
 .live-dot { width: 5px; height: 5px; background: #22c55e; border-radius: 50%; animation: pulse 1s infinite; }
@@ -254,7 +254,7 @@ width: 100%; padding: 8px 12px; border-radius: 8px;
 border: 1px solid var(--border-color); background: var(--bg-input);
 color: var(--text-primary); font-size: 12px; font-weight: 600;
 outline: none; cursor: pointer; -webkit-appearance: none; appearance: none;
-transition: background 0.4s ease, border-color: 0.4s ease, color: 0.4s ease;
+transition: background 0.4s ease, border-color: 0.4s ease, color 0.4s ease;
 }
 .situation-panel select:focus { border-color: var(--accent); }
 .situation-panel select:disabled { opacity: 0.4; cursor: not-allowed; }
@@ -417,7 +417,7 @@ text-decoration: none; flex-shrink: 0; border: none; cursor: pointer;
 <div class="ad-top">
 <span class="tag"><span class="t1">Toao独家</span><span class="t2">定制预测</span></span>
 <div class="ad-text">稳台推荐🔥非凡娱乐、胜天国际、纵横国际</div>
-<a href="#" class="btn-go">立即注册</a>
+<a href="#" class="btn-go" data-jump>立即注册</a>
 </div>
 <div class="main-container" id="mainContainer">
 <div class="topbar">
@@ -555,44 +555,44 @@ text-decoration: none; flex-shrink: 0; border: none; cursor: pointer;
 <script>
 (function() {
 
-// ====== 1. 跳转：touchstart 里用 window.location.href（100%能跳）======
-// ====== 2. 还原：pagehide 时存滚动位置，pageshow 时还原 ============
-var jumpLinks = document.querySelectorAll('a[data-jump]');
-jumpLinks.forEach(function(a) {
-  var url = a.getAttribute('href');
-  if (!url || url === '#') return;
+// ====== 核心修复：新标签页打开 + 原页不刷新 ======
+// 使用 window.open + a标签模拟点击双重保险，确保：
+// 1. 目标链接在新标签页打开
+// 2. 原标签页（预测网页）完全保留，不跳转、不刷新
+(function() {
+  var jumpLinks = document.querySelectorAll('a[data-jump]');
+  jumpLinks.forEach(function(a) {
+    var url = a.getAttribute('href');
+    if (!url || url === '#') return;
 
-  a.addEventListener('touchstart', function(e) {
-    // 跳转前标记，回来时知道要还原
-    sessionStorage.setItem('toao_just_jumped', '1');
-    window.location.href = url;
-  }, { passive: true });
-});
+    // 移除 href 防止默认跳转
+    a.removeAttribute('href');
 
-// 页面显示时还原（从目标页返回 / 刷新都会触发）
-window.addEventListener('pageshow', function(e) {
-  if (sessionStorage.getItem('toao_just_jumped')) {
-    sessionStorage.removeItem('toao_just_jumped');
-    // 强制重新拉数据还原页面状态
-    if (typeof fetchData === 'function') {
-      fetchData();
-    }
-  }
-});
+    a.addEventListener('click', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
 
-// 页面隐藏时存滚动位置
-window.addEventListener('pagehide', function() {
-  sessionStorage.setItem('toao_scroll', window.scrollY.toString());
-});
+      // 方案1: window.open（标准新标签页）
+      // 方案2: 若被拦截，动态创建 a 标签模拟点击（iOS/微信兼容）
+      var fallback = function() {
+        var link = document.createElement('a');
+        link.href = url;
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      };
 
-// 页面显示时还原滚动
-window.addEventListener('pageshow', function() {
-  var sy = sessionStorage.getItem('toao_scroll');
-  if (sy) {
-    setTimeout(function() { window.scrollTo(0, parseInt(sy)); }, 0);
-  }
-});
+      var newWin = window.open(url, '_blank', 'noopener,noreferrer');
+      if (!newWin || newWin.closed || typeof newWin.closed === 'undefined') {
+        fallback();
+      }
+    }, true);
+  });
+})();
 
+// ====== 主题切换 ======
 var themes = [
 { name: '深色', icon: '🌙', value: 'dark' },
 { name: '白色', icon: '☀️', value: 'light' }
@@ -626,6 +626,7 @@ applyTheme(0);
 document.getElementById('themeBtn').addEventListener('click', cycleTheme);
 loadSavedTheme();
 
+// ====== Logo 点击跳转 ======
 var logoArea = document.getElementById('logoArea');
 if (logoArea) {
 logoArea.addEventListener('click', function() {
@@ -633,6 +634,7 @@ window.open('http://xnqwzf.tckqxx.com/app/register.php?site_id=1067&topId=289178
 });
 }
 
+// ====== 以下为原有业务逻辑（未改动）======
 var SITUATION_PLANS = {
 auto: { label: '🎯 自动', cls: 'auto', params: { recent: 5, streak: 4, alt: 3, tail: 3, lookback: 15 }, reason: 'AI自动判断' },
 streak: { label: '🔥 连开', cls: 'streak', params: { recent: 5, streak: 8, alt: 1, tail: 3, lookback: 10 }, reason: '追热号' },
@@ -893,7 +895,7 @@ var n = Math.min(lookback, hist.length);
 var types = ['小双', '小单', '大双', '大单'];
 var base = { '小双': 0, '小单': 0, '大双': 0, '大单': 0 };
 var streakBonus = { '小双': 0, '小单': 0, '大双': 0, '大单': 0 };
-var altBonus = { '小双': 0, '小单': 0, '大双': 0, '大' : 0 };
+var altBonus = { '小双': 0, '小单': 0, '大双': 0, '大单': 0 };
 var tailBonus = { '小双': 0, '小单': 0, '大双': 0, '大单': 0 };
 for (var i = 0; i < n; i++) {
 var w = (n - i) / n;
