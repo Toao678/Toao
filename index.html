@@ -125,14 +125,20 @@ flex-shrink: 0 !important;
 display: block !important;
 border: 2px solid rgba(255,255,255,0.25) !important;
 }
-/* ===== 新增：修复图片吞掉点击事件 ===== */
-.topbar a img { pointer-events: none !important; }
-.topbar a { pointer-events: auto; cursor: pointer; -webkit-tap-highlight-color: rgba(0,0,0,0); }
-/* ===== 新增结束 ===== */
-.topbar a {
+.topbar a.icon-link {
+pointer-events: auto;
 display: inline-flex;
-flex-shrink: 0;
+align-items: center;
+justify-content: center;
+min-width: 40px;
+min-height: 40px;
+cursor: pointer;
+-webkit-tap-highlight-color: rgba(0,0,0,0);
+position: relative;
+z-index: 10;
 }
+.topbar a.icon-link img { pointer-events: none !important; }
+.topbar a { pointer-events: auto; cursor: pointer; }
 .topbar {
 display: flex; align-items: center; gap: 6px;
 background: var(--bg-card); border: 1px solid var(--border-color);
@@ -165,7 +171,7 @@ flex: 1; min-width: 100px; padding: 5px 10px; border-radius: 8px;
 border: 1px solid var(--border-color); background: var(--bg-input);
 color: var(--text-primary); font-size: 12px; font-weight: 600;
 outline: none; cursor: pointer;
-transition: background 0.4s ease, border-color 0.4s ease, color 0.4s ease;
+transition: background 0.4s ease, border-color: 0.4s ease, color 0.4s ease;
 }
 .model-bar select:focus { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent-glow); }
 .model-bar select option { background: var(--bg-card); color: var(--text-primary); }
@@ -248,7 +254,7 @@ width: 100%; padding: 8px 12px; border-radius: 8px;
 border: 1px solid var(--border-color); background: var(--bg-input);
 color: var(--text-primary); font-size: 12px; font-weight: 600;
 outline: none; cursor: pointer; -webkit-appearance: none; appearance: none;
-transition: background 0.4s ease, border-color: 0.4s ease, color 0.4s ease;
+transition: background 0.4s ease, border-color: 0.4s ease, color: 0.4s ease;
 }
 .situation-panel select:focus { border-color: var(--accent); }
 .situation-panel select:disabled { opacity: 0.4; cursor: not-allowed; }
@@ -423,24 +429,20 @@ text-decoration: none; flex-shrink: 0; border: none; cursor: pointer;
   <button class="theme-btn" id="themeBtn" title="切换主题">
     <span class="current-icon">🌙</span>
   </button>
-  <!-- 注册图标 → onclick 兜底跳转 -->
-  <a href="http://xnqwzf.tckqxx.com/app/register.php?site_id=1067&topId=2891785168677741&selfPlanId=8938" target="_blank" rel="noopener noreferrer"
-     onclick="event.preventDefault(); var w=window.open(this.href,'_blank','noopener,noreferrer'); if(!w){window.location.href=this.href;}">
+  <!-- 注册图标 -->
+  <a href="http://xnqwzf.tckqxx.com/app/register.php?site_id=1067&topId=2891785168677741&selfPlanId=8938" target="_blank" rel="noopener noreferrer" class="icon-link" data-jump>
     <img src="https://2.58sb.cn/file/img/fe8a31Ia.jpg" alt="register">
   </a>
   <!-- 胜天国际图标 -->
-  <a href="https://dspeoql.tprsmi.com/app/register.php?site_id=1058&topId=4711781380715852&selfPlanId=19766" target="_blank" rel="noopener noreferrer"
-     onclick="event.preventDefault(); var w=window.open(this.href,'_blank','noopener,noreferrer'); if(!w){window.location.href=this.href;}">
+  <a href="https://dspeoql.tprsmi.com/app/register.php?site_id=1058&topId=4711781380715852&selfPlanId=19766" target="_blank" rel="noopener noreferrer" class="icon-link" data-jump>
     <img src="https://image.58sb.cn/file/img/AHe8arGM.jpg" alt="胜天国际">
   </a>
   <!-- 纵横国际图标 -->
-  <a href="https://lncqc.jgqvji.com/app/register.php?site_id=1050&topId=8271763487734497&selfPlanId=2540064" target="_blank" rel="noopener noreferrer"
-     onclick="event.preventDefault(); var w=window.open(this.href,'_blank','noopener,noreferrer'); if(!w){window.location.href=this.href;}">
+  <a href="https://lncqc.jgqvji.com/app/register.php?site_id=1050&topId=8271763487734497&selfPlanId=2540064" target="_blank" rel="noopener noreferrer" class="icon-link" data-jump>
     <img src="https://2.58sb.cn/file/img/OndxwNZU.jpg" alt="纵横国际">
   </a>
   <!-- 壹号娱乐图标 -->
-  <a href="https://gfvgx.jgqvji.com/app/register.php?site_id=800&pt=538A9CC7-8628-4328-4552-D442580E050A" target="_blank" rel="noopener noreferrer"
-     onclick="event.preventDefault(); var w=window.open(this.href,'_blank','noopener,noreferrer'); if(!w){window.location.href=this.href;}">
+  <a href="https://gfvgx.jgqvji.com/app/register.php?site_id=800&pt=538A9CC7-8628-4328-4552-D442580E050A" target="_blank" rel="noopener noreferrer" class="icon-link" data-jump>
     <img src="https://image.58sb.cn/file/img/EkLGH0GJ.jpg" alt="壹号娱乐">
   </a>
 </div>
@@ -512,7 +514,7 @@ text-decoration: none; flex-shrink: 0; border: none; cursor: pointer;
 <div class="stat-bar"><div class="fill" id="barDashuang" style="width:0%"></div></div>
 <div class="stat-pct" id="pctDashuang">0%</div>
 </div>
-<div class="algo-stat-item stat-xiaodan">
+<div class="algo-stat-item stat-dashuang">
 <div class="stat-label">🔵 小单</div>
 <div class="stat-value" id="statXiaodan">0</div>
 <div class="stat-bar"><div class="fill" id="barXiaodan" style="width:0%"></div></div>
@@ -552,7 +554,26 @@ text-decoration: none; flex-shrink: 0; border: none; cursor: pointer;
 </div>
 <script>
 (function() {
-// ====== 主题切换 ======
+
+// ====== 四个图标跳转：touchstart 立即 location.href，彻底绕过 iOS 拦截 ======
+var jumpLinks = document.querySelectorAll('a[data-jump]');
+jumpLinks.forEach(function(a) {
+  var url = a.getAttribute('href');
+  if (!url || url === '#') return;
+
+  // touchstart：第一时间跳转，iOS Safari 最认可这个时机
+  a.addEventListener('touchstart', function(e) {
+    // 不阻止默认，让浏览器也处理 <a> 的默认行为
+    window.location.href = url;
+  }, { passive: true });
+
+  // click：兜底，桌面端用
+  a.addEventListener('click', function(e) {
+    // 不 preventDefault，让 <a target="_blank"> 自己跳
+    window.open(url, '_blank', 'noopener,noreferrer');
+  }, false);
+});
+
 var themes = [
 { name: '深色', icon: '🌙', value: 'dark' },
 { name: '白色', icon: '☀️', value: 'light' }
@@ -586,7 +607,6 @@ applyTheme(0);
 document.getElementById('themeBtn').addEventListener('click', cycleTheme);
 loadSavedTheme();
 
-// ====== 头像点击跳转（新标签页）======
 var logoArea = document.getElementById('logoArea');
 if (logoArea) {
 logoArea.addEventListener('click', function() {
@@ -594,7 +614,6 @@ window.open('http://xnqwzf.tckqxx.com/app/register.php?site_id=1067&topId=289178
 });
 }
 
-// ====== 核心配置 ======
 var SITUATION_PLANS = {
 auto: { label: '🎯 自动', cls: 'auto', params: { recent: 5, streak: 4, alt: 3, tail: 3, lookback: 15 }, reason: 'AI自动判断' },
 streak: { label: '🔥 连开', cls: 'streak', params: { recent: 5, streak: 8, alt: 1, tail: 3, lookback: 10 }, reason: '追热号' },
@@ -725,7 +744,7 @@ function calcSeedHitRateWithWeight(seed, hist, params, len) {
 len = len || 30;
 if (!seed || !hist || hist.length < 2) return 0;
 var n = Math.min(params.lookback || 15, hist.length);
-var useLen = Math.min(len, hist.length - - 1);
+var useLen = Math.min(len, hist.length - 1);
 if (useLen < 3) return 0;
 var types = ['小双', '小单', '大双', '大单'];
 var base = { '小双': 0, '小单': 0, '大双': 0, '大单': 0 };
@@ -893,6 +912,19 @@ scoreHtml += '<span style="color:' + colors[t] + '">' + t + ' ' + (scores[t]).to
 scoreHtml += '</div>';
 return { seed: seedsList[idx], reason: '📊 加权评分：' + best + ' 最高(近期×' + WEIGHT.recent + ' 连开×' + WEIGHT.streak + ' 交替×' + WEIGHT.alt + ' 尾数×' + WEIGHT.tail + ')', scores: scoreHtml };
 }
+function fetchWithTimeout(url, timeoutMs) {
+return new Promise(function(resolve, reject) {
+var controller = (window.AbortController) ? new AbortController() : null;
+var timer = setTimeout(function() {
+if (controller) controller.abort();
+else reject(new Error('timeout'));
+}, timeoutMs || 10000);
+fetch(url, controller ? { signal: controller.signal } : {})
+.then(function(res) { clearTimeout(timer); resolve(res); })
+.catch(function(err) { clearTimeout(timer); reject(err); });
+});
+}
+
 var API = 'https://pc28.help/api/kj.json?nbr=80';
 var history = [], countdownTimer, currentSeed = null,
 scannedSeeds = [], topSeedsAll = [], scanning = false, viewMode = 'three';
@@ -911,7 +943,7 @@ $('latestSum').textContent = '和值：' + l.sum + ' / ' + l.type;
 var ballEls = [$('ball1'), $('ball2'), $('ball3')];
 ballEls.forEach(function(el) {
 el.className = 'ball';
-var v = v = parseInt(el.textContent);
+var v = parseInt(el.textContent);
 if (v >= 5 && v <= 9) el.classList.add('red');
 else el.classList.add('green');
 });
@@ -927,7 +959,7 @@ var m = Math.floor(d / 60000), s = Math.floor((d % 60000) / 1000);
 $('countdown').textContent = '⏳ ' + m.toString().padStart(2, '0') + ':' + s.toString().padStart(2, '0');
 };
 upd();
-countdownTimer = setInterval(upd, 1000);
+countdownTimer = setInterval(function() { upd(); }, 1000);
 }
 function renderAlgoStats() {
 var list = $('algoList');
@@ -1032,7 +1064,7 @@ renderAlgoStats();
 });
 }
 function fetchData() {
-fetch(API, { signal: AbortSignal.timeout(10000) })
+fetchWithTimeout(API, 10000)
 .then(function(res) { return res.json(); })
 .then(function(json) {
 if (json.message === 'success' && json.data && json.data.length > 0) {
@@ -1315,6 +1347,8 @@ $('toggleModeBtn').textContent = viewMode === 'double' ? '📊 三组' : '📊 �
 $('toggleModeBtn').className = viewMode === 'double' ? 'btn btn-primary btn-sm' : 'btn btn-outline btn-sm';
 if (currentSeed) updateAll(currentSeed);
 }
+
+// ====== 初始化绑定 ======
 fetchData();
 $('situationSelect').addEventListener('change', function() { applySituationPlan(this.value); });
 $('scanBtn').addEventListener('click', manualScan);
