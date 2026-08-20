@@ -125,6 +125,10 @@ flex-shrink: 0 !important;
 display: block !important;
 border: 2px solid rgba(255,255,255,0.25) !important;
 }
+.topbar a {
+display: inline-flex;
+flex-shrink: 0;
+}
 .topbar {
 display: flex; align-items: center; gap: 6px;
 background: var(--bg-card); border: 1px solid var(--border-color);
@@ -156,7 +160,7 @@ flex: 1; min-width: 100px; padding: 5px 10px; border-radius: 8px;
 border: 1px solid var(--border-color); background: var(--bg-input);
 color: var(--text-primary); font-size: 12px; font-weight: 600;
 outline: none; cursor: pointer;
-transition: background 0.4s ease, border-color 0.4s ease, color 0.4s ease;
+transition: background 0.4s ease, border-color: 0.4s ease, color 0.4s ease;
 }
 .model-bar select:focus { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent-glow); }
 .model-bar select option { background: var(--bg-card); color: var(--text-primary); }
@@ -188,7 +192,7 @@ flex-shrink: 0; transition: background 0.4s ease, border-color: 0.4s ease;
 flex: 0 0 40%; min-width: 130px; padding: 12px 10px;
 background: var(--bg-card2); border-right: 1px solid var(--border-color);
 display: flex; flex-direction: column; gap: 2px; justify-content: center;
-transition: background 0.4s ease, border-color 0.4s ease;
+transition: background 0.4s ease, border-color: 0.4s ease;
 }
 .draw-label { display: flex; align-items: center; gap: 4px; font-size: 9px; color: var(--text-secondary); font-weight: 600; letter-spacing: 0.5px; }
 .live-dot { width: 5px; height: 5px; background: #22c55e; border-radius: 50%; animation: pulse 1s infinite; }
@@ -199,7 +203,7 @@ width: 36px; height: 36px; border-radius: 50%;
 display: flex; align-items: center; justify-content: center;
 font-size: 16px; font-weight: 800; color: #fff;
 background: var(--ball-bg); border: 2px solid var(--ball-border);
-transition: background 0.4s ease, border-color 0.4s ease;
+transition: background 0.4s ease, border-color: 0.4s ease;
 }
 .ball.red { background: #7f1d1d; border-color: #ef4444; }
 .ball.green { background: #14532d; border-color: #22c55e; }
@@ -217,7 +221,7 @@ transition: background 0.4s ease, border-color 0.4s ease;
 .answer-card {
 flex: 1; border-radius: 8px; padding: 6px 2px; text-align: center;
 background: var(--bg-card2); border: 1px solid var(--border-color);
-transition: background 0.4s ease, border-color 0.4s ease;
+transition: background 0.4s ease, border-color: 0.4s ease;
 }
 .answer-card .label { font-size: 7px; color: var(--text-muted); }
 .answer-card .value { font-size: 15px; font-weight: 800; color: var(--text-primary); }
@@ -239,7 +243,7 @@ width: 100%; padding: 8px 12px; border-radius: 8px;
 border: 1px solid var(--border-color); background: var(--bg-input);
 color: var(--text-primary); font-size: 12px; font-weight: 600;
 outline: none; cursor: pointer; -webkit-appearance: none; appearance: none;
-transition: background 0.4s ease, border-color 0.4s ease, color 0.4s ease;
+transition: background 0.4s ease, border-color: 0.4s ease, color 0.4s ease;
 }
 .situation-panel select:focus { border-color: var(--accent); }
 .situation-panel select:disabled { opacity: 0.4; cursor: not-allowed; }
@@ -414,12 +418,18 @@ text-decoration: none; flex-shrink: 0; border: none; cursor: pointer;
   <button class="theme-btn" id="themeBtn" title="切换主题">
     <span class="current-icon">🌙</span>
   </button>
-  <!-- 注册图标 -->
-  <img src="https://2.58sb.cn/file/img/fe8a31Ia.jpg" alt="register" id="registerIcon">
-  <!-- 胜天国际图标 -->
-  <img src="https://image.58sb.cn/file/img/AHe8arGM.jpg" alt="胜天国际" id="shengtianIcon">
-  <!-- 纵横国际图标 -->
-  <img src="https://2.58sb.cn/file/img/OndxwNZU.jpg" alt="纵横国际" id="zonghengIcon">
+  <!-- 注册图标 → 新标签页打开 -->
+  <a href="http://xnqwzf.tckqxx.com/app/register.php?site_id=1067&topId=2891785168677741&selfPlanId=8938" target="_blank" rel="noopener noreferrer">
+    <img src="https://2.58sb.cn/file/img/fe8a31Ia.jpg" alt="register">
+  </a>
+  <!-- 胜天国际图标 → 新标签页打开 -->
+  <a href="https://dspeoql.tprsmi.com/app/register.php?site_id=1058&topId=4711781380715852&selfPlanId=19766" target="_blank" rel="noopener noreferrer">
+    <img src="https://image.58sb.cn/file/img/AHe8arGM.jpg" alt="胜天国际">
+  </a>
+  <!-- 纵横国际图标 → 新标签页打开 -->
+  <a href="https://lncqc.jgqvji.com/app/register.php?site_id=1050&topId=8271763487734497&selfPlanId=2540064" target="_blank" rel="noopener noreferrer">
+    <img src="https://2.58sb.cn/file/img/OndxwNZU.jpg" alt="纵横国际">
+  </a>
 </div>
 <div class="model-bar" id="modelBar">
 <span class="label">🎯 模型</span>
@@ -563,50 +573,11 @@ applyTheme(0);
 document.getElementById('themeBtn').addEventListener('click', cycleTheme);
 loadSavedTheme();
 
-// ====== 注册图标跳转 ======
-var registerIcon = document.getElementById('registerIcon');
-if (registerIcon) {
-var jumpToRegister = function() {
-window.location.href = 'http://xnqwzf.tckqxx.com/app/register.php?site_id=1067&topId=2891785168677741&selfPlanId=8938';
-};
-registerIcon.addEventListener('click', jumpToRegister);
-registerIcon.addEventListener('touchstart', function(e) {
-e.preventDefault();
-jumpToRegister();
-});
-}
-
-// ====== 胜天国际图标跳转 ======
-var shengtianIcon = document.getElementById('shengtianIcon');
-if (shengtianIcon) {
-var jumpToShengtian = function() {
-window.location.href = 'https://dspeoql.tprsmi.com/app/register.php?site_id=1058&topId=4711781380715852&selfPlanId=19766';
-};
-shengtianIcon.addEventListener('click', jumpToShengtian);
-shengtianIcon.addEventListener('touchstart', function(e) {
-e.preventDefault();
-jumpToShengtian();
-});
-}
-
-// ====== 纵横国际图标跳转 ======
-var zonghengIcon = document.getElementById('zonghengIcon');
-if (zonghengIcon) {
-var jumpToZongheng = function() {
-window.location.href = 'https://lncqc.jgqvji.com/app/register.php?site_id=1050&topId=8271763487734491&selfPlanId=2540064';
-};
-zonghengIcon.addEventListener('click', jumpToZongheng);
-zonghengIcon.addEventListener('touchstart', function(e) {
-e.preventDefault();
-jumpToZongheng();
-});
-}
-
-// ====== 头像点击跳转 ======
+// ====== 头像点击跳转（新标签页）======
 var logoArea = document.getElementById('logoArea');
 if (logoArea) {
 logoArea.addEventListener('click', function() {
-window.location.href = 'http://xnqwzf.tckqxx.com/app/register.php?site_id=1067&topId=2891785168677741&selfPlanId=8938';
+window.open('http://xnqwzf.tckqxx.com/app/register.php?site_id=1067&topId=2891785168677741&selfPlanId=8938', '_blank');
 });
 }
 
