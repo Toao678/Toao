@@ -7,97 +7,88 @@
 <style>
 /* ===== 全局重置 ===== */
 * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
-
 html, body {
-    min-height: 100vh;
-    font-family: -apple-system, 'Inter', 'SF Pro Display', 'PingFang SC', sans-serif;
-    overflow-y: auto;
-    overflow-x: hidden;
-    background: transparent !important;
+min-height: 100vh;
+font-family: -apple-system, 'Inter', 'SF Pro Display', 'PingFang SC', sans-serif;
+overflow-y: auto;
+overflow-x: hidden;
+background: transparent !important;
 }
-
-/* ===== 背景动画：用 ::before 伪元素穿透 iOS WebView 限制 ===== */
 body::before {
-    content: '';
-    position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
-    z-index: -1;
-    background: linear-gradient(270deg,
-        #667eea, #764ba2, #f093fb, #f5576c,
-        #4facfe, #00f2fe, #43e97b, #38f9d7,
-        #fa709a, #fee140, #a18cd1, #fbc2eb,
-        #fccb90, #d57eeb, #e0c3fc, #8ec5fc, #667eea
-    );
-    background-size: 600% 600%;
-    animation: toaoBg 24s ease infinite;
+content: '';
+position: fixed;
+top: 0; left: 0; right: 0; bottom: 0;
+z-index: -1;
+background: linear-gradient(270deg,
+#667eea, #764ba2, #f093fb, #f5576c,
+#4facfe, #00f2fe, #43e97b, #38f9d7,
+#fa709a, #fee140, #a18cd1, #fbc2eb,
+#fccb90, #d57eeb, #e0c3fc, #8ec5fc, #667eea
+);
+background-size: 600% 600%;
+animation: toaoBg 24s ease infinite;
 }
 @keyframes toaoBg {
-    0%   { background-position: 0% 50%; }
-    50%  { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+0%   { background-position: 0% 50%; }
+50%  { background-position: 100% 50%; }
+100% { background-position: 0% 50%; }
 }
-
-/* ===== 原有 :root 变量（深色模式默认值）===== */
 :root {
-    --bg-primary: rgba(11,14,26,0.55);
-    --bg-card: rgba(20,27,45,0.60);
-    --bg-card2: rgba(11,14,26,0.55);
-    --bg-input: rgba(11,14,26,0.65);
-    --border-color: rgba(30,41,59,0.70);
-    --border-light: rgba(45,58,79,0.70);
-    --text-primary: #e8eaf0;
-    --text-secondary: #94a3b8;
-    --text-muted: #64748b;
-    --text-light: #cbd5e1;
-    --accent: #3b82f6;
-    --accent2: #8b5cf6;
-    --accent-glow: rgba(59, 130, 246, 0.30);
-    --accent-glow2: rgba(139, 92, 246, 0.20);
-    --success: #34d399;
-    --danger: #f87171;
-    --warning: #fbbf24;
-    --ball-bg: rgba(30,41,59,0.70);
-    --ball-border: rgba(45,58,79,0.70);
-    --scrollbar-track: rgba(26,30,46,0.60);
-    --scrollbar-thumb: #3b82f6;
-    --shadow: rgba(0,0,0,0.30);
-    --color-dadan: #f87171;
-    --color-dashuang: #fbbf24;
-    --color-xiaodan: #60a5fa;
-    --color-xiaoshuang: #34d399;
+--bg-primary: rgba(11,14,26,0.55);
+--bg-card: rgba(20,27,45,0.60);
+--bg-card2: rgba(11,14,26,0.55);
+--bg-input: rgba(11,14,26,0.65);
+--border-color: rgba(30,41,59,0.70);
+--border-light: rgba(45,58,79,0.70);
+--text-primary: #e8eaf0;
+--text-secondary: #94a3b8;
+--text-muted: #64748b;
+--text-light: #cbd5e1;
+--accent: #3b82f6;
+--accent2: #8b5cf6;
+--accent-glow: rgba(59, 130, 246, 0.30);
+--accent-glow2: rgba(139, 92, 246, 0.20);
+--success: #34d399;
+--danger: #f87171;
+--warning: #fbbf24;
+--ball-bg: rgba(30,41,59,0.70);
+--ball-border: rgba(45,58,79,0.70);
+--scrollbar-track: rgba(26,30,46,0.60);
+--scrollbar-thumb: #3b82f6;
+--shadow: rgba(0,0,0,0.30);
+--color-dadan: #f87171;
+--color-dashuang: #fbbf24;
+--color-xiaodan: #60a5fa;
+--color-xiaoshuang: #34d399;
 }
-
-/* ===== 浅色模式变量覆盖 ===== */
 [data-theme="light"] {
-    --bg-primary: rgba(241,245,249,0.55);
-    --bg-card: rgba(255,255,255,0.65);
-    --bg-card2: rgba(248,250,252,0.60);
-    --bg-input: rgba(255,255,255,0.70);
-    --border-color: rgba(226,232,240,0.80);
-    --border-light: rgba(203,213,225,0.80);
-    --text-primary: #1e293b;
-    --text-secondary: #475569;
-    --text-muted: #94a3b8;
-    --text-light: #334155;
-    --accent: #2563eb;
-    --accent2: #7c3aed;
-    --accent-glow: rgba(37, 99, 235, 0.18);
-    --accent-glow2: rgba(124, 58, 237, 0.14);
-    --success: #16a34a;
-    --danger: #dc2626;
-    --warning: #d97706;
-    --ball-bg: rgba(226,232,240,0.70);
-    --ball-border: rgba(148,163,184,0.70);
-    --scrollbar-track: rgba(226,232,240,0.60);
-    --scrollbar-thumb: #94a3b8;
-    --shadow: rgba(0,0,0,0.08);
-    --color-dadan: #dc2626;
-    --color-dashuang: #d97706;
-    --color-xiaodan: #2563eb;
-    --color-xiaoshuang: #16a34a;
+--bg-primary: rgba(241,245,249,0.55);
+--bg-card: rgba(255,255,255,0.65);
+--bg-card2: rgba(248,250,252,0.60);
+--bg-input: rgba(255,255,255,0.70);
+--border-color: rgba(226,232,240,0.80);
+--border-light: rgba(203,213,225,0.80);
+--text-primary: #1e293b;
+--text-secondary: #475569;
+--text-muted: #94a3b8;
+--text-light: #334155;
+--accent: #2563eb;
+--accent2: #7c3aed;
+--accent-glow: rgba(37, 99, 235, 0.18);
+--accent-glow2: rgba(124, 58, 237, 0.14);
+--success: #16a34a;
+--danger: #dc2626;
+--warning: #d97706;
+--ball-bg: rgba(226,232,240,0.70);
+--ball-border: rgba(148,163,184,0.70);
+--scrollbar-track: rgba(226,232,240,0.60);
+--scrollbar-thumb: #94a3b8;
+--shadow: rgba(0,0,0,0.08);
+--color-dadan: #dc2626;
+--color-dashuang: #d97706;
+--color-xiaodan: #2563eb;
+--color-xiaoshuang: #16a34a;
 }
-
-/* ===== 毛玻璃通用 ===== */
 .main-container,
 .topbar,
 .model-bar,
@@ -109,79 +100,68 @@ body::before {
 .answer-card,
 .predict-panel,
 .scrolling-notice {
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
+backdrop-filter: blur(14px);
+-webkit-backdrop-filter: blur(14px);
 }
-
-/* ===== 原有组件样式（全部保留，仅去掉 background 硬编码冲突）===== */
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: var(--scrollbar-track); }
 ::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb); border-radius: 4px; }
-
 .welcome-overlay { display: none !important; }
-
 .main-container {
-    display: flex !important; flex-direction: column;
-    padding: 8px 10px; gap: 6px;
-    max-width: 480px; margin: 0 auto;
-    min-height: 100vh;
-    background: var(--bg-primary);
-    transition: background 0.4s ease;
-    padding-top: 72px !important;
+display: flex !important; flex-direction: column;
+padding: 8px 10px; gap: 6px;
+max-width: 480px; margin: 0 auto;
+min-height: 100vh;
+background: var(--bg-primary);
+transition: background 0.4s ease;
+padding-top: 72px !important;
 }
-
-/* ===== 头像修复：不被裁剪 ===== */
 .topbar { overflow: visible !important; }
 .topbar img, .logo img {
-    width: 40px !important; height: 40px !important;
-    border-radius: 12px !important;
-    object-fit: cover !important;
-    flex-shrink: 0 !important;
-    display: block !important;
-    border: 2px solid rgba(255,255,255,0.25) !important;
+width: 40px !important; height: 40px !important;
+border-radius: 12px !important;
+object-fit: cover !important;
+flex-shrink: 0 !important;
+display: block !important;
+border: 2px solid rgba(255,255,255,0.25) !important;
 }
-
 .topbar {
-    display: flex; align-items: center; gap: 6px;
-    background: var(--bg-card); border: 1px solid var(--border-color);
-    border-radius: 12px; padding: 6px 12px; flex-shrink: 0;
-    transition: background 0.4s ease, border-color 0.4s ease;
+display: flex; align-items: center; gap: 6px;
+background: var(--bg-card); border: 1px solid var(--border-color);
+border-radius: 12px; padding: 6px 12px; flex-shrink: 0;
+transition: background 0.4s ease, border-color: 0.4s ease;
 }
 .logo { display: flex; align-items: center; gap: 6px; flex-shrink: 0; cursor: pointer; }
 .logo-icon {
-    width: 32px; height: 32px; border-radius: 8px;
-    background: linear-gradient(135deg, var(--accent), var(--accent2));
-    display: flex; align-items: center; justify-content: center;
-    font-size: 16px; font-weight: 800; color: #fff; transition: background 0.4s ease;
+width: 32px; height: 32px; border-radius: 8px;
+background: linear-gradient(135deg, var(--accent), var(--accent2));
+display: flex; align-items: center; justify-content: center;
+font-size: 16px; font-weight: 800; color: #fff; transition: background 0.4s ease;
 }
 .logo-title { font-size: 13px; font-weight: 700; color: var(--text-primary); transition: color 0.4s ease; }
 .logo-title span { background: linear-gradient(135deg, var(--accent), var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 .badge { font-size: 8px; background: rgba(59,130,246,0.20); color: var(--text-secondary); padding: 2px 10px; border-radius: 12px; font-weight: 600; border: 1px solid var(--border-color); white-space: nowrap; }
-.contact-btn { font-size: 8px; color: var(--text-secondary); cursor: pointer; padding: 2px 10px; border-radius: 12px; background: var(--bg-card2); border: 1px solid var(--border-color); white-space: nowrap; transition: 0.2s; }
-.contact-btn:active { background: var(--border-color); }
 .theme-btn { font-size: 14px; cursor: pointer; padding: 2px 8px; border-radius: 8px; background: var(--bg-card2); border: 1px solid var(--border-color); white-space: nowrap; transition: 0.2s; line-height: 1.4; color: var(--text-secondary); }
 .theme-btn:active { transform: scale(0.92); background: var(--border-color); }
 .theme-btn .current-icon { font-size: 12px; }
-
 .model-bar {
-    display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
-    background: var(--bg-card); border: 1px solid var(--border-color);
-    border-radius: 12px; padding: 6px 12px; flex-shrink: 0;
-    transition: background 0.4s ease, border-color 0.4s ease;
+display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
+background: var(--bg-card); border: 1px solid var(--border-color);
+border-radius: 12px; padding: 6px 12px; flex-shrink: 0;
+transition: background 0.4s ease, border-color: 0.4s ease;
 }
 .model-bar .label { font-size: 10px; font-weight: 600; color: var(--text-secondary); white-space: nowrap; }
 .model-bar select {
-    flex: 1; min-width: 100px; padding: 5px 10px; border-radius: 8px;
-    border: 1px solid var(--border-color); background: var(--bg-input);
-    color: var(--text-primary); font-size: 12px; font-weight: 600;
-    outline: none; cursor: pointer;
-    transition: background 0.4s ease, border-color 0.4s ease, color 0.4s ease;
+flex: 1; min-width: 100px; padding: 5px 10px; border-radius: 8px;
+border: 1px solid var(--border-color); background: var(--bg-input);
+color: var(--text-primary); font-size: 12px; font-weight: 600;
+outline: none; cursor: pointer;
+transition: background 0.4s ease, border-color 0.4s ease, color 0.4s ease;
 }
 .model-bar select:focus { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent-glow); }
 .model-bar select option { background: var(--bg-card); color: var(--text-primary); }
 .model-bar .hit-rate { font-size: 10px; font-weight: 600; color: var(--success); white-space: nowrap; }
 .model-bar .hit-rate span { color: var(--text-muted); font-weight: 400; }
-
 .btn-group { display: flex; gap: 4px; flex-wrap: wrap; flex-shrink: 0; }
 .btn { padding: 4px 12px; border-radius: 8px; font-size: 9px; font-weight: 700; cursor: pointer; border: none; transition: 0.2s; white-space: nowrap; }
 .btn:active { transform: scale(0.95); }
@@ -195,40 +175,37 @@ body::before {
 .btn-outline:active { background: var(--border-color); }
 .btn-sm { padding: 3px 8px; font-size: 8px; }
 .btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
-
 .status-tag { font-size: 8px; padding: 2px 8px; border-radius: 6px; font-weight: 600; display: inline-flex; align-items: center; gap: 4px; }
 .status-tag.lock { background: rgba(239,68,68,0.20); color: var(--danger); border: 1px solid rgba(239,68,68,0.30); }
 .status-tag.freeze { background: var(--accent-glow); color: var(--accent); border: 1px solid var(--accent-glow); }
-
 .main-card {
-    display: flex; flex-direction: row; flex-wrap: nowrap;
-    border-radius: 14px; overflow: hidden;
-    background: var(--bg-card); border: 1px solid var(--border-color);
-    flex-shrink: 0; transition: background 0.4s ease, border-color 0.4s ease;
+display: flex; flex-direction: row; flex-wrap: nowrap;
+border-radius: 14px; overflow: hidden;
+background: var(--bg-card); border: 1px solid var(--border-color);
+flex-shrink: 0; transition: background 0.4s ease, border-color: 0.4s ease;
 }
 .draw-panel {
-    flex: 0 0 40%; min-width: 130px; padding: 12px 10px;
-    background: var(--bg-card2); border-right: 1px solid var(--border-color);
-    display: flex; flex-direction: column; gap: 2px; justify-content: center;
-    transition: background 0.4s ease, border-color 0.4s ease;
+flex: 0 0 40%; min-width: 130px; padding: 12px 10px;
+background: var(--bg-card2); border-right: 1px solid var(--border-color);
+display: flex; flex-direction: column; gap: 2px; justify-content: center;
+transition: background 0.4s ease, border-color 0.4s ease;
 }
 .draw-label { display: flex; align-items: center; gap: 4px; font-size: 9px; color: var(--text-secondary); font-weight: 600; letter-spacing: 0.5px; }
 .live-dot { width: 5px; height: 5px; background: #22c55e; border-radius: 50%; animation: pulse 1s infinite; }
 @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
 .balls { display: flex; gap: 6px; margin: 4px 0; }
 .ball {
-    width: 36px; height: 36px; border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 16px; font-weight: 800; color: #fff;
-    background: var(--ball-bg); border: 2px solid var(--ball-border);
-    transition: background 0.4s ease, border-color 0.4s ease;
+width: 36px; height: 36px; border-radius: 50%;
+display: flex; align-items: center; justify-content: center;
+font-size: 16px; font-weight: 800; color: #fff;
+background: var(--ball-bg); border: 2px solid var(--ball-border);
+transition: background 0.4s ease, border-color 0.4s ease;
 }
 .ball.red { background: #7f1d1d; border-color: #ef4444; }
 .ball.green { background: #14532d; border-color: #22c55e; }
 .period { font-size: 14px; font-weight: 700; color: var(--text-primary); transition: color 0.4s ease; }
 .sum { font-size: 9px; color: var(--text-secondary); }
 .countdown { font-size: 9px; color: var(--accent); font-weight: 600; background: var(--accent-glow); padding: 2px 10px; border-radius: 8px; border: 1px solid var(--accent-glow); display: inline-block; }
-
 .predict-panel { flex: 1; padding: 10px 12px; display: flex; flex-direction: column; gap: 4px; justify-content: center; }
 .predict-header { display: flex; align-items: center; justify-content: space-between; gap: 4px; flex-wrap: wrap; }
 .predict-title { font-size: 11px; font-weight: 700; color: var(--text-primary); display: flex; align-items: center; gap: 4px; flex-wrap: wrap; }
@@ -238,9 +215,9 @@ body::before {
 .expect-badge { font-size: 11px; font-weight: 700; color: var(--accent); background: var(--accent-glow); padding: 1px 8px; border-radius: 6px; border: 1px solid var(--accent-glow); }
 .answer-row { display: flex; gap: 4px; margin: 2px 0; }
 .answer-card {
-    flex: 1; border-radius: 8px; padding: 6px 2px; text-align: center;
-    background: var(--bg-card2); border: 1px solid var(--border-color);
-    transition: background 0.4s ease, border-color 0.4s ease;
+flex: 1; border-radius: 8px; padding: 6px 2px; text-align: center;
+background: var(--bg-card2); border: 1px solid var(--border-color);
+transition: background 0.4s ease, border-color 0.4s ease;
 }
 .answer-card .label { font-size: 7px; color: var(--text-muted); }
 .answer-card .value { font-size: 15px; font-weight: 800; color: var(--text-primary); }
@@ -253,17 +230,16 @@ body::before {
 .predict-extra { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; font-size: 8px; color: var(--text-muted); margin-top: 2px; }
 .predict-extra strong { color: var(--text-secondary); }
 .trend-mini { display: flex; align-items: center; gap: 3px; font-size: 7px; color: var(--text-secondary); background: var(--bg-card2); padding: 2px 8px; border-radius: 6px; border: 1px solid var(--border-color); }
-
-.situation-panel { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; padding: 8px 12px; flex-shrink: 0; transition: background 0.4s ease, border-color 0.4s ease; }
+.situation-panel { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; padding: 8px 12px; flex-shrink: 0; transition: background 0.4s ease, border-color: 0.4s ease; }
 .situation-panel .header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px; }
 .situation-panel .header .title { font-size: 11px; font-weight: 700; color: var(--text-secondary); }
 .situation-panel .header .title .hl { color: var(--accent); }
 .situation-panel select {
-    width: 100%; padding: 8px 12px; border-radius: 8px;
-    border: 1px solid var(--border-color); background: var(--bg-input);
-    color: var(--text-primary); font-size: 12px; font-weight: 600;
-    outline: none; cursor: pointer; -webkit-appearance: none; appearance: none;
-    transition: background 0.4s ease, border-color 0.4s ease, color 0.4s ease;
+width: 100%; padding: 8px 12px; border-radius: 8px;
+border: 1px solid var(--border-color); background: var(--bg-input);
+color: var(--text-primary); font-size: 12px; font-weight: 600;
+outline: none; cursor: pointer; -webkit-appearance: none; appearance: none;
+transition: background 0.4s ease, border-color 0.4s ease, color 0.4s ease;
 }
 .situation-panel select:focus { border-color: var(--accent); }
 .situation-panel select:disabled { opacity: 0.4; cursor: not-allowed; }
@@ -277,8 +253,7 @@ body::before {
 .situation-badge.frozen { background: rgba(100,116,139,0.20); color: var(--text-muted); border: 1px solid rgba(100,116,139,0.20); }
 .situation-hit-rate { font-size: 9px; color: var(--text-secondary); }
 .situation-reason { font-size: 8px; color: var(--text-muted); margin-top: 2px; }
-
-.algo-panel { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; padding: 8px 10px; flex-shrink: 0; transition: background 0.4s ease, border-color 0.4s ease; }
+.algo-panel { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; padding: 8px 10px; flex-shrink: 0; transition: background 0.4s ease, border-color: 0.4s ease; }
 .algo-panel .header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
 .algo-panel .header .title { font-size: 10px; font-weight: 700; color: var(--text-secondary); }
 .algo-panel .header .count-badge { font-size: 8px; color: var(--text-muted); background: var(--bg-card2); padding: 2px 8px; border-radius: 6px; border: 1px solid var(--border-color); }
@@ -301,16 +276,15 @@ body::before {
 .stat-xiaoshuang .stat-value { color: var(--color-xiaoshuang); }
 .stat-xiaoshuang .stat-bar .fill { background: var(--color-xiaoshuang); }
 .stat-xiaoshuang { border-color: rgba(52,211,153,0.30); }
-
 .algo-list { display: flex; flex-direction: column; gap: 2px; max-height: 120px; overflow-y: auto; padding-right: 2px; }
 .algo-list::-webkit-scrollbar { width: 3px; }
 .algo-list::-webkit-scrollbar-track { background: var(--bg-card2); border-radius: 2px; }
 .algo-list::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 2px; }
 .algo-item {
-    display: flex; align-items: center; gap: 4px;
-    background: var(--bg-card2); border-radius: 4px; padding: 2px 6px;
-    border: 1px solid var(--border-color); transition: all 0.2s ease;
-    cursor: pointer; font-size: 7px; min-height: 22px;
+display: flex; align-items: center; gap: 4px;
+background: var(--bg-card2); border-radius: 4px; padding: 2px 6px;
+border: 1px solid var(--border-color); transition: all 0.2s ease;
+cursor: pointer; font-size: 7px; min-height: 22px;
 }
 .algo-item:active { transform: scale(0.98); }
 .algo-item.active { border-color: var(--accent); background: var(--accent-glow); }
@@ -327,11 +301,9 @@ body::before {
 .algo-item .mr.low { color: var(--danger); }
 .algo-item .mcheck { font-size: 8px; color: var(--success); min-width: 12px; text-align: center; }
 .algo-empty { text-align: center; font-size: 8px; color: var(--text-muted); padding: 12px 0; }
-
 .action-row { display: flex; gap: 4px; flex-shrink: 0; flex-wrap: wrap; }
 .action-row .btn { flex: 1; min-width: 60px; text-align: center; padding: 6px 8px; font-size: 10px; }
-
-.backtest-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; padding: 6px 8px; flex-shrink: 0; transition: background 0.4s ease, border-color 0.4s ease; }
+.backtest-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; padding: 6px 8px; flex-shrink: 0; transition: background 0.4s ease, border-color: 0.4s ease; }
 .backtest-card .head { display: flex; justify-content: space-between; margin-bottom: 4px; font-size: 10px; font-weight: 700; color: var(--text-secondary); }
 .backtest-card .head span { color: var(--success); }
 .table-wrap { overflow-x: auto; }
@@ -347,1031 +319,1040 @@ td { padding: 4px 3px; border-bottom: 1px solid var(--bg-card2); color: var(--te
 .win { color: var(--success); font-weight: 700; }
 .win-double { color: var(--warning); font-weight: 800; }
 .miss { color: var(--danger); font-weight: 700; }
-
 .footer { text-align: center; font-size: 7px; color: var(--text-muted); padding: 6px 0; letter-spacing: 0.3px; }
-
 .scrolling-notice {
-    background: var(--bg-card2); border-radius: 10px; padding: 4px 12px;
-    overflow: hidden; height: 26px; display: flex; align-items: center;
-    border: 1px solid var(--border-color); flex-shrink: 0;
-    transition: background 0.4s ease, border-color 0.4s ease;
+background: var(--bg-card2); border-radius: 10px; padding: 4px 12px;
+overflow: hidden; height: 26px; display: flex; align-items: center;
+border: 1px solid var(--border-color); flex-shrink: 0;
+transition: background 0.4s ease, border-color: 0.4s ease;
 }
 .scrolling-text { white-space: nowrap; animation: scrollNotice 14s linear infinite; color: var(--text-muted); font-weight: 500; font-size: 10px; }
 @keyframes scrollNotice { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
-
 .ai-reason-bar {
-    font-size: 8px; color: var(--accent2); background: var(--accent-glow2);
-    border: 1px solid var(--accent-glow2); border-radius: 8px;
-    padding: 4px 10px; text-align: center; flex-shrink: 0; display: none; font-weight: 600;
+font-size: 8px; color: var(--accent2); background: var(--accent-glow2);
+border: 1px solid var(--accent-glow2); border-radius: 8px;
+padding: 4px 10px; text-align: center; flex-shrink: 0; display: none; font-weight: 600;
 }
 .ai-reason-bar.show { display: block; animation: fadeInDown 0.4s ease; }
 .ai-progress { display: inline-block; width: 100px; height: 4px; background: var(--border-color); border-radius: 4px; overflow: hidden; vertical-align: middle; margin: 0 4px; }
 .ai-progress-fill { height: 100%; background: linear-gradient(90deg, var(--accent2), var(--accent)); border-radius: 4px; transition: width 0.1s linear; }
 @keyframes fadeInDown { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
-
 .scan-status { font-size: 8px; color: var(--success); background: rgba(34,197,94,0.10); border: 1px solid rgba(34,197,94,0.20); border-radius: 6px; padding: 2px 8px; display: none; white-space: nowrap; }
 .scan-status.show { display: inline-block; }
-
-/* ===== 顶部广告栏 ===== */
 .ad-top {
-    width: 100%;
-    background: rgba(255,255,255,0.18);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border-bottom: 1px solid rgba(255,255,255,0.22);
-    padding: 10px 16px;
-    display: flex; align-items: center; gap: 10px;
-    position: fixed; top: 0; left: 0; z-index: 1000;
+width: 100%;
+background: rgba(255,255,255,0.18);
+backdrop-filter: blur(20px);
+-webkit-backdrop-filter: blur(20px);
+border-bottom: 1px solid rgba(255,255,255,0.22);
+padding: 10px 16px;
+display: flex; align-items: center; gap: 10px;
+position: fixed; top: 0; left: 0; z-index: 1000;
 }
 .ad-top .tag {
-    width: 48px; height: 48px; border-radius: 50%;
-    background: linear-gradient(270deg, #667eea, #764ba2, #f093fb, #f5576c, #4facfe, #00f2fe, #43e97b, #38f9d7, #fa709a, #fee140, #a18cd1, #fbc2eb, #fccb90, #d57eeb, #e0c3fc, #8ec5fc, #667eea);
-    background-size: 600% 600%;
-    animation: adShift 12s ease infinite;
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    flex-shrink: 0; line-height: 1.3;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.20);
+width: 48px; height: 48px; border-radius: 50%;
+background: linear-gradient(270deg, #667eea, #764ba2, #f093fb, #f5576c, #4facfe, #00f2fe, #43e97b, #38f9d7, #fa709a, #fee140, #a18cd1, #fbc2eb, #fccb90, #d57eeb, #e0c3fc, #8ec5fc, #667eea);
+background-size: 600% 600%;
+animation: adShift 12s ease infinite;
+display: flex; flex-direction: column; align-items: center; justify-content: center;
+flex-shrink: 0; line-height: 1.3;
+box-shadow: 0 2px 10px rgba(0,0,0,0.20);
 }
 @keyframes adShift { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
 .ad-top .tag .t1, .ad-top .tag .t2 { font-size: 9px; font-weight: 700; color: #fff; white-space: nowrap; }
 .ad-top .ad-text {
-    flex: 1; text-align: center; font-size: 12px; color: rgba(255,255,255,0.95);
-    font-weight: 600; padding: 7px 12px; background: rgba(0,0,0,0.20);
-    border-radius: 20px;
+flex: 1; text-align: center; font-size: 12px; color: rgba(255,255,255,0.95);
+font-weight: 600; padding: 7px 12px; background: rgba(0,0,0,0.20);
+border-radius: 20px;
 }
 .ad-top .btn-go {
-    background: linear-gradient(270deg, #667eea, #764ba2, #f093fb, #f5576c, #4facfe, #00f2fe, #43e97b, #38f9d7, #fa709a, #fee140, #a18cd1, #fbc2eb, #fccb90, #d57eeb, #e0c3fc, #8ec5fc, #667eea);
-    background-size: 600% 600%; animation: adShift 12s ease infinite;
-    color: #fff; font-size: 12px; font-weight: 600; padding: 8px 18px; border-radius: 20px;
-    text-decoration: none; flex-shrink: 0; border: none; cursor: pointer;
+background: linear-gradient(270deg, #667eea, #764ba2, #f093fb, #f5576c, #4facfe, #00f2fe, #43e97b, #38f9d7, #fa709a, #fee140, #a18cd1, #fbc2eb, #fccb90, #d57eeb, #e0c3fc, #8ec5fc, #667eea);
+background-size: 600% 600%; animation: adShift 12s ease infinite;
+color: #fff; font-size: 12px; font-weight: 600; padding: 8px 18px; border-radius: 20px;
+text-decoration: none; flex-shrink: 0; border: none; cursor: pointer;
 }
 @media (max-width: 520px) {
-    .ad-top { padding: 8px 10px; gap: 8px; }
-    .ad-top .tag { width: 42px; height: 42px; }
-    .ad-top .tag .t1, .ad-top .tag .t2 { font-size: 8px; }
-    .ad-top .ad-text { font-size: 11px; padding: 6px 8px; }
-    .ad-top .btn-go { padding: 7px 14px; font-size: 11px; }
+.ad-top { padding: 8px 10px; gap: 8px; }
+.ad-top .tag { width: 42px; height: 42px; }
+.ad-top .tag .t1, .ad-top .tag .t2 { font-size: 8px; }
+.ad-top .ad-text { font-size: 11px; padding: 6px 8px; }
+.ad-top .btn-go { padding: 7px 14px; font-size: 11px; }
 }
-
-/* ===== 响应式 ===== */
 @media (max-width: 420px) {
-    .main-container { padding: 4px 6px; gap: 4px; }
-    .ball { width: 30px; height: 30px; font-size: 13px; }
-    .period { font-size: 12px; }
-    .predict-title { font-size: 10px; }
-    .answer-card .value { font-size: 13px; }
-    .btn { font-size: 8px; padding: 3px 8px; }
-    .draw-panel { padding: 8px 6px; }
-    .predict-panel { padding: 8px 8px; }
-    .algo-stat-item .stat-value { font-size: 15px; }
-    .algo-stat-item { padding: 4px 2px; }
-    .algo-item { font-size: 6px; padding: 2px 4px; min-height: 18px; }
-    .algo-item .mid { min-width: 22px; font-size: 6px; }
-    .algo-item .mg .g { font-size: 5px; padding: 0 2px; }
-    .algo-item .mr { font-size: 6px; min-width: 22px; }
-    .algo-list { max-height: 100px; }
+.main-container { padding: 4px 6px; gap: 4px; }
+.ball { width: 30px; height: 30px; font-size: 13px; }
+.period { font-size: 12px; }
+.predict-title { font-size: 10px; }
+.answer-card .value { font-size: 13px; }
+.btn { font-size: 8px; padding: 3px 8px; }
+.draw-panel { padding: 8px 6px; }
+.predict-panel { padding: 8px 8px; }
+.algo-stat-item .stat-value { font-size: 15px; }
+.algo-stat-item { padding: 4px 2px; }
+.algo-item { font-size: 6px; padding: 2px 4px; min-height: 18px; }
+.algo-item .mid { min-width: 22px; font-size: 6px; }
+.algo-item .mg .g { font-size: 5px; padding: 0 2px; }
+.algo-item .mr { font-size: 6px; min-width: 22px; }
+.algo-list { max-height: 100px; }
 }
 </style>
 </head>
 <body>
-
 <!-- 顶部广告栏 -->
 <div class="ad-top">
-    <span class="tag"><span class="t1">Toao独家</span><span class="t2">定制预测</span></span>
-    <div class="ad-text">稳台推荐🔥非凡娱乐、胜天国际、纵横国际</div>
-    <a href="#" class="btn-go">立即注册</a>
+<span class="tag"><span class="t1">Toao独家</span><span class="t2">定制预测</span></span>
+<div class="ad-text">稳台推荐🔥非凡娱乐、胜天国际、纵横国际</div>
+<a href="#" class="btn-go">立即注册</a>
 </div>
-
 <div class="main-container" id="mainContainer">
-    <div class="topbar">
-        <div class="logo" id="logoArea">
-            <img src="data:image/jpeg;base64,/9j/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAB/AIADASIAAhEBAxEB/8QAHAAAAgIDAQEAAAAAAAAAAAAABAUGBwIDCAEA/8QAOhAAAgEDAgMFBAgGAgMAAAAAAQIDAAQRBSESMUEGEyJRYQcycYEUFSNCkaGx0SRScsHh8AgzFhfx/8QAGQEAAwEBAQAAAAAAAAAAAAAAAQIDBAAF/8QAIhEAAgIDAAICAwEAAAAAAAAAAAECEQMSISIxBEETFDJR/9oADAMBAAIRAxEAPwCJTqtsXbABHnQkeriC1lZD4yDij+1cZELnGNqhMRJWTO+BXSjqhY9aQbaT4YjOTzJJrZf6/NCnc2xKsdsg1Hmuu6PATz3PwrZE2cyMM55AippGnYMmvzHZsrORkeMg7n0HxrDT9Ve0gdoziRweXQf7+lKdUnDskWCcHJ33z8aDuLg92QigDGOtFAbCbu/keRuJyysN/U8z+tLnmJas1geZOPfYbViYuJOIcxVbJUbI3YeIdOfqKk3Zy+xMtvK3hbdTUaTACtj5URbFkljdTsrZz6UkhkXx2c91BViaWwCCqj7KagGtonLZJG/xqw9M1BSoyaRonf0TDiBHOsEQFs0sivlI5iiYrxPMU8EdQ0ReHlXzy5FLGvVHWsBfKeZFUs4pntgAbJ2FQGLK28pxzB/Q1YvaGPv7bgA51EHsgkZDYGdsVPIzo/0Q6eMvelcbZx8hRRkWMDP3enrRdyqwPKygcXn1/wBzSRX726AJ8INKi3o9uUJfiPPGfnWkwF24cUznT7NZWB4OdF6FbpcavBGRsSNqJ1H2m6axhCsvQ4yPShLvT3iiZ8bBsVYE1vFFHG6AcAYoT5HG396FubJLiDu1UcMvhH9WAR/ehZRx4V2yr3bRt4ZBuD50PbycXEh2qYydmrjULdlghc3MOCCBs6nbHxByKT632buNEEUl48ayyHHchssu3M11k3Fofdj78rC8RbcHIqZWmtPFjJ2qqtDuO5vSAcZyKdtqDBiCaaPTPNdstaw11ZGA4qkNpdd6uc1Sen6oY5gc5FWRoGqxSwDxb1zdATZJ5ZXPI0NI8oHvGs4rmN8YINFlFdM7UVJDWRO5tO8XhApLqOl4jOBVkfUkg6UBqejSCDPDyNYvzWZ4TexQuvxdy8pI5CkFtbStG8oB2IX5mpx7QtMktHOV/wCxhj4UgsmSSOG1mUK/fZZ/MY2H5VeL5Z6C6MLmyWJtNt5B4JOEt6g4/an/AGZ0zTrTWWlv8hImwR6YIH++tB9p42i1CzONkRAMdDjNTO90gqkGpwx94jACVR5dDTN8KRVsENlolpepp16LxBelXjkYYCjOx556HpVmab2G0mCIBkeXhbjHEeRrPQdM0+7jgu1iR2VfCW3K+m/KpaiYXbyoVYz4Q+/01Vtp47CBI+PiBZG4SpxzHrmqL7cdlp9E0v6RdTm4meUcTnO+fjXRkn2d06ee9VH7f7tINHtITjikl2HwBornBXVNspGBilwjjkWNTGy0Y38Imjyc88edQ+1xLbKw5qas32UTpc6mLCZgO+Hgz/MP3FdNuKtGXJetoWx9mplOQDTzTNPntSAM4q2D2WPRR+Fef+LsB7o/CofsWY95EJs3mjdeLJp9FcNwU0bs5Ku4UV99TTL92u/KgqbLHNipHIUPdaaksbJgbjFOFz1FayTu2Ky4se8qZojG2UZ7Z+zUj6IbmBQzwN4lUbgedUdDqMEKLJcW3G6Nv4sZOAP13rsHVlYSyxSKGVwVIO+cjFcyQdkkv+00enrIF72Rg2ecfD7xPyBIr0IxX8o0VqgidvrXs1a3rD7UTcDgeQUY/IVb3YZEvdAgRwGHBwHPmNqiWpaHDptlNYwpwxxXA257YI/apT7NmMVu1u+wzlf71z46LRfLHtpp7abJ/DnEJPu9P8GncE3FsxxW10+zJAy2OXnUZ1S+u4SVit+7XqWf9qVuikYPI6Qfqk0SXIYHPCN65t9r2srrna5bQScNtaLhm5+I8/7VYHavXNSWUQ2kjSzOOFYkXOT8edJ//WsLW0bXIuJr+X7SWXfhDHoBj86eDv2TywcfFFYfQJLaUiId7blQS6DYZHUdKP0C/fTdVguI2KNG4cHyIP8A8qxtF7Evp1+kcatIsp4CjDIOarrtPZfVfaC9tcY7iYgfDNVyQ8bMy/xnaXZie31zQrPUICpWaME46N1H40yOnp5CqD/499thZzyaHfSfYSnihJ+63lXRauHUFTkGvJnDWVEXHV0LH09P5a0NpyeQp0xAFayaAKQOxwpNB3UgjixRMp2A+dKtRk8JFbMMajZoxrgmvJMyE560k0Ls3Yy6tc30luomK4LjY700l3c0ZpUsdvZyzTHCs4UeZx0Fa/jq5jZXUSD63ZPLqWowOPtBJnHyGP0rPSYGs7nqrjxD19aJuLl216eeTA7wgkH4U1u4Y7iNZUA4lG1SmvJlIPiGMOoKyDjHD6itF5GmoQseMpEPvdT8KVWyPPKEJPD1p4I4xGqyZx0FLQ10KtM0vTNLJljtjLcvzfhLMfn0oyaa7Y5hsokHTvX3/IGj3kaOP+Ftg7ep4RQc0uqsMhbSMeQ4m/Pb9K44V3M+pWsq3C2drxpnHjJztjyFc/8AtGW6u9eur+5h4TIQGxuBgD/FdAalc3iRHvgPiBVEe0a4MlzPgkZk3GMfdWmUnWv0LJJ9Irol/Jp+o29xGxVo2ByOmDXZ/YnWk1rQrW9t3DcaDjUdG6iuHg3C3xq6/YF2u+g38mlXDnu5TlAfMcx+H6VDNG1ZnkrR02rBxnNfEEChIpVbhdDlWonvAQKz8J0CSdTSLUW8RBNSCRQIzUZ1RvtDW6KpUaoIT384hdCMnfBAp/caV3ukwCMDv48llPPfc1G7W4hOt24mV3VSWwozv0zUvuZZFUNFDM2TthDWv4yUVsRzO/ErLXGMeszKM5GB+VNdBF1ON0buv5jyqfN2dtL9orzUrVPpKjlnn/VjnW6+tIki8CqoA2AGKz5OybRXG+JEet7REGwreq8LnhGcD9a3qFAOTQtxeQ26s7t57DcnFIOY3QvHAFtJFF5l0LbfiKAuI9Riy30xWHl3I/emtuZJlEjeFTyUVhdRrwnP50KsNkU1e5uDbN3jxuoGfcIqgO3F4bu7K5BwzMceZP7Cru7d3wtNNlZcAgHHxxtXPGrScU7nOegooEnwUScvXNMdJu5LDU47iFirqwZSOhpe/vA9M5rYG8KnqDXPpI7D9n/aOPtBolvNG478ALKueTD9+dTRHDJscGuU/ZN2qOha1Fxt/DSkJID0B6/Kup4pElhSaMhlIzkHmKyTjq6JSVGV/N3cRqN91Je3KwwrxSOdvIDzPpTPVZGY8CgknoKY9m7JrWGSWdOCaQ4GeYUcv71tXWaX4xN2kaBaaYvGih7k+9KRv8vIUyZlTc4zWqe5VF50qmveNiM0Wyai31h0tzxE+QpLqN3kkk4UV7cXPhwufIAdazh0G4uwJLrCJzCE/rQSse1EhGq6jqUzlNMhHd53kfr8BSqKe+a5gS4tvG7gcat1J9atKbRu4jYgJgDpSqDTxJeISu0fiqyWitMRy3fQiNeCMDyFL9QfCnzIpnP4M+dI9VlEULsxqJUqb2oXpaVbdDyPEflvVL6k/wBsR0q0PaLxrcGU/wDawJPp6fhVS3zEy+pFclYs3RokbwAdT+9bifsyPnQ/vMuOWMVtVstjzGK58JhunXBTAHPG1dO+wntT9c6I+m3T5urT3c82j6fhXKMLlJd/u1ZPsj176m7X2czvwwyHupP6W/zg1HLG4hfUdeQxQwHiwGk/mPOvLi8VBzpfPdkZApfLK0rbmqlVG/YRcXTSk4O1CyTrEpJNYSSBAaBBNxL4vdzQsf0Snszbd9m8nXl7gPSnlxc8PKhbJRb2scK81UZ+Narp+eKskZm7dmF3ds6MAelZWVuEtnkYeJ/0FCRoZpkjH3jTC/kCRcC7KBihNjpCK9OGLVGNYk424Ruqbn1PQf76U91GU7heZ2FRjUzwQ4HM9fWk+iyRTftGuV+nsgbdBv8AOqmvJPtnbO2cCrK7dWss93dXMZyCxBBPltVXXJxKyGmXojJ9M4G4hXryd3J8DmtELcLVnPz4hQYpm7FZmxyNM9Kn4LlRnGCDShm4kQ9eVbIZSkwPUUGuBP/Z" alt="avatar">
-            <div class="logo-title"><span>慢不慢</span> · 预测</div>
-        </div>
-        <span class="badge">v3.0</span>
-        <button class="theme-btn" id="themeBtn" title="切换主题">
-            <span class="current-icon">🌙</span>
-        </button>
-        <div class="contact-btn" onclick="alert('📞 联系：tg @XSZUU88')">📞</div>
-    </div>
-
-    <div class="model-bar" id="modelBar">
-        <span class="label">🎯 模型</span>
-        <select id="seedSelector" disabled>
-            <option value="">-- 请先扫描 --</option>
-        </select>
-        <span class="hit-rate">匹配率 <span id="fixedHitRate">--</span></span>
-    </div>
-
-    <div class="btn-group">
-        <button class="btn btn-primary btn-sm" id="scanBtn">🔍 扫描</button>
-        <button class="btn btn-purple btn-sm" id="aiSelectBtn">🤖 选模型</button>
-        <button class="btn btn-danger btn-sm" id="lockSeedBtn">🔒 锁定</button>
-        <button class="btn btn-outline btn-sm" id="freezeBtn">❄️ 冻结</button>
-        <button class="btn btn-outline btn-sm" id="toggleModeBtn">📊 双组</button>
-        <span class="status-tag freeze" id="freezeStatus" style="display:none;">❄️ 已冻结</span>
-        <span class="status-tag lock" id="lockStatus" style="display:none;">🔒 已锁定</span>
-        <span class="scan-status" id="scanStatus"></span>
-    </div>
-
-    <div class="main-card">
-        <div class="draw-panel">
-            <div class="draw-label"><span class="live-dot"></span> 开奖</div>
-            <div class="balls">
-                <div class="ball" id="ball1">--</div>
-                <div class="ball" id="ball2">--</div>
-                <div class="ball" id="ball3">--</div>
-            </div>
-            <div class="period" id="latestPeriod">----期</div>
-            <div class="sum" id="latestSum">和值：-- / --</div>
-            <div class="countdown" id="countdown">加载中...</div>
-        </div>
-        <div class="predict-panel" id="predictPanel">
-            <div class="predict-header">📊 请先点击「扫描」获取模型</div>
-        </div>
-    </div>
-
-    <div class="situation-panel">
-        <div class="header">
-            <span class="title">🧠 <span class="hl">局势</span></span>
-            <span class="situation-badge auto" id="situationBadge">🎯 自动</span>
-        </div>
-        <select id="situationSelect">
-            <option value="auto">🎯 自动识别(推荐)</option>
-            <option value="streak">🔥 连开局</option>
-            <option value="alt">🔁 交替局</option>
-            <option value="trend">📈 趋势局</option>
-            <option value="mix">🎲 混战局</option>
-        </select>
-        <div class="situation-info">
-            <span class="situation-hit-rate" id="situationHitRate">匹配度：--%</span>
-        </div>
-        <div class="situation-reason" id="situationReason">等待数据...</div>
-    </div>
-
-    <div class="algo-panel" id="algoPanel">
-        <div class="header">
-            <span class="title">🧮 模型四组 · 汇总统计</span>
-            <span class="count-badge" id="algoCount">共 0 个模型</span>
-        </div>
-        <div class="algo-stats" id="algoStats">
-            <div class="algo-stat-item stat-dadan">
-                <div class="stat-label">🔥 大单</div>
-                <div class="stat-value" id="statDadan">0</div>
-                <div class="stat-bar"><div class="fill" id="barDadan" style="width:0%"></div></div>
-                <div class="stat-pct" id="pctDadan">0%</div>
-            </div>
-            <div class="algo-stat-item stat-dashuang">
-                <div class="stat-label">⭐ 大双</div>
-                <div class="stat-value" id="statDashuang">0</div>
-                <div class="stat-bar"><div class="fill" id="barDashuang" style="width:0%"></div></div>
-                <div class="stat-pct" id="pctDashuang">0%</div>
-            </div>
-            <div class="algo-stat-item stat-xiaodan">
-                <div class="stat-label">🔵 小单</div>
-                <div class="stat-value" id="statXiaodan">0</div>
-                <div class="stat-bar"><div class="fill" id="barXiaodan" style="width:0%"></div></div>
-                <div class="stat-pct" id="pctXiaodan">0%</div>
-            </div>
-            <div class="algo-stat-item stat-xiaoshuang">
-                <div class="stat-label">🟢 小双</div>
-                <div class="stat-value" id="statXiaoshuang">0</div>
-                <div class="stat-bar"><div class="fill" id="barXiaoshuang" style="width:0%"></div></div>
-                <div class="stat-pct" id="pctXiaoshuang">0%</div>
-            </div>
-        </div>
-        <div class="algo-list" id="algoList">
-            <div class="algo-empty">请先点击「扫描」获取模型</div>
-        </div>
-    </div>
-
-    <div class="ai-reason-bar" id="aiReasonBar"></div>
-
-    <div class="action-row">
-        <button class="btn btn-primary" id="predictBtn">✨ 预测</button>
-        <button class="btn btn-outline" id="refreshBtn">🔄 刷新</button>
-    </div>
-
-    <div class="backtest-card">
-        <div class="head">📜 近30期回测 <span id="historyAcc">--</span></div>
-        <div class="table-wrap">
-            <table>
-                <thead><tr><th>期号</th><th>上期开奖</th><th>预测</th><th>实际开奖</th><th>结果</th></tr></thead>
-                <tbody id="historyBody"><tr><td colspan="5">加载中...</td></tr></tbody>
-            </table>
-        </div>
-    </div>
-
-    <div class="scrolling-notice">
-        <div class="scrolling-text">
-            📣 慢不慢 · 统计工具 · 数据真实可查 · 仅供娱乐 · 联系 tg @XSZUU88
-        </div>
-    </div>
-
-    <div class="footer">Toao v3.0 · 仅供娱乐 · 联系 tg @XSZUU88</div>
+<div class="topbar">
+  <div class="logo" id="logoArea">
+    <img src="https://image.58sb.cn/file/img/In1oakDm.jpg" alt="avatar">
+    <div class="logo-title"><span>慢不慢</span> · 预测</div>
+  </div>
+  <span class="badge">v3.0</span>
+  <button class="theme-btn" id="themeBtn" title="切换主题">
+    <span class="current-icon">🌙</span>
+  </button>
+  <!-- 注册图标 -->
+  <img src="https://2.58sb.cn/file/img/fe8a31Ia.jpg" alt="register" id="registerIcon">
+  <!-- 胜天国际图标 -->
+  <img src="https://image.58sb.cn/file/img/AHe8arGM.jpg" alt="胜天国际" id="shengtianIcon">
+  <!-- 纵横国际图标 -->
+  <img src="https://2.58sb.cn/file/img/OndxwNZU.jpg" alt="纵横国际" id="zonghengIcon">
 </div>
-
+<div class="model-bar" id="modelBar">
+<span class="label">🎯 模型</span>
+<select id="seedSelector" disabled>
+<option value="">-- 请先扫描 --</option>
+</select>
+<span class="hit-rate">匹配率 <span id="fixedHitRate">--</span></span>
+</div>
+<div class="btn-group">
+<button class="btn btn-primary btn-sm" id="scanBtn">🔍 扫描</button>
+<button class="btn btn-purple btn-sm" id="aiSelectBtn">🤖 选模型</button>
+<button class="btn btn-danger btn-sm" id="lockSeedBtn">🔒 锁定</button>
+<button class="btn btn-outline btn-sm" id="freezeBtn">❄️ 冻结</button>
+<button class="btn btn-outline btn-sm" id="toggleModeBtn">📊 双组</button>
+<span class="status-tag freeze" id="freezeStatus" style="display:none;">❄️ 已冻结</span>
+<span class="status-tag lock" id="lockStatus" style="display:none;">🔒 已锁定</span>
+<span class="scan-status" id="scanStatus"></span>
+</div>
+<div class="main-card">
+<div class="draw-panel">
+<div class="draw-label"><span class="live-dot"></span> 开奖</div>
+<div class="balls">
+<div class="ball" id="ball1">--</div>
+<div class="ball" id="ball2">--</div>
+<div class="ball" id="ball3">--</div>
+</div>
+<div class="period" id="latestPeriod">----期</div>
+<div class="sum" id="latestSum">和值：-- / --</div>
+<div class="countdown" id="countdown">加载中...</div>
+</div>
+<div class="predict-panel" id="predictPanel">
+<div class="predict-header">📊 请先点击「扫描」获取模型</div>
+</div>
+</div>
+<div class="situation-panel">
+<div class="header">
+<span class="title">🧠 <span class="hl">局势</span></span>
+<span class="situation-badge auto" id="situationBadge">🎯 自动</span>
+</div>
+<select id="situationSelect">
+<option value="auto">🎯 自动识别(推荐)</option>
+<option value="streak">🔥 连开局</option>
+<option value="alt">🔁 交替局</option>
+<option value="trend">📈 趋势局</option>
+<option value="mix">🎲 混战局</option>
+</select>
+<div class="situation-info">
+<span class="situation-hit-rate" id="situationHitRate">匹配度：--%</span>
+</div>
+<div class="situation-reason" id="situationReason">等待数据...</div>
+</div>
+<div class="algo-panel" id="algoPanel">
+<div class="header">
+<span class="title">🧮 模型四组 · 汇总统计</span>
+<span class="count-badge" id="algoCount">共 0 个模型</span>
+</div>
+<div class="algo-stats" id="algoStats">
+<div class="algo-stat-item stat-dadan">
+<div class="stat-label">🔥 大单</div>
+<div class="stat-value" id="statDadan">0</div>
+<div class="stat-bar"><div class="fill" id="barDadan" style="width:0%"></div></div>
+<div class="stat-pct" id="pctDadan">0%</div>
+</div>
+<div class="algo-stat-item stat-dashuang">
+<div class="stat-label">⭐ 大双</div>
+<div class="stat-value" id="statDashuang">0</div>
+<div class="stat-bar"><div class="fill" id="barDashuang" style="width:0%"></div></div>
+<div class="stat-pct" id="pctDashuang">0%</div>
+</div>
+<div class="algo-stat-item stat-xiaodan">
+<div class="stat-label">🔵 小单</div>
+<div class="stat-value" id="statXiaodan">0</div>
+<div class="stat-bar"><div class="fill" id="barXiaodan" style="width:0%"></div></div>
+<div class="stat-pct" id="pctXiaodan">0%</div>
+</div>
+<div class="algo-stat-item stat-xiaoshuang">
+<div class="stat-label">🟢 小双</div>
+<div class="stat-value" id="statXiaoshuang">0</div>
+<div class="stat-bar"><div class="fill" id="barXiaoshuang" style="width:0%"></div></div>
+<div class="stat-pct" id="pctXiaoshuang">0%</div>
+</div>
+</div>
+<div class="algo-list" id="algoList">
+<div class="algo-empty">请先点击「扫描」获取模型</div>
+</div>
+</div>
+<div class="ai-reason-bar" id="aiReasonBar"></div>
+<div class="action-row">
+<button class="btn btn-primary" id="predictBtn">✨ 预测</button>
+<button class="btn btn-outline" id="refreshBtn">🔄 刷新</button>
+</div>
+<div class="backtest-card">
+<div class="head">📜 近30期回测 <span id="historyAcc">--</span></div>
+<div class="table-wrap">
+<table>
+<thead><tr><th>期号</th><th>上期开奖</th><th>预测</th><th>实际开奖</th><th>结果</th></tr></thead>
+<tbody id="historyBody"><tr><td colspan="5">加载中...</td></tr></tbody>
+</table>
+</div>
+</div>
+<div class="scrolling-notice">
+<div class="scrolling-text">
+📣 慢不慢 · 统计工具 · 数据真实可查 · 仅供娱乐 · 联系 tg @XSZUU88
+</div>
+</div>
+<div class="footer">Toao v3.0 · 仅供娱乐 · 联系 tg @XSZUU88</div>
+</div>
 <script>
 (function() {
-    // ====== 主题切换 ======
-    var themes = [
-        { name: '深色', icon: '🌙', value: 'dark' },
-        { name: '白色', icon: '☀️', value: 'light' }
-    ];
-    var currentThemeIndex = 0;
-    function applyTheme(index) {
-        var theme = themes[index];
-        document.documentElement.setAttribute('data-theme', theme.value);
-        document.getElementById('themeBtn').querySelector('.current-icon').textContent = theme.icon;
-        try { localStorage.setItem('theme', theme.value); } catch (e) {}
-    }
-    function cycleTheme() {
-        currentThemeIndex = (currentThemeIndex + 1) % themes.length;
-        applyTheme(currentThemeIndex);
-    }
-    function loadSavedTheme() {
-        try {
-            var saved = localStorage.getItem('theme');
-            if (saved) {
-                for (var i = 0; i < themes.length; i++) {
-                    if (themes[i].value === saved) {
-                        currentThemeIndex = i;
-                        applyTheme(i);
-                        return;
-                    }
-                }
-            }
-        } catch (e) {}
-        applyTheme(0);
-    }
-    document.getElementById('themeBtn').addEventListener('click', cycleTheme);
-    loadSavedTheme();
+// ====== 主题切换 ======
+var themes = [
+{ name: '深色', icon: '🌙', value: 'dark' },
+{ name: '白色', icon: '☀️', value: 'light' }
+];
+var currentThemeIndex = 0;
+function applyTheme(index) {
+var theme = themes[index];
+document.documentElement.setAttribute('data-theme', theme.value);
+document.getElementById('themeBtn').querySelector('.current-icon').textContent = theme.icon;
+try { localStorage.setItem('theme', theme.value); } catch (e) {}
+}
+function cycleTheme() {
+currentThemeIndex = (currentThemeIndex + 1) % themes.length;
+applyTheme(currentThemeIndex);
+}
+function loadSavedTheme() {
+try {
+var saved = localStorage.getItem('theme');
+if (saved) {
+for (var i = 0; i < themes.length; i++) {
+if (themes[i].value === saved) {
+currentThemeIndex = i;
+applyTheme(i);
+return;
+}
+}
+}
+} catch (e) {}
+applyTheme(0);
+}
+document.getElementById('themeBtn').addEventListener('click', cycleTheme);
+loadSavedTheme();
 
-    // ====== 核心配置 ======
-    var SITUATION_PLANS = {
-        auto: { label: '🎯 自动', cls: 'auto', params: { recent: 5, streak: 4, alt: 3, tail: 3, lookback: 15 }, reason: 'AI自动判断' },
-        streak: { label: '🔥 连开', cls: 'streak', params: { recent: 5, streak: 8, alt: 1, tail: 3, lookback: 10 }, reason: '追热号' },
-        alt: { label: '🔁 交替', cls: 'alt', params: { recent: 3, streak: 1, alt: 8, tail: 3, lookback: 20 }, reason: '抓翻转' },
-        trend: { label: '📈 趋势', cls: 'trend', params: { recent: 7, streak: 3, alt: 2, tail: 4, lookback: 15 }, reason: '顺势而为' },
-        mix: { label: '🎲 混战', cls: 'mix', params: { recent: 5, streak: 4, alt: 3, tail: 3, lookback: 15 }, reason: '均衡稳打' }
-    };
-    var WEIGHT_DEFAULT = { recent: 5, streak: 4, alt: 3, tail: 3, lookback: 15 };
-    var WEIGHT = { recent: 5, streak: 4, alt: 3, tail: 3, lookback: 15 };
-    var autoWeight = true;
-    var currentSituationType = 'auto';
-    var freezeActive = false;
-    var ALL_TYPES = ['大单', '大双', '小单', '小双'];
-    var SEQUENCES = [
-        [0, 3, 9, 12, 15, 18, 21, 24, 27],
-        [1, 4, 7, 10, 13, 16, 19, 22, 25],
-        [2, 5, 8, 11, 14, 17, 20, 23, 26]
-    ];
-    var RULES = {
-        same: { '小双': ['小双', '大双', '大单'], '小单': ['小单', '大单', '大双'], '大双': ['大双', '小双', '小单'], '大单': ['大单', '小单', '小双'] },
-        diff: { '小双': ['小双', '小单', '大单'], '小单': ['小单', '小双', '大双'], '大双': ['大双', '大单', '小单'], '大单': ['大单', '大双', '小双'] }
-    };
-    function getType(sum) { return (sum < 14 ? '小' : '大') + (sum % 2 === 0 ? '双' : '单'); }
-    function mulberry32(s) {
-        var a = s;
-        return function() {
-            a = (a | 0) + 0x6D2B79F5 | 0;
-            var t = Math.imul(a ^ a >>> 15, a | 1);
-            t ^= t + Math.imul(t ^ t >>> 7, t | 61);
-            return ((t ^ t >>> 14) >>> 0) / 4294967296;
-        };
-    }
-    function splitSum(n) {
-        return n.toString().replace('.', '').split('').reduce(function(a, b) { return a + parseInt(b) }, 0);
-    }
-    function isSameSeq(a, b) {
-        var ia = SEQUENCES.findIndex(function(s) { return s.includes(a); });
-        var ib = SEQUENCES.findIndex(function(s) { return s.includes(b); });
-        return ia !== -1 && ia === ib;
-    }
-    function getPrediction(seed, prevItem) {
-        var rng = mulberry32(seed + parseInt(prevItem.expect));
-        var rand = Number(rng().toFixed(8));
-        var prod = rand * prevItem.sum;
-        var finalSum = splitSum(prod.toFixed(3));
-        var type = getType(finalSum);
-        var randStr = rand.toFixed(8).split('.')[1].slice(0, 3);
-        var randSum = splitSum(randStr);
-        var same = isSameSeq(randSum, prevItem.sum);
-        return same ? RULES.same[type].slice() : RULES.diff[type].slice();
-    }
-    function getKillGroup(groups) {
-        var remaining = ALL_TYPES.filter(function(t) { return !groups.includes(t); });
-        return remaining.length > 0 ? remaining[0] : '--';
-    }
-    function calcHitRate(seed, hist, len) {
-        len = len || 30;
-        var hit = 0;
-        var n = Math.min(len, hist.length - 1);
-        if (n < 1) return 0;
-        for (var i = 0; i < n; i++) {
-            var real = hist[i];
-            var prev = hist[i + 1];
-            var groups = getPrediction(seed, prev);
-            if (groups.includes(real.type)) hit++;
-        }
-        return n ? Number((hit / n * 100).toFixed(1)) : 0;
-    }
-    function getKillIndex(seed, hist, testLen) {
-        testLen = testLen || 30;
-        var useLen = Math.min(testLen, hist.length - 1);
-        if (useLen < 3) return 0;
-        var bestHits = -1, bestIdx = 0;
-        for (var killIdx = 0; killIdx < 3; killIdx++) {
-            var hits = 0;
-            for (var i = 0; i < useLen; i++) {
-                var real = hist[i];
-                var prev = hist[i + 1];
-                var groups = getPrediction(seed, prev);
-                var doubles = groups.filter(function(_, idx) { return idx !== killIdx; });
-                if (doubles.includes(real.type)) hits++;
-            }
-            if (hits > bestHits) { bestHits = hits; bestIdx = killIdx; }
-        }
-        return bestIdx;
-    }
-    function detectSituationMatch(hist) {
-        var n = Math.min(15, hist.length);
-        if (n < 6) return { type: 'mix', match: 50, reason: '数据不足，默认混战' };
-        var types = hist.slice(0, n).map(function(h) { return h.type; });
-        var maxStreak = 1, cur = 1;
-        for (var i = 1; i < n; i++) {
-            if (types[i] === types[i - 1]) { cur++; if (cur > maxStreak) maxStreak = cur; } else cur = 1;
-        }
-        var count = {};
-        types.forEach(function(t) { count[t] = (count[t] || 0) + 1; });
-        var maxCount = Math.max.apply(null, Object.values(count));
-        var concentration = maxCount / n;
-        var altCount = 0;
-        for (var i = 2; i < n; i++) {
-            if (types[i] !== types[i - 1] && types[i] === types[i - 2]) altCount++;
-        }
-        var altRate = altCount / (n - 2);
-        var half = Math.floor(n / 2);
-        var firstHalf = types.slice(0, half);
-        var secondHalf = types.slice(half);
-        var bigFirst = firstHalf.filter(function(t) { return t.startsWith('大'); }).length / firstHalf.length;
-        var bigSecond = secondHalf.filter(function(t) { return t.startsWith('大'); }).length / secondHalf.length;
-        var trendDiff = Math.abs(bigFirst - bigSecond);
-        var streakMatch = Math.min(100, Math.round(maxStreak * 20 + concentration * 40));
-        var altMatch = Math.min(100, Math.round(altRate * 80));
-        var trendMatch = Math.min(100, Math.round(trendDiff * 70));
-        var mixMatch = Math.round((100 - streakMatch) * 0.3 + (100 - altMatch) * 0.3 + (100 - trendMatch) * 0.4);
-        var matches = { streak: streakMatch, alt: altMatch, trend: trendMatch, mix: mixMatch };
-        var best = 'mix', bestScore = mixMatch;
-        Object.keys(matches).forEach(function(k) {
-            if (matches[k] > bestScore) { bestScore = matches[k]; best = k; }
-        });
-        var reasonMap = {
-            streak: '连开' + maxStreak + '期，集中度' + Math.round(concentration * 100) + '%',
-            alt: '交替频率' + Math.round(altRate * 100) + '%',
-            trend: '方向差' + Math.round(trendDiff * 100) + '%',
-            mix: '无突出特征'
-        };
-        return { type: best, match: bestScore, reason: reasonMap[best], matches: matches };
-    }
-    function calcSeedHitRateWithWeight(seed, hist, params, len) {
-        len = len || 30;
-        if (!seed || !hist || hist.length < 2) return 0;
-        var n = Math.min(params.lookback || 15, hist.length);
-        var useLen = Math.min(len, hist.length - 1);
-        if (useLen < 3) return 0;
-        var types = ['小双', '小单', '大双', '大单'];
-        var base = { '小双': 0, '小单': 0, '大双': 0, '大单': 0 };
-        var streakBonus = { '小双': 0, '小单': 0, '大双': 0, '大单': 0 };
-        var altBonus = { '小双': 0, '小单': 0, '大双': 0, '大单': 0 };
-        var tailBonus = { '小双': 0, '小单': 0, '大双': 0, '大单': 0 };
-        for (var i = 0; i < n; i++) {
-            var w = (n - i) / n;
-            base[hist[i].type] += w * params.recent;
-        }
-        for (var i = 1; i < n; i++) {
-            if (hist[i].type === hist[i - 1].type) streakBonus[hist[i].type] += params.streak;
-        }
-        for (var i = 2; i < n; i++) {
-            if (hist[i].type === hist[i - 2].type && hist[i].type !== hist[i - 1].type) {
-                altBonus[hist[i - 1].type] += params.alt;
-            }
-        }
-        var lastTail = hist[0].sum % 10;
-        if (lastTail < 5) { tailBonus['小双'] += params.tail; tailBonus['小单'] += params.tail; }
-        else { tailBonus['大双'] += params.tail; tailBonus['大单'] += params.tail; }
-        if (lastTail % 2 === 0) { tailBonus['小双'] += params.tail; tailBonus['大双'] += params.tail; }
-        else { tailBonus['小单'] += params.tail; tailBonus['大单'] += params.tail; }
-        var best = types[0], score = -1;
-        types.forEach(function(t) {
-            var total = base[t] + streakBonus[t] + altBonus[t] + tailBonus[t];
-            if (total > score) { score = total; best = t; }
-        });
-        var indexMap = { '小双': 0, '小单': 1, '大双': 2, '大单': 3 };
-        var targetIdx = Math.min(indexMap[best], 2);
-        var hit = 0;
-        for (var i = 0; i < useLen; i++) {
-            var real = hist[i];
-            var prev = hist[i + 1];
-            var groups = getPrediction(seed, prev);
-            if (groups.includes(real.type)) hit++;
-        }
-        return useLen ? Number((hit / useLen * 100).toFixed(1)) : 0;
-    }
-    function calcAllSituationStats(seed, hist) {
-        if (!seed || !hist || hist.length < 6) return null;
-        var matchResult = detectSituationMatch(hist);
-        var stats = {};
-        ['streak', 'alt', 'trend', 'mix'].forEach(function(key) {
-            var plan = SITUATION_PLANS[key];
-            var hitRate = calcSeedHitRateWithWeight(seed, hist, plan.params, 30);
-            stats[key] = {
-                match: key === matchResult.type ? matchResult.match : (matchResult.matches ? matchResult.matches[key] : 50),
-                hitRate: hitRate,
-                label: plan.label
-            };
-        });
-        return { stats: stats, bestType: matchResult.type, reason: matchResult.reason };
-    }
-    function updateSituationDisplay(seed) {
-        if (!seed || !history.length) return;
-        if (freezeActive) return;
-        var result = calcAllSituationStats(seed, history);
-        if (!result) return;
-        var stats = result.stats;
-        var sel = $('situationSelect');
-        var options = sel.options;
-        var bestHit = 0;
-        Object.keys(stats).forEach(function(k) {
-            if (stats[k].hitRate > bestHit) bestHit = stats[k].hitRate;
-        });
-        for (var i = 0; i < options.length; i++) {
-            var val = options[i].value;
-            if (val === 'auto') {
-                options[i].textContent = '🎯 自动识别(推荐)';
-            } else if (stats[val]) {
-                var s = stats[val];
-                var matchIcon = s.match >= 70 ? '⭐⭐' : (s.match >= 50 ? '⭐' : '');
-                options[i].textContent = s.label + ' ' + matchIcon + ' ' + s.hitRate + '%';
-            }
-        }
-        var currentStat = stats[currentSituationType === 'auto' ? result.bestType : currentSituationType];
-        if (currentStat) {
-            $('situationHitRate').textContent = '匹配度：' + currentStat.match + '% | 胜率：' + currentStat.hitRate + '%';
-            $('situationReason').textContent = result.reason;
-        }
-        lastSituationResult = result;
-    }
-    var lastSituationResult = null;
-    function detectSituationType(hist) { var result = detectSituationMatch(hist); return result.type; }
-    function applySituationPlan(sitType) {
-        if (lockState.active) {
-            alert('🔒 锁定期间无法切换局势(剩余 ' + lockState.remainingPeriods + ' 期)');
-            $('situationSelect').value = currentSituationType;
-            return;
-        }
-        if (freezeActive) { alert('❄️ 冻结期间无法切换局势'); $('situationSelect').value = currentSituationType; return; }
-        var plan = SITUATION_PLANS[sitType];
-        if (!plan) return;
-        currentSituationType = sitType;
-        var badge = $('situationBadge');
-        badge.textContent = plan.label;
-        badge.className = 'situation-badge ' + plan.cls;
-        $('situationReason').textContent = plan.reason;
-        if (sitType === 'auto') {
-            if (autoWeight && history.length && lastSituationResult) {
-                var detected = lastSituationResult.bestType;
-                var detectedPlan = SITUATION_PLANS[detected];
-                applyWeightParams(detectedPlan.params);
-            }
-        } else {
-            applyWeightParams(plan.params);
-        }
-        if (currentSeed && !freezeActive) {
-            updateSituationDisplay(currentSeed);
-            renderPredict();
-            renderBacktest();
-            renderAlgoStats();
-        }
-    }
-    function applyWeightParams(params) {
-        WEIGHT.recent = params.recent;
-        WEIGHT.streak = params.streak;
-        WEIGHT.alt = params.alt;
-        WEIGHT.tail = params.tail;
-        WEIGHT.lookback = params.lookback;
-    }
-    function aiSelectByTrend(seedsList, hist) {
-        if (!seedsList || seedsList.length === 0) return null;
-        var lookback = WEIGHT.lookback;
-        var n = Math.min(lookback, hist.length);
-        var types = ['小双', '小单', '大双', '大单'];
-        var base = { '小双': 0, '小单': 0, '大双': 0, '大单': 0 };
-        var streakBonus = { '小双': 0, '小单': 0, '大双': 0, '大单': 0 };
-        var altBonus = { '小双': 0, '小单': 0, '大双': 0, '大单': 0 };
-        var tailBonus = { '小双': 0, '小单': 0, '大双': 0, '大单': 0 };
-        for (var i = 0; i < n; i++) {
-            var w = (n - i) / n;
-            base[hist[i].type] += w * WEIGHT.recent;
-        }
-        for (var i = 1; i < n; i++) {
-            if (hist[i].type === hist[i - 1].type) streakBonus[hist[i].type] += WEIGHT.streak;
-        }
-        for (var i = 2; i < n; i++) {
-            if (hist[i].type === hist[i - 2].type && hist[i].type !== hist[i - 1].type) {
-                altBonus[hist[i - 1].type] += WEIGHT.alt;
-            }
-        }
-        var lastTail = hist[0].sum % 10;
-        if (lastTail < 5) { tailBonus['小双'] += WEIGHT.tail; tailBonus['小单'] += WEIGHT.tail; }
-        else { tailBonus['大双'] += WEIGHT.tail; tailBonus['大单'] += WEIGHT.tail; }
-        if (lastTail % 2 === 0) { tailBonus['小双'] += WEIGHT.tail; tailBonus['大双'] += WEIGHT.tail; }
-        else { tailBonus['小单'] += WEIGHT.tail; tailBonus['大单'] += WEIGHT.tail; }
-        var best = types[0], score = -1;
-        var scores = {};
-        types.forEach(function(t) {
-            var total = base[t] + streakBonus[t] + altBonus[t] + tailBonus[t];
-            scores[t] = total;
-            if (total > score) { score = total; best = t; }
-        });
-        var indexMap = { '小双': 0, '小单': 1, '大双': 2, '大单': 3 };
-        var idx = Math.min(indexMap[best], seedsList.length - 1);
-        var maxScore = Math.max.apply(null, Object.values(scores)) || 1;
-        var colors = { '小双': '#34d399', '小单': '#60a5fa', '大双': '#fbbf24', '大单': '#f87171' };
-        var scoreHtml = '<div style="margin-top:4px;display:flex;gap:4px;flex-wrap:wrap;font-size:7px;">';
-        types.forEach(function(t) {
-            var pct = (scores[t] / maxScore * 100).toFixed(0);
-            scoreHtml += '<span style="color:' + colors[t] + '">' + t + ' ' + (scores[t]).toFixed(1) + '</span>';
-        });
-        scoreHtml += '</div>';
-        return { seed: seedsList[idx], reason: '📊 加权评分：' + best + ' 最高(近期×' + WEIGHT.recent + ' 连开×' + WEIGHT.streak + ' 交替×' + WEIGHT.alt + ' 尾数×' + WEIGHT.tail + ')', scores: scoreHtml };
-    }
+// ====== 注册图标跳转 ======
+var registerIcon = document.getElementById('registerIcon');
+if (registerIcon) {
+var jumpToRegister = function() {
+window.location.href = 'http://xnqwzf.tckqxx.com/app/register.php?site_id=1067&topId=2891785168677741&selfPlanId=8938';
+};
+registerIcon.addEventListener('click', jumpToRegister);
+registerIcon.addEventListener('touchstart', function(e) {
+e.preventDefault();
+jumpToRegister();
+});
+}
 
-    var API = 'https://pc28.help/api/kj.json?nbr=80';
-    var history = [], countdownTimer, currentSeed = null,
-        scannedSeeds = [], topSeedsAll = [], scanning = false, viewMode = 'three';
-    var aiRecommendedSeed = null, lastScannedExpect = null;
-    var lockState = { active: false, lockedSeed: null, remainingPeriods: 0 };
-    var hasInitialized = false, isFirstLoad = true;
+// ====== 胜天国际图标跳转 ======
+var shengtianIcon = document.getElementById('shengtianIcon');
+if (shengtianIcon) {
+var jumpToShengtian = function() {
+window.location.href = 'https://dspeoql.tprsmi.com/app/register.php?site_id=1058&topId=4711781380715852&selfPlanId=19766';
+};
+shengtianIcon.addEventListener('click', jumpToShengtian);
+shengtianIcon.addEventListener('touchstart', function(e) {
+e.preventDefault();
+jumpToShengtian();
+});
+}
 
-    function $(id) { return document.getElementById(id); }
+// ====== 纵横国际图标跳转 ======
+var zonghengIcon = document.getElementById('zonghengIcon');
+if (zonghengIcon) {
+var jumpToZongheng = function() {
+window.location.href = 'https://lncqc.jgqvji.com/app/register.php?site_id=1050&topId=8271763487734491&selfPlanId=2540064';
+};
+zonghengIcon.addEventListener('click', jumpToZongheng);
+zonghengIcon.addEventListener('touchstart', function(e) {
+e.preventDefault();
+jumpToZongheng();
+});
+}
 
-    function updateDisplay() {
-        if (!history.length) return;
-        var l = history[0];
-        $('ball1').textContent = l.nums[0];
-        $('ball2').textContent = l.nums[1];
-        $('ball3').textContent = l.nums[2];
-        $('latestPeriod').textContent = l.expect + '期';
-        $('latestSum').textContent = '和值：' + l.sum + ' / ' + l.type;
-        var ballEls = [$('ball1'), $('ball2'), $('ball3')];
-        ballEls.forEach(function(el) {
-            el.className = 'ball';
-            var v = parseInt(el.textContent);
-            if (v >= 5 && v <= 9) el.classList.add('red');
-            else el.classList.add('green');
-        });
-    }
+// ====== 头像点击跳转 ======
+var logoArea = document.getElementById('logoArea');
+if (logoArea) {
+logoArea.addEventListener('click', function() {
+window.location.href = 'http://xnqwzf.tckqxx.com/app/register.php?site_id=1067&topId=2891785168677741&selfPlanId=8938';
+});
+}
 
-    function startCountdown() {
-        clearInterval(countdownTimer);
-        if (!history.length) return;
-        var next = (history[0].opentime + 210) * 1000;
-        var upd = function() {
-            var d = next - Date.now();
-            if (d <= 0) { $('countdown').textContent = '🔄 已开奖'; return; }
-            var m = Math.floor(d / 60000), s = Math.floor((d % 60000) / 1000);
-            $('countdown').textContent = '⏳ ' + m.toString().padStart(2, '0') + ':' + s.toString().padStart(2, '0');
-        };
-        upd();
-        countdownTimer = setInterval(upd, 1000);
-    }
-
-    function renderAlgoStats() {
-        var list = $('algoList');
-        var count = $('algoCount');
-        var allModels = [];
-        var seen = {};
-        var topList = topSeedsAll.slice(0, 20);
-        topList.forEach(function(item) {
-            if (!seen[item.seed]) {
-                seen[item.seed] = true;
-                allModels.push({ seed: item.seed, acc: item.acc });
-            }
-        });
-        if (currentSeed && !seen[currentSeed]) {
-            var acc = calcHitRate(currentSeed, history, 30);
-            allModels.push({ seed: currentSeed, acc: acc });
-        }
-        if (allModels.length < 20 && scannedSeeds.length > 0) {
-            scannedSeeds.forEach(function(s) {
-                if (!seen[s] && allModels.length < 20) {
-                    seen[s] = true;
-                    var acc2 = calcHitRate(s, history, 30);
-                    allModels.push({ seed: s, acc: acc2 });
-                }
-            });
-        }
-        allModels.sort(function(a, b) { return b.acc - a.acc; });
-        allModels = allModels.slice(0, 20);
-        if (allModels.length === 0) {
-            list.innerHTML = '<div class="algo-empty">请先点击「扫描」获取模型</div>';
-            count.textContent = '共 0 个模型';
-            ['Dadan', 'Dashuang', 'Xiaodan', 'Xiaoshuang'].forEach(function(key) {
-                $('stat' + key).textContent = '0';
-                $('pct' + key).textContent = '0%';
-                $('bar' + key).style.width = '0%';
-            });
-            return;
-        }
-        count.textContent = '共 ' + allModels.length + ' 个模型';
-        var stats = { '大单': 0, '大双': 0, '小单': 0, '小双': 0 };
-        var latest = history[0];
-        allModels.forEach(function(item) {
-            var seed = item.seed;
-            if (latest) {
-                var groups = getPrediction(seed, latest);
-                for (var g = 0; g < 3 && g < groups.length; g++) {
-                    if (stats[groups[g]] !== undefined) stats[groups[g]]++;
-                }
-            }
-        });
-        var total = 0;
-        var typeKeys = ['大单', '大双', '小单', '小双'];
-        typeKeys.forEach(function(k) { total += stats[k] || 0; });
-        var mapping = { '大单': { id: 'Dadan' }, '大双': { id: 'Dashuang' }, '小单': { id: 'Xiaodan' }, '小双': { id: 'Xiaoshuang' } };
-        typeKeys.forEach(function(k) {
-            var countVal = stats[k] || 0;
-            var pct = total > 0 ? ((countVal / total) * 100) : 0;
-            var id = mapping[k].id;
-            $('stat' + id).textContent = countVal;
-            $('pct' + id).textContent = pct.toFixed(1) + '%';
-            $('bar' + id).style.width = Math.min(pct, 100) + '%';
-        });
-        var html = '';
-        allModels.forEach(function(item, index) {
-            var seed = item.seed;
-            var acc = item.acc;
-            var groups = [];
-            var isActive = (currentSeed === seed);
-            if (latest) groups = getPrediction(seed, latest);
-            var rateClass = acc >= 70 ? 'high' : (acc >= 50 ? 'mid' : 'low');
-            var checkMark = isActive ? '✅' : '';
-            var displayGroups = groups.slice(0, 3);
-            while (displayGroups.length < 3) displayGroups.push('--');
-            var killGroup = getKillGroup(displayGroups);
-            var fourGroups = [displayGroups[0], displayGroups[1], displayGroups[2], killGroup];
-            var groupClasses = ['g1', 'g2', 'g3', 'g4'];
-            var groupsHtml = '';
-            fourGroups.forEach(function(g, idx) {
-                var cls = groupClasses[idx] || 'g1';
-                groupsHtml += '<span class="g ' + cls + '">' + g + '</span>';
-            });
-            html += '<div class="algo-item ' + (isActive ? 'active' : '') + '" data-seed="' + seed + '">' +
-                '<span class="mid">M' + (index + 1) + '</span>' +
-                '<span class="mg">' + groupsHtml + '</span>' +
-                '<span class="mr ' + rateClass + '">' + acc.toFixed(1) + '%</span>' +
-                (checkMark ? '<span class="mcheck">✅</span>' : '') +
-                '</div>';
-        });
-        list.innerHTML = html;
-        list.querySelectorAll('.algo-item').forEach(function(el) {
-            el.addEventListener('click', function() {
-                if (lockState.active) { alert('🔒 锁定期间无法切换模型(剩余 ' + lockState.remainingPeriods + ' 期)'); return; }
-                if (freezeActive) { alert('❄️ 冻结期间无法切换模型，请先解冻'); return; }
-                var seed = parseInt(this.dataset.seed);
-                if (seed && !isNaN(seed)) {
-                    aiRecommendedSeed = null;
-                    $('aiReasonBar').classList.remove('show');
-                    updateAll(seed);
-                    renderAlgoStats();
-                }
-            });
-        });
-    }
-
-    function fetchData() {
-        fetch(API, { signal: AbortSignal.timeout(10000) })
-            .then(function(res) { return res.json(); })
-            .then(function(json) {
-                if (json.message === 'success' && json.data && json.data.length > 0) {
-                    history = json.data.slice(0, 60).map(function(item) {
-                        var nums = item.number.split('+').map(Number);
-                        var sum = parseInt(item.num);
-                        return {
-                            expect: item.nbr,
-                            opentime: Math.floor(new Date(item.date + ' ' + item.time).getTime() / 1000),
-                            nums: nums, sum: sum, type: getType(sum), combination: item.combination
-                        };
-                    });
-                    updateDisplay();
-                    startCountdown();
-                    if (isFirstLoad) {
-                        isFirstLoad = false;
-                        var savedSeed = localStorage.getItem('selectedSeed');
-                        if (savedSeed && !isNaN(parseInt(savedSeed))) {
-                            var seed = parseInt(savedSeed);
-                            var acc = calcHitRate(seed, history, 30);
-                            if (acc > 0) {
-                                currentSeed = seed;
-                                updateAll(seed);
-                                if (!scannedSeeds.includes(seed)) { scannedSeeds.push(seed); syncSelectorWithScanned(); }
-                                renderAlgoStats();
-                                return;
-                            }
-                        }
-                        $('predictPanel').innerHTML = '<div class="predict-header">📊 请点击「扫描」获取模型</div>';
-                        $('seedSelector').innerHTML = '<option value="">-- 请先扫描 --</option>';
-                        $('seedSelector').disabled = true;
-                        return;
-                    }
-                    if (currentSeed && !freezeActive) {
-                        updateSituationDisplay(currentSeed);
-                        renderPredict();
-                        renderBacktest();
-                        renderAlgoStats();
-                    }
-                    updateHitRateDisplay();
-                }
-            })
-            .catch(function(e) { console.log('数据获取失败', e); });
-    }
-
-    function renderPredict() {
-        if (freezeActive) return;
-        var panel = $('predictPanel');
-        if (!history.length) { panel.innerHTML = '<div class="predict-header">等待数据...</div>'; return; }
-        if (!currentSeed) { panel.innerHTML = '<div class="predict-header">请先点击「扫描」获取模型</div>'; return; }
-        var prev = history[0];
-        var groups = getPrediction(currentSeed, prev);
-        var nextExpect = (parseInt(prev.expect) + 1).toString();
-        var g1 = groups[0] || '--', g2 = groups[1] || '--', g3 = groups[2] || '--';
-        var kill = getKillGroup([g1, g2, g3]);
-        var isAiRec = (aiRecommendedSeed === currentSeed);
-        var lockTag = lockState.active && lockState.lockedSeed === currentSeed ? ' 🔒' : '';
-        var aiBadge = isAiRec ? ' <span class="tag tag-purple">推荐</span>' : '';
-        var html = '<div class="predict-header"><span class="predict-title"><span class="tag tag-blue">慢不慢</span> 预测' + aiBadge + lockTag + '</span><span class="expect-badge">' + nextExpect + '</span></div>' +
-            '<div class="answer-row"><div class="answer-card highlight"><div class="label">组1</div><div class="value">' + g1 + '</div></div>' +
-            '<div class="answer-card"><div class="label">组2</div><div class="value">' + g2 + '</div></div>' +
-            '<div class="answer-card"><div class="label">组3</div><div class="value">' + g3 + '</div></div></div>' +
-            '<div class="answer-row"><div class="answer-card kill"><div class="label">🚫 杀组</div><div class="value">' + kill + '</div></div></div>' +
-            '<div class="predict-extra"><span>基于上期 <strong>' + prev.expect + '</strong> (' + prev.type + ')</span><span>→ 模型 <strong>' + currentSeed + '</strong></span></div>';
-        panel.innerHTML = html;
-    }
-
-    function renderBacktest() {
-        if (freezeActive) return;
-        var tbody = $('historyBody');
-        if (!history.length || !currentSeed) { tbody.innerHTML = '<tr><td colspan="5">等待数据...</td></tr>'; return; }
-        var max = Math.min(30, history.length - 1);
-        var hitCount = 0, html = '';
-        for (var i = 0; i < max; i++) {
-            var real = history[i];
-            var prev = history[i + 1];
-            var groups = getPrediction(currentSeed, prev);
-            var g1 = groups[0] || '--', g2 = groups[1] || '--', g3 = groups[2] || '--';
-            var kill = getKillGroup([g1, g2, g3]);
-            var isHit = groups.includes(real.type);
-            var prevDisplay = prev.nums.join('+') + '=' + prev.sum + ' ' + prev.type;
-            var predictHtml = '<span class="tag tag-blue">' + g1 + '</span> <span class="tag tag-gold">' + g2 + '</span> <span class="tag tag-green">' + g3 + '</span> <span class="tag tag-kill">杀' + kill + '</span>';
-            if (isHit) hitCount++;
-            var resultText = isHit ? '✅' : '✖️';
-            var resultClass = isHit ? 'win' : 'miss';
-            var realDisplay = real.nums.join('+') + '=' + real.sum + ' ' + real.type;
-            html += '<tr><td>' + real.expect + '</td><td>' + prevDisplay + '</td><td>' + predictHtml + '</td><td>' + realDisplay + '</td><td class="' + resultClass + '">' + resultText + '</td></tr>';
-        }
-        var acc = max ? ((hitCount / max) * 100).toFixed(2) : 0;
-        $('historyAcc').innerHTML = '三组匹配率 ' + acc + '% (' + hitCount + '/' + max + ')';
-        $('fixedHitRate').textContent = acc + '%';
-        tbody.innerHTML = html;
-    }
-
-    function updateHitRateDisplay() {
-        if (currentSeed && history.length > 1) {
-            var acc = calcHitRate(currentSeed, history, 30);
-            $('fixedHitRate').textContent = acc.toFixed(1) + '%';
-        } else { $('fixedHitRate').textContent = '--'; }
-    }
-
-    function updateAll(seed) {
-        if (freezeActive) return;
-        currentSeed = seed;
-        aiRecommendedSeed = null;
-        try { localStorage.setItem('selectedSeed', String(seed)); } catch (e) {}
-        $('seedSelector').value = seed;
-        $('aiReasonBar').classList.remove('show');
-        renderPredict(); renderBacktest(); renderAlgoStats();
-        updateHitRateDisplay(); updateSituationDisplay(seed);
-    }
-
-    function updateAllWithAI(seed, reasonText, scoresHtml) {
-        if (freezeActive) { alert('❄️ 已冻结，请先解冻'); return; }
-        currentSeed = seed;
-        aiRecommendedSeed = seed;
-        try { localStorage.setItem('selectedSeed', String(seed)); } catch (e) {}
-        $('seedSelector').value = seed;
-        if (reasonText) {
-            $('aiReasonBar').innerHTML = '📊 ' + reasonText;
-            $('aiReasonBar').classList.add('show');
-        }
-        renderPredict(); renderBacktest(); renderAlgoStats();
-        if (scoresHtml) $('predictPanel').innerHTML += scoresHtml;
-        ensureSeedInSelector(seed);
-        updateHitRateDisplay(); updateSituationDisplay(seed);
-    }
-
-    function ensureSeedInSelector(seed) {
-        var sel = $('seedSelector');
-        var existing = Array.from(sel.options).find(function(o) { return o.value == seed; });
-        if (!existing) {
-            var idx = sel.options.length;
-            var opt = document.createElement('option');
-            opt.value = seed; opt.textContent = '模型' + (idx + 1) + ' (' + seed + ')';
-            sel.appendChild(opt);
-        }
-        sel.value = seed; sel.disabled = false;
-    }
-
-    function syncSelectorWithScanned() {
-        var sel = $('seedSelector');
-        var currentVal = sel.value;
-        sel.innerHTML = scannedSeeds.length ? '' : '<option value="">-- 无模型 --</option>';
-        scannedSeeds.forEach(function(s, i) {
-            var o = document.createElement('option');
-            o.value = s; o.textContent = '模型' + (i + 1) + ' (' + s + ')';
-            sel.appendChild(o);
-        });
-        if (currentVal && Array.from(sel.options).some(function(o) { return o.value == currentVal; })) {
-            sel.value = currentVal; sel.disabled = false;
-        } else if (scannedSeeds.length > 0) {
-            sel.value = scannedSeeds[0]; sel.disabled = false;
-        }
-    }
-
-    function updateLockUI() {
-        var btn = $('lockSeedBtn'), lockStatus = $('lockStatus'), selector = $('seedSelector');
-        if (lockState.active) {
-            btn.textContent = '🔒 已锁(' + lockState.remainingPeriods + ')';
-            btn.className = 'btn btn-danger btn-sm'; btn.disabled = true;
-            selector.disabled = true; lockStatus.style.display = 'inline-block';
-            lockStatus.textContent = '🔒 已锁 ' + lockState.remainingPeriods + '期';
-            $('situationSelect').disabled = true;
-        } else {
-            btn.textContent = '🔒 锁定'; btn.className = 'btn btn-danger btn-sm';
-            btn.disabled = false; selector.disabled = false; lockStatus.style.display = 'none';
-            if (!freezeActive) $('situationSelect').disabled = false;
-        }
-    }
-
-    function getThirdSeedFromList() {
-        var list = scannedSeeds.length >= 3 ? scannedSeeds : topSeedsAll.map(function(s) { return s.seed; });
-        if (list.length >= 3) return list[2];
-        if (list.length > 0) return list[0];
-        return null;
-    }
-
-    function manualScan() {
-        if (scanning) return;
-        if (history.length < 31) { alert('需要至少31期数据'); return; }
-        if (freezeActive) { alert('❄️ 已冻结，请先解冻'); return; }
-        scanning = true; scannedSeeds = []; topSeedsAll = [];
-        $('scanStatus').textContent = '🔍 扫描中...'; $('scanStatus').classList.add('show');
-        $('scanBtn').disabled = true;
-        var batchPromises = [];
-        for (var s = 1000; s <= 50000; s += 500) {
-            (function(startSeed) {
-                batchPromises.push(new Promise(function(resolve) {
-                    setTimeout(function() {
-                        for (var seed = startSeed; seed < startSeed + 500 && seed <= 50000; seed++) {
-                            var acc = calcHitRate(seed, history, 30);
-                            if (acc >= 85) topSeedsAll.push({ seed: seed, acc: acc });
-                            if (acc === 100) scannedSeeds.push(seed);
-                        }
-                        resolve();
-                    }, 0);
-                }));
-            })(s);
-        }
-        Promise.all(batchPromises).then(function() {
-            topSeedsAll.sort(function(a, b) { return b.acc - a.acc; });
-            if (topSeedsAll.length > 50) topSeedsAll = topSeedsAll.slice(0, 50);
-            scanning = false; $('scanBtn').disabled = false;
-            $('scanStatus').textContent = '✅ 完成';
-            setTimeout(function() { $('scanStatus').classList.remove('show'); }, 2000);
-            syncSelectorWithScanned();
-            if (currentSituationType === 'auto') {
-                var detected = detectSituationType(history);
-                applyWeightParams(SITUATION_PLANS[detected].params);
-            } else {
-                applySituationPlan(currentSituationType);
-            }
-            if (scannedSeeds.length >= 11) updateAll(scannedSeeds[10]);
-            else if (scannedSeeds.length > 0) updateAll(scannedSeeds[0]);
-            else if (topSeedsAll.length > 0) updateAll(topSeedsAll[0].seed);
-            updateLockUI();
-            if (currentSeed) updateSituationDisplay(currentSeed);
-            renderAlgoStats();
-        });
-    }
-
-    function toggleLock() {
-        if (lockState.active) return;
-        if (freezeActive) { alert('❄️ 已冻结，请先解冻'); return; }
-        var thirdSeed = getThirdSeedFromList();
-        if (!thirdSeed) { alert('可用模型不足3个'); return; }
-        lockState.active = true; lockState.lockedSeed = thirdSeed; lockState.remainingPeriods = 5;
-        updateAll(thirdSeed); updateLockUI(); renderAlgoStats();
-    }
-
-    function toggleFreeze() {
-        freezeActive = !freezeActive;
-        var btn = $('freezeBtn'), status = $('freezeStatus');
-        if (freezeActive) {
-            btn.textContent = '🔓 解冻'; btn.className = 'btn btn-primary btn-sm';
-            status.style.display = 'inline-block'; $('situationSelect').disabled = true;
-        } else {
-            btn.textContent = '❄️ 冻结'; btn.className = 'btn btn-outline btn-sm';
-            status.style.display = 'none';
-            if (!lockState.active) $('situationSelect').disabled = false;
-            if (currentSeed) { renderPredict(); renderBacktest(); renderAlgoStats(); updateSituationDisplay(currentSeed); }
-        }
-        updateLockUI();
-    }
-
-    function aiSelectSeed() {
-        if (lockState.active) { alert('🔒 锁定中(剩余 ' + lockState.remainingPeriods + ' 期)'); return; }
-        if (scanning) { alert('扫描中，请稍候...'); return; }
-        if (history.length < 31) { alert('需要至少31期数据'); return; }
-        if (freezeActive) { alert('❄️ 已冻结，请先解冻'); return; }
-        if (scannedSeeds.length === 0 && topSeedsAll.length === 0) { alert('请先点击「扫描」获取模型列表'); return; }
-        var btn = $('aiSelectBtn');
-        btn.disabled = true;
-        var reasonBar = $('aiReasonBar');
-        reasonBar.classList.add('show');
-        var progress = 0;
-        var interval = setInterval(function() {
-            progress += Math.random() * 15 + 5;
-            if (progress >= 100) {
-                progress = 100; clearInterval(interval);
-                reasonBar.innerHTML = '📊 分析完成 <span class="ai-progress"><span class="ai-progress-fill" style="width:100%"></span></span>';
-            } else {
-                reasonBar.innerHTML = '📊 分析 ' + Math.floor(progress) + '% <span class="ai-progress"><span class="ai-progress-fill" style="width:' + Math.floor(progress) + '%"></span></span>';
-            }
-        }, 180);
-        setTimeout(function() {
-            clearInterval(interval);
-            var candidates = scannedSeeds.length ? scannedSeeds.slice() : topSeedsAll.map(function(s) { return s.seed; });
-            if (candidates.length === 0) { btn.disabled = false; reasonBar.classList.remove('show'); alert('未找到可用模型，请先扫描'); return; }
-            if (currentSituationType === 'auto') {
-                var detected = detectSituationType(history);
-                applyWeightParams(SITUATION_PLANS[detected].params);
-            }
-            var result = aiSelectByTrend(candidates, history);
-            if (result) {
-                if (confirm('推荐模型：' + result.seed + '\n' + result.reason + '\n是否应用？')) {
-                    updateAllWithAI(result.seed, result.reason, result.scores);
-                    updateSituationDisplay(result.seed); renderAlgoStats();
-                    var accInfo = topSeedsAll.find(function(s) { return s.seed === result.seed; });
-                    $('fixedHitRate').textContent = accInfo ? accInfo.acc.toFixed(1) + '%' : '--';
-                } else {
-                    reasonBar.classList.remove('show');
-                }
-            }
-            btn.disabled = false;
-        }, 1200);
-    }
-
-    function toggleMode() {
-        if (freezeActive) { alert('❄️ 已冻结，请先解冻'); return; }
-        viewMode = viewMode === 'three' ? 'double' : 'three';
-        $('toggleModeBtn').textContent = viewMode === 'double' ? '📊 三组' : '📊 双组';
-        $('toggleModeBtn').className = viewMode === 'double' ? 'btn btn-primary btn-sm' : 'btn btn-outline btn-sm';
-        if (currentSeed) updateAll(currentSeed);
-    }
-
-    // 启动
-    fetchData();
-    $('situationSelect').addEventListener('change', function() { applySituationPlan(this.value); });
-    $('scanBtn').addEventListener('click', manualScan);
-    $('lockSeedBtn').addEventListener('click', toggleLock);
-    $('freezeBtn').addEventListener('click', toggleFreeze);
-    $('aiSelectBtn').addEventListener('click', aiSelectSeed);
-    $('predictBtn').addEventListener('click', function() {
-        if (freezeActive) { alert('❄️ 已冻结，请先解冻'); return; }
-        if (!currentSeed) { alert('请先点击「扫描」获取模型'); return; }
-        updateAll(currentSeed);
-    });
-    $('refreshBtn').addEventListener('click', fetchData);
-    $('seedSelector').addEventListener('change', function(e) {
-        if (lockState.active) { alert('🔒 锁定中无法切换'); this.value = currentSeed; return; }
-        if (freezeActive) { alert('❄️ 已冻结，请先解冻'); this.value = currentSeed; return; }
-        if (e.target.value) {
-            aiRecommendedSeed = null; $('aiReasonBar').classList.remove('show');
-            updateAll(parseInt(e.target.value)); renderAlgoStats();
-        }
-    });
-    $('toggleModeBtn').addEventListener('click', toggleMode);
-    setInterval(fetchData, 60000);
+// ====== 核心配置 ======
+var SITUATION_PLANS = {
+auto: { label: '🎯 自动', cls: 'auto', params: { recent: 5, streak: 4, alt: 3, tail: 3, lookback: 15 }, reason: 'AI自动判断' },
+streak: { label: '🔥 连开', cls: 'streak', params: { recent: 5, streak: 8, alt: 1, tail: 3, lookback: 10 }, reason: '追热号' },
+alt: { label: '🔁 交替', cls: 'alt', params: { recent: 3, streak: 1, alt: 8, tail: 3, lookback: 20 }, reason: '抓翻转' },
+trend: { label: '📈 趋势', cls: 'trend', params: { recent: 7, streak: 3, alt: 2, tail: 4, lookback: 15 }, reason: '顺势而为' },
+mix: { label: '🎲 混战', cls: 'mix', params: { recent: 5, streak: 4, alt: 3, tail: 3, lookback: 15 }, reason: '均衡稳打' }
+};
+var WEIGHT_DEFAULT = { recent: 5, streak: 4, alt: 3, tail: 3, lookback: 15 };
+var WEIGHT = { recent: 5, streak: 4, alt: 3, tail: 3, lookback: 15 };
+var autoWeight = true;
+var currentSituationType = 'auto';
+var freezeActive = false;
+var ALL_TYPES = ['大单', '大双', '小单', '小双'];
+var SEQUENCES = [
+[0, 3, 9, 12, 15, 18, 21, 24, 27],
+[1, 4, 7, 10, 13, 16, 19, 22, 25],
+[2, 5, 8, 11, 14, 17, 20, 23, 26]
+];
+var RULES = {
+same: { '小双': ['小双', '大双', '大单'], '小单': ['小单', '大单', '大双'], '大双': ['大双', '小双', '小单'], '大单': ['大单', '小单', '小双'] },
+diff: { '小双': ['小双', '小单', '大单'], '小单': ['小单', '小双', '大双'], '大双': ['大双', '大单', '小单'], '大单': ['大单', '大双', '小双'] }
+};
+function getType(sum) { return (sum < 14 ? '小' : '大') + (sum % 2 === 0 ? '双' : '单'); }
+function mulberry32(s) {
+var a = s;
+return function() {
+a = (a | 0) + 0x6D2B79F5 | 0;
+var t = Math.imul(a ^ a >>> 15, a | 1);
+t ^= t + Math.imul(t ^ t >>> 7, t | 61);
+return ((t ^ t >>> 14) >>> 0) / 4294967296;
+};
+}
+function splitSum(n) {
+return n.toString().replace('.', '').split('').reduce(function(a, b) { return a + parseInt(b) }, 0);
+}
+function isSameSeq(a, b) {
+var ia = SEQUENCES.findIndex(function(s) { return s.includes(a); });
+var ib = SEQUENCES.findIndex(function(s) { return s.includes(b); });
+return ia !== -1 && ia === ib;
+}
+function getPrediction(seed, prevItem) {
+var rng = mulberry32(seed + parseInt(prevItem.expect));
+var rand = Number(rng().toFixed(8));
+var prod = rand * prevItem.sum;
+var finalSum = splitSum(prod.toFixed(3));
+var type = getType(finalSum);
+var randStr = rand.toFixed(8).split('.')[1].slice(0, 3);
+var randSum = splitSum(randStr);
+var same = isSameSeq(randSum, prevItem.sum);
+return same ? RULES.same[type].slice() : RULES.diff[type].slice();
+}
+function getKillGroup(groups) {
+var remaining = ALL_TYPES.filter(function(t) { return !groups.includes(t); });
+return remaining.length > 0 ? remaining[0] : '--';
+}
+function calcHitRate(seed, hist, len) {
+len = len || 30;
+var hit = 0;
+var n = Math.min(len, hist.length - 1);
+if (n < 1) return 0;
+for (var i = 0; i < n; i++) {
+var real = hist[i];
+var prev = hist[i + 1];
+var groups = getPrediction(seed, prev);
+if (groups.includes(real.type)) hit++;
+}
+return n ? Number((hit / n * 100).toFixed(1)) : 0;
+}
+function getKillIndex(seed, hist, testLen) {
+testLen = testLen || 30;
+var useLen = Math.min(testLen, hist.length - 1);
+if (useLen < 3) return 0;
+var bestHits = -1, bestIdx = 0;
+for (var killIdx = 0; killIdx < 3; killIdx++) {
+var hits = 0;
+for (var i = 0; i < useLen; i++) {
+var real = hist[i];
+var prev = hist[i + 1];
+var groups = getPrediction(seed, prev);
+var doubles = groups.filter(function(_, idx) { return idx !== killIdx; });
+if (doubles.includes(real.type)) hits++;
+}
+if (hits > bestHits) { bestHits = hits; bestIdx = killIdx; }
+}
+return bestIdx;
+}
+function detectSituationMatch(hist) {
+var n = Math.min(15, hist.length);
+if (n < 6) return { type: 'mix', match: 50, reason: '数据不足，默认混战' };
+var types = hist.slice(0, n).map(function(h) { return h.type; });
+var maxStreak = 1, cur = 1;
+for (var i = 1; i < n; i++) {
+if (types[i] === types[i - 1]) { cur++; if (cur > maxStreak) maxStreak = cur; } else cur = 1;
+}
+var count = {};
+types.forEach(function(t) { count[t] = (count[t] || 0) + 1; });
+var maxCount = Math.max.apply(null, Object.values(count));
+var concentration = maxCount / n;
+var altCount = 0;
+for (var i = 2; i < n; i++) {
+if (types[i] !== types[i - 1] && types[i] === types[i - 2]) altCount++;
+}
+var altRate = altCount / (n - 2);
+var half = Math.floor(n / 2);
+var firstHalf = types.slice(0, half);
+var secondHalf = types.slice(half);
+var bigFirst = firstHalf.filter(function(t) { return t.startsWith('大'); }).length / firstHalf.length;
+var bigSecond = secondHalf.filter(function(t) { return t.startsWith('大'); }).length / secondHalf.length;
+var trendDiff = Math.abs(bigFirst - bigSecond);
+var streakMatch = Math.min(100, Math.round(maxStreak * 20 + concentration * 40));
+var altMatch = Math.min(100, Math.round(altRate * 80));
+var trendMatch = Math.min(100, Math.round(trendDiff * 70));
+var mixMatch = Math.round((100 - streakMatch) * 0.3 + (100 - altMatch) * 0.3 + (100 - trendMatch) * 0.4);
+var matches = { streak: streakMatch, alt: altMatch, trend: trendMatch, mix: mixMatch };
+var best = 'mix', bestScore = mixMatch;
+Object.keys(matches).forEach(function(k) {
+if (matches[k] > bestScore) { bestScore = matches[k]; best = k; }
+});
+var reasonMap = {
+streak: '连开' + maxStreak + '期，集中度' + Math.round(concentration * 100) + '%',
+alt: '交替频率' + Math.round(altRate * 100) + '%',
+trend: '方向差' + Math.round(trendDiff * 100) + '%',
+mix: '无突出特征'
+};
+return { type: best, match: bestScore, reason: reasonMap[best], matches: matches };
+}
+function calcSeedHitRateWithWeight(seed, hist, params, len) {
+len = len || 30;
+if (!seed || !hist || hist.length < 2) return 0;
+var n = Math.min(params.lookback || 15, hist.length);
+var useLen = Math.min(len, hist.length - 1);
+if (useLen < 3) return 0;
+var types = ['小双', '小单', '大双', '大单'];
+var base = { '小双': 0, '小单': 0, '大双': 0, '大单': 0 };
+var streakBonus = { '小双': 0, '小单': 0, '大双': 0, '大单': 0 };
+var altBonus = { '小双': 0, '小单': 0, '大双': 0, '大单': 0 };
+var tailBonus = { '小双': 0, '小单': 0, '大双': 0, '大单': 0 };
+for (var i = 0; i < n; i++) {
+var w = (n - i) / n;
+base[hist[i].type] += w * params.recent;
+}
+for (var i = 1; i < n; i++) {
+if (hist[i].type === hist[i - 1].type) streakBonus[hist[i].type] += params.streak;
+}
+for (var i = 2; i < n; i++) {
+if (hist[i].type === hist[i - 2].type && hist[i].type !== hist[i - 1].type) {
+altBonus[hist[i - 1].type] += params.alt;
+}
+}
+var lastTail = hist[0].sum % 10;
+if (lastTail < 5) { tailBonus['小双'] += params.tail; tailBonus['小单'] += params.tail; }
+else { tailBonus['大双'] += params.tail; tailBonus['大单'] += params.tail; }
+if (lastTail % 2 === 0) { tailBonus['小双'] += params.tail; tailBonus['大双'] += params.tail; }
+else { tailBonus['小单'] += params.tail; tailBonus['大单'] += params.tail; }
+var best = types[0], score = -1;
+types.forEach(function(t) {
+var total = base[t] + streakBonus[t] + altBonus[t] + tailBonus[t];
+if (total > score) { score = total; best = t; }
+});
+var indexMap = { '小双': 0, '小单': 1, '大双': 2, '大单': 3 };
+var targetIdx = Math.min(indexMap[best], 2);
+var hit = 0;
+for (var i = 0; i < useLen; i++) {
+var real = hist[i];
+var prev = hist[i + 1];
+var groups = getPrediction(seed, prev);
+if (groups.includes(real.type)) hit++;
+}
+return useLen ? Number((hit / useLen * 100).toFixed(1)) : 0;
+}
+function calcAllSituationStats(seed, hist) {
+if (!seed || !hist || hist.length < 6) return null;
+var matchResult = detectSituationMatch(hist);
+var stats = {};
+['streak', 'alt', 'trend', 'mix'].forEach(function(key) {
+var plan = SITUATION_PLANS[key];
+var hitRate = calcSeedHitRateWithWeight(seed, hist, plan.params, 30);
+stats[key] = {
+match: key === matchResult.type ? matchResult.match : (matchResult.matches ? matchResult.matches[key] : 50),
+hitRate: hitRate,
+label: plan.label
+};
+});
+return { stats: stats, bestType: matchResult.type, reason: matchResult.reason };
+}
+function updateSituationDisplay(seed) {
+if (!seed || !history.length) return;
+if (freezeActive) return;
+var result = calcAllSituationStats(seed, history);
+if (!result) return;
+var stats = result.stats;
+var sel = $('situationSelect');
+var options = sel.options;
+var bestHit = 0;
+Object.keys(stats).forEach(function(k) {
+if (stats[k].hitRate > bestHit) bestHit = stats[k].hitRate;
+});
+for (var i = 0; i < options.length; i++) {
+var val = options[i].value;
+if (val === 'auto') {
+options[i].textContent = '🎯 自动识别(推荐)';
+} else if (stats[val]) {
+var s = stats[val];
+var matchIcon = s.match >= 70 ? '⭐⭐' : (s.match >= 50 ? '⭐' : '');
+options[i].textContent = s.label + ' ' + matchIcon + ' ' + s.hitRate + '%';
+}
+}
+var currentStat = stats[currentSituationType === 'auto' ? result.bestType : currentSituationType];
+if (currentStat) {
+$('situationHitRate').textContent = '匹配度：' + currentStat.match + '% | 胜率：' + currentStat.hitRate + '%';
+$('situationReason').textContent = result.reason;
+}
+lastSituationResult = result;
+}
+var lastSituationResult = null;
+function detectSituationType(hist) { var result = detectSituationMatch(hist); return result.type; }
+function applySituationPlan(sitType) {
+if (lockState.active) {
+alert('🔒 锁定期间无法切换局势(剩余 ' + lockState.remainingPeriods + ' 期)');
+$('situationSelect').value = currentSituationType;
+return;
+}
+if (freezeActive) { alert('❄️ 冻结期间无法切换局势'); $('situationSelect').value = currentSituationType; return; }
+var plan = SITUATION_PLANS[sitType];
+if (!plan) return;
+currentSituationType = sitType;
+var badge = $('situationBadge');
+badge.textContent = plan.label;
+badge.className = 'situation-badge ' + plan.cls;
+$('situationReason').textContent = plan.reason;
+if (sitType === 'auto') {
+if (autoWeight && history.length && lastSituationResult) {
+var detected = lastSituationResult.bestType;
+var detectedPlan = SITUATION_PLANS[detected];
+applyWeightParams(detectedPlan.params);
+}
+} else {
+applyWeightParams(plan.params);
+}
+if (currentSeed && !freezeActive) {
+updateSituationDisplay(currentSeed);
+renderPredict();
+renderBacktest();
+renderAlgoStats();
+}
+}
+function applyWeightParams(params) {
+WEIGHT.recent = params.recent;
+WEIGHT.streak = params.streak;
+WEIGHT.alt = params.alt;
+WEIGHT.tail = params.tail;
+WEIGHT.lookback = params.lookback;
+}
+function aiSelectByTrend(seedsList, hist) {
+if (!seedsList || seedsList.length === 0) return null;
+var lookback = WEIGHT.lookback;
+var n = Math.min(lookback, hist.length);
+var types = ['小双', '小单', '大双', '大单'];
+var base = { '小双': 0, '小单': 0, '大双': 0, '大单': 0 };
+var streakBonus = { '小双': 0, '小单': 0, '大双': 0, '大单': 0 };
+var altBonus = { '小双': 0, '小单': 0, '大双': 0, '大单': 0 };
+var tailBonus = { '小双': 0, '小单': 0, '大双': 0, '大单': 0 };
+for (var i = 0; i < n; i++) {
+var w = (n - i) / n;
+base[hist[i].type] += w * WEIGHT.recent;
+}
+for (var i = 1; i < n; i++) {
+if (hist[i].type === hist[i - 1].type) streakBonus[hist[i].type] += WEIGHT.streak;
+}
+for (var i = 2; i < n; i++) {
+if (hist[i].type === hist[i - 2].type && hist[i].type !== hist[i - 1].type) {
+altBonus[hist[i - 1].type] += WEIGHT.alt;
+}
+}
+var lastTail = hist[0].sum % 10;
+if (lastTail < 5) { tailBonus['小双'] += WEIGHT.tail; tailBonus['小单'] += WEIGHT.tail; }
+else { tailBonus['大双'] += WEIGHT.tail; tailBonus['大单'] += WEIGHT.tail; }
+if (lastTail % 2 === 0) { tailBonus['小双'] += WEIGHT.tail; tailBonus['大双'] += WEIGHT.tail; }
+else { tailBonus['小单'] += WEIGHT.tail; tailBonus['大单'] += WEIGHT.tail; }
+var best = types[0], score = -1;
+var scores = {};
+types.forEach(function(t) {
+var total = base[t] + streakBonus[t] + altBonus[t] + tailBonus[t];
+scores[t] = total;
+if (total > score) { score = total; best = t; }
+});
+var indexMap = { '小双': 0, '小单': 1, '大双': 2, '大单': 3 };
+var idx = Math.min(indexMap[best], seedsList.length - 1);
+var maxScore = Math.max.apply(null, Object.values(scores)) || 1;
+var colors = { '小双': '#34d399', '小单': '#60a5fa', '大双': '#fbbf24', '大单': '#f87171' };
+var scoreHtml = '<div style="margin-top:4px;display:flex;gap:4px;flex-wrap:wrap;font-size:7px;">';
+types.forEach(function(t) {
+var pct = (scores[t] / maxScore * 100).toFixed(0);
+scoreHtml += '<span style="color:' + colors[t] + '">' + t + ' ' + (scores[t]).toFixed(1) + '</span>';
+});
+scoreHtml += '</div>';
+return { seed: seedsList[idx], reason: '📊 加权评分：' + best + ' 最高(近期×' + WEIGHT.recent + ' 连开×' + WEIGHT.streak + ' 交替×' + WEIGHT.alt + ' 尾数×' + WEIGHT.tail + ')', scores: scoreHtml };
+}
+var API = 'https://pc28.help/api/kj.json?nbr=80';
+var history = [], countdownTimer, currentSeed = null,
+scannedSeeds = [], topSeedsAll = [], scanning = false, viewMode = 'three';
+var aiRecommendedSeed = null, lastScannedExpect = null;
+var lockState = { active: false, lockedSeed: null, remainingPeriods: 0 };
+var hasInitialized = false, isFirstLoad = true;
+function $(id) { return document.getElementById(id); }
+function updateDisplay() {
+if (!history.length) return;
+var l = history[0];
+$('ball1').textContent = l.nums[0];
+$('ball2').textContent = l.nums[1];
+$('ball3').textContent = l.nums[2];
+$('latestPeriod').textContent = l.expect + '期';
+$('latestSum').textContent = '和值：' + l.sum + ' / ' + l.type;
+var ballEls = [$('ball1'), $('ball2'), $('ball3')];
+ballEls.forEach(function(el) {
+el.className = 'ball';
+var v = parseInt(el.textContent);
+if (v >= 5 && v <= 9) el.classList.add('red');
+else el.classList.add('green');
+});
+}
+function startCountdown() {
+clearInterval(countdownTimer);
+if (!history.length) return;
+var next = (history[0].opentime + 210) * 1000;
+var upd = function() {
+var d = next - Date.now();
+if (d <= 0) { $('countdown').textContent = '🔄 已开奖'; return; }
+var m = Math.floor(d / 60000), s = Math.floor((d % 60000) / 1000);
+$('countdown').textContent = '⏳ ' + m.toString().padStart(2, '0') + ':' + s.toString().padStart(2, '0');
+};
+upd();
+countdownTimer = setInterval(upd, 1000);
+}
+function renderAlgoStats() {
+var list = $('algoList');
+var count = $('algoCount');
+var allModels = [];
+var seen = {};
+var topList = topSeedsAll.slice(0, 20);
+topList.forEach(function(item) {
+if (!seen[item.seed]) {
+seen[item.seed] = true;
+allModels.push({ seed: item.seed, acc: item.acc });
+}
+});
+if (currentSeed && !seen[currentSeed]) {
+var acc = calcHitRate(currentSeed, history, 30);
+allModels.push({ seed: currentSeed, acc: acc });
+}
+if (allModels.length < 20 && scannedSeeds.length > 0) {
+scannedSeeds.forEach(function(s) {
+if (!seen[s] && allModels.length < 20) {
+seen[s] = true;
+var acc2 = calcHitRate(s, history, 30);
+allModels.push({ seed: s, acc: acc2 });
+}
+});
+}
+allModels.sort(function(a, b) { return b.acc - a.acc; });
+allModels = allModels.slice(0, 20);
+if (allModels.length === 0) {
+list.innerHTML = '<div class="algo-empty">请先点击「扫描」获取模型</div>';
+count.textContent = '共 0 个模型';
+['Dadan', 'Dashuang', 'Xiaodan', 'Xiaoshuang'].forEach(function(key) {
+$('stat' + key).textContent = '0';
+$('pct' + key).textContent = '0%';
+$('bar' + key).style.width = '0%';
+});
+return;
+}
+count.textContent = '共 ' + allModels.length + ' 个模型';
+var stats = { '大单': 0, '大双': 0, '小单': 0, '小双': 0 };
+var latest = history[0];
+allModels.forEach(function(item) {
+var seed = item.seed;
+if (latest) {
+var groups = getPrediction(seed, latest);
+for (var g = 0; g < 3 && g < groups.length; g++) {
+if (stats[groups[g]] !== undefined) stats[groups[g]]++;
+}
+}
+});
+var total = 0;
+var typeKeys = ['大单', '大双', '小单', '小双'];
+typeKeys.forEach(function(k) { total += stats[k] || 0; });
+var mapping = { '大单': { id: 'Dadan' }, '大双': { id: 'Dashuang' }, '小单': { id: 'Xiaodan' }, '小双': { id: 'Xiaoshuang' } };
+typeKeys.forEach(function(k) {
+var countVal = stats[k] || 0;
+var pct = total > 0 ? ((countVal / total) * 100) : 0;
+var id = mapping[k].id;
+$('stat' + id).textContent = countVal;
+$('pct' + id).textContent = pct.toFixed(1) + '%';
+$('bar' + id).style.width = Math.min(pct, 100) + '%';
+});
+var html = '';
+allModels.forEach(function(item, index) {
+var seed = item.seed;
+var acc = item.acc;
+var groups = [];
+var isActive = (currentSeed === seed);
+if (latest) groups = getPrediction(seed, latest);
+var rateClass = acc >= 70 ? 'high' : (acc >= 50 ? 'mid' : 'low');
+var checkMark = isActive ? '✅' : '';
+var displayGroups = groups.slice(0, 3);
+while (displayGroups.length < 3) displayGroups.push('--');
+var killGroup = getKillGroup(displayGroups);
+var fourGroups = [displayGroups[0], displayGroups[1], displayGroups[2], killGroup];
+var groupClasses = ['g1', 'g2', 'g3', 'g4'];
+var groupsHtml = '';
+fourGroups.forEach(function(g, idx) {
+var cls = groupClasses[idx] || 'g1';
+groupsHtml += '<span class="g ' + cls + '">' + g + '</span>';
+});
+html += '<div class="algo-item ' + (isActive ? 'active' : '') + '" data-seed="' + seed + '">' +
+'<span class="mid">M' + (index + 1) + '</span>' +
+'<span class="mg">' + groupsHtml + '</span>' +
+'<span class="mr ' + rateClass + '">' + acc.toFixed(1) + '%</span>' +
+(checkMark ? '<span class="mcheck">✅</span>' : '') +
+'</div>';
+});
+list.innerHTML = html;
+list.querySelectorAll('.algo-item').forEach(function(el) {
+el.addEventListener('click', function() {
+if (lockState.active) { alert('🔒 锁定期间无法切换模型(剩余 ' + lockState.remainingPeriods + ' 期)'); return; }
+if (freezeActive) { alert('❄️ 冻结期间无法切换模型，请先解冻'); return; }
+var seed = parseInt(this.dataset.seed);
+if (seed && !isNaN(seed)) {
+aiRecommendedSeed = null;
+$('aiReasonBar').classList.remove('show');
+updateAll(seed);
+renderAlgoStats();
+}
+});
+});
+}
+function fetchData() {
+fetch(API, { signal: AbortSignal.timeout(10000) })
+.then(function(res) { return res.json(); })
+.then(function(json) {
+if (json.message === 'success' && json.data && json.data.length > 0) {
+history = json.data.slice(0, 60).map(function(item) {
+var nums = item.number.split('+').map(Number);
+var sum = parseInt(item.num);
+return {
+expect: item.nbr,
+opentime: Math.floor(new Date(item.date + ' ' + item.time).getTime() / 1000),
+nums: nums, sum: sum, type: getType(sum), combination: item.combination
+};
+});
+updateDisplay();
+startCountdown();
+if (isFirstLoad) {
+isFirstLoad = false;
+var savedSeed = localStorage.getItem('selectedSeed');
+if (savedSeed && !isNaN(parseInt(savedSeed))) {
+var seed = parseInt(savedSeed);
+var acc = calcHitRate(seed, history, 30);
+if (acc > 0) {
+currentSeed = seed;
+updateAll(seed);
+if (!scannedSeeds.includes(seed)) { scannedSeeds.push(seed); syncSelectorWithScanned(); }
+renderAlgoStats();
+return;
+}
+}
+$('predictPanel').innerHTML = '<div class="predict-header">📊 请点击「扫描」获取模型</div>';
+$('seedSelector').innerHTML = '<option value="">-- 请先扫描 --</option>';
+$('seedSelector').disabled = true;
+return;
+}
+if (currentSeed && !freezeActive) {
+updateSituationDisplay(currentSeed);
+renderPredict();
+renderBacktest();
+renderAlgoStats();
+}
+updateHitRateDisplay();
+}
+})
+.catch(function(e) { console.log('数据获取失败', e); });
+}
+function renderPredict() {
+if (freezeActive) return;
+var panel = $('predictPanel');
+if (!history.length) { panel.innerHTML = '<div class="predict-header">等待数据...</div>'; return; }
+if (!currentSeed) { panel.innerHTML = '<div class="predict-header">请先点击「扫描」获取模型</div>'; return; }
+var prev = history[0];
+var groups = getPrediction(currentSeed, prev);
+var nextExpect = (parseInt(prev.expect) + 1).toString();
+var g1 = groups[0] || '--', g2 = groups[1] || '--', g3 = groups[2] || '--';
+var kill = getKillGroup([g1, g2, g3]);
+var isAiRec = (aiRecommendedSeed === currentSeed);
+var lockTag = lockState.active && lockState.lockedSeed === currentSeed ? ' 🔒' : '';
+var aiBadge = isAiRec ? ' <span class="tag tag-purple">推荐</span>' : '';
+var html = '<div class="predict-header"><span class="predict-title"><span class="tag tag-blue">慢不慢</span> 预测' + aiBadge + lockTag + '</span><span class="expect-badge">' + nextExpect + '</span></div>' +
+'<div class="answer-row"><div class="answer-card highlight"><div class="label">组1</div><div class="value">' + g1 + '</div></div>' +
+'<div class="answer-card"><div class="label">组2</div><div class="value">' + g2 + '</div></div>' +
+'<div class="answer-card"><div class="label">组3</div><div class="value">' + g3 + '</div></div></div>' +
+'<div class="answer-row"><div class="answer-card kill"><div class="label">🚫 杀组</div><div class="value">' + kill + '</div></div></div>' +
+'<div class="predict-extra"><span>基于上期 <strong>' + prev.expect + '</strong> (' + prev.type + ')</span><span>→ 模型 <strong>' + currentSeed + '</strong></span></div>';
+panel.innerHTML = html;
+}
+function renderBacktest() {
+if (freezeActive) return;
+var tbody = $('historyBody');
+if (!history.length || !currentSeed) { tbody.innerHTML = '<tr><td colspan="5">等待数据...</td></tr>'; return; }
+var max = Math.min(30, history.length - 1);
+var hitCount = 0, html = '';
+for (var i = 0; i < max; i++) {
+var real = history[i];
+var prev = history[i + 1];
+var groups = getPrediction(currentSeed, prev);
+var g1 = groups[0] || '--', g2 = groups[1] || '--', g3 = groups[2] || '--';
+var kill = getKillGroup([g1, g2, g3]);
+var isHit = groups.includes(real.type);
+var prevDisplay = prev.nums.join('+') + '=' + prev.sum + ' ' + prev.type;
+var predictHtml = '<span class="tag tag-blue">' + g1 + '</span> <span class="tag tag-gold">' + g2 + '</span> <span class="tag tag-green">' + g3 + '</span> <span class="tag tag-kill">杀' + kill + '</span>';
+if (isHit) hitCount++;
+var resultText = isHit ? '✅' : '✖️';
+var resultClass = isHit ? 'win' : 'miss';
+var realDisplay = real.nums.join('+') + '=' + real.sum + ' ' + real.type;
+html += '<tr><td>' + real.expect + '</td><td>' + prevDisplay + '</td><td>' + predictHtml + '</td><td>' + realDisplay + '</td><td class="' + resultClass + '">' + resultText + '</td></tr>';
+}
+var acc = max ? ((hitCount / max) * 100).toFixed(2) : 0;
+$('historyAcc').innerHTML = '三组匹配率 ' + acc + '% (' + hitCount + '/' + max + ')';
+$('fixedHitRate').textContent = acc + '%';
+tbody.innerHTML = html;
+}
+function updateHitRateDisplay() {
+if (currentSeed && history.length > 1) {
+var acc = calcHitRate(currentSeed, history, 30);
+$('fixedHitRate').textContent = acc.toFixed(1) + '%';
+} else { $('fixedHitRate').textContent = '--'; }
+}
+function updateAll(seed) {
+if (freezeActive) return;
+currentSeed = seed;
+aiRecommendedSeed = null;
+try { localStorage.setItem('selectedSeed', String(seed)); } catch (e) {}
+$('seedSelector').value = seed;
+$('aiReasonBar').classList.remove('show');
+renderPredict(); renderBacktest(); renderAlgoStats();
+updateHitRateDisplay(); updateSituationDisplay(seed);
+}
+function updateAllWithAI(seed, reasonText, scoresHtml) {
+if (freezeActive) { alert('❄️ 已冻结，请先解冻'); return; }
+currentSeed = seed;
+aiRecommendedSeed = seed;
+try { localStorage.setItem('selectedSeed', String(seed)); } catch (e) {}
+$('seedSelector').value = seed;
+if (reasonText) {
+$('aiReasonBar').innerHTML = '📊 ' + reasonText;
+$('aiReasonBar').classList.add('show');
+}
+renderPredict(); renderBacktest(); renderAlgoStats();
+if (scoresHtml) $('predictPanel').innerHTML += scoresHtml;
+ensureSeedInSelector(seed);
+updateHitRateDisplay(); updateSituationDisplay(seed);
+}
+function ensureSeedInSelector(seed) {
+var sel = $('seedSelector');
+var existing = Array.from(sel.options).find(function(o) { return o.value == seed; });
+if (!existing) {
+var idx = sel.options.length;
+var opt = document.createElement('option');
+opt.value = seed; opt.textContent = '模型' + (idx + 1) + ' (' + seed + ')';
+sel.appendChild(opt);
+}
+sel.value = seed; sel.disabled = false;
+}
+function syncSelectorWithScanned() {
+var sel = $('seedSelector');
+var currentVal = sel.value;
+sel.innerHTML = scannedSeeds.length ? '' : '<option value="">-- 无模型 --</option>';
+scannedSeeds.forEach(function(s, i) {
+var o = document.createElement('option');
+o.value = s; o.textContent = '模型' + (i + 1) + ' (' + s + ')';
+sel.appendChild(o);
+});
+if (currentVal && Array.from(sel.options).some(function(o) { return o.value == currentVal; })) {
+sel.value = currentVal; sel.disabled = false;
+} else if (scannedSeeds.length > 0) {
+sel.value = scannedSeeds[0]; sel.disabled = false;
+}
+}
+function updateLockUI() {
+var btn = $('lockSeedBtn'), lockStatus = $('lockStatus'), selector = $('seedSelector');
+if (lockState.active) {
+btn.textContent = '🔒 已锁(' + lockState.remainingPeriods + ')';
+btn.className = 'btn btn-danger btn-sm'; btn.disabled = true;
+selector.disabled = true; lockStatus.style.display = 'inline-block';
+lockStatus.textContent = '🔒 已锁 ' + lockState.remainingPeriods + '期';
+$('situationSelect').disabled = true;
+} else {
+btn.textContent = '🔒 锁定'; btn.className = 'btn btn-danger btn-sm';
+btn.disabled = false; selector.disabled = false; lockStatus.style.display = 'none';
+if (!freezeActive) $('situationSelect').disabled = false;
+}
+}
+function getThirdSeedFromList() {
+var list = scannedSeeds.length >= 3 ? scannedSeeds : topSeedsAll.map(function(s) { return s.seed; });
+if (list.length >= 3) return list[2];
+if (list.length > 0) return list[0];
+return null;
+}
+function manualScan() {
+if (scanning) return;
+if (history.length < 31) { alert('需要至少31期数据'); return; }
+if (freezeActive) { alert('❄️ 已冻结，请先解冻'); return; }
+scanning = true; scannedSeeds = []; topSeedsAll = [];
+$('scanStatus').textContent = '🔍 扫描中...'; $('scanStatus').classList.add('show');
+$('scanBtn').disabled = true;
+var batchPromises = [];
+for (var s = 1000; s <= 50000; s += 500) {
+(function(startSeed) {
+batchPromises.push(new Promise(function(resolve) {
+setTimeout(function() {
+for (var seed = startSeed; seed < startSeed + 500 && seed <= 50000; seed++) {
+var acc = calcHitRate(seed, history, 30);
+if (acc >= 85) topSeedsAll.push({ seed: seed, acc: acc });
+if (acc === 100) scannedSeeds.push(seed);
+}
+resolve();
+}, 0);
+}));
+})(s);
+}
+Promise.all(batchPromises).then(function() {
+topSeedsAll.sort(function(a, b) { return b.acc - a.acc; });
+if (topSeedsAll.length > 50) topSeedsAll = topSeedsAll.slice(0, 50);
+scanning = false; $('scanBtn').disabled = false;
+$('scanStatus').textContent = '✅ 完成';
+setTimeout(function() { $('scanStatus').classList.remove('show'); }, 2000);
+syncSelectorWithScanned();
+if (currentSituationType === 'auto') {
+var detected = detectSituationType(history);
+applyWeightParams(SITUATION_PLANS[detected].params);
+} else {
+applySituationPlan(currentSituationType);
+}
+if (scannedSeeds.length >= 11) updateAll(scannedSeeds[10]);
+else if (scannedSeeds.length > 0) updateAll(scannedSeeds[0]);
+else if (topSeedsAll.length > 0) updateAll(topSeedsAll[0].seed);
+updateLockUI();
+if (currentSeed) updateSituationDisplay(currentSeed);
+renderAlgoStats();
+});
+}
+function toggleLock() {
+if (lockState.active) return;
+if (freezeActive) { alert('❄️ 已冻结，请先解冻'); return; }
+var thirdSeed = getThirdSeedFromList();
+if (!thirdSeed) { alert('可用模型不足3个'); return; }
+lockState.active = true; lockState.lockedSeed = thirdSeed; lockState.remainingPeriods = 5;
+updateAll(thirdSeed); updateLockUI(); renderAlgoStats();
+}
+function toggleFreeze() {
+freezeActive = !freezeActive;
+var btn = $('freezeBtn'), status = $('freezeStatus');
+if (freezeActive) {
+btn.textContent = '🔓 解冻'; btn.className = 'btn btn-primary btn-sm';
+status.style.display = 'inline-block'; $('situationSelect').disabled = true;
+} else {
+btn.textContent = '❄️ 冻结'; btn.className = 'btn btn-outline btn-sm';
+status.style.display = 'none';
+if (!lockState.active) $('situationSelect').disabled = false;
+if (currentSeed) { renderPredict(); renderBacktest(); renderAlgoStats(); updateSituationDisplay(currentSeed); }
+}
+updateLockUI();
+}
+function aiSelectSeed() {
+if (lockState.active) { alert('🔒 锁定中(剩余 ' + lockState.remainingPeriods + ' 期)'); return; }
+if (scanning) { alert('扫描中，请稍候...'); return; }
+if (history.length < 31) { alert('需要至少31期数据'); return; }
+if (freezeActive) { alert('❄️ 已冻结，请先解冻'); return; }
+if (scannedSeeds.length === 0 && topSeedsAll.length === 0) { alert('请先点击「扫描」获取模型列表'); return; }
+var btn = $('aiSelectBtn');
+btn.disabled = true;
+var reasonBar = $('aiReasonBar');
+reasonBar.classList.add('show');
+var progress = 0;
+var interval = setInterval(function() {
+progress += Math.random() * 15 + 5;
+if (progress >= 100) {
+progress = 100; clearInterval(interval);
+reasonBar.innerHTML = '📊 分析完成 <span class="ai-progress"><span class="ai-progress-fill" style="width:100%"></span></span>';
+} else {
+reasonBar.innerHTML = '📊 分析 ' + Math.floor(progress) + '% <span class="ai-progress"><span class="ai-progress-fill" style="width:' + Math.floor(progress) + '%"></span></span>';
+}
+}, 180);
+setTimeout(function() {
+clearInterval(interval);
+var candidates = scannedSeeds.length ? scannedSeeds.slice() : topSeedsAll.map(function(s) { return s.seed; });
+if (candidates.length === 0) { btn.disabled = false; reasonBar.classList.remove('show'); alert('未找到可用模型，请先扫描'); return; }
+if (currentSituationType === 'auto') {
+var detected = detectSituationType(history);
+applyWeightParams(SITUATION_PLANS[detected].params);
+}
+var result = aiSelectByTrend(candidates, history);
+if (result) {
+if (confirm('推荐模型：' + result.seed + '\n' + result.reason + '\n是否应用？')) {
+updateAllWithAI(result.seed, result.reason, result.scores);
+updateSituationDisplay(result.seed); renderAlgoStats();
+var accInfo = topSeedsAll.find(function(s) { return s.seed === result.seed; });
+$('fixedHitRate').textContent = accInfo ? accInfo.acc.toFixed(1) + '%' : '--';
+} else {
+reasonBar.classList.remove('show');
+}
+}
+btn.disabled = false;
+}, 1200);
+}
+function toggleMode() {
+if (freezeActive) { alert('❄️ 已冻结，请先解冻'); return; }
+viewMode = viewMode === 'three' ? 'double' : 'three';
+$('toggleModeBtn').textContent = viewMode === 'double' ? '📊 三组' : '📊 双组';
+$('toggleModeBtn').className = viewMode === 'double' ? 'btn btn-primary btn-sm' : 'btn btn-outline btn-sm';
+if (currentSeed) updateAll(currentSeed);
+}
+fetchData();
+$('situationSelect').addEventListener('change', function() { applySituationPlan(this.value); });
+$('scanBtn').addEventListener('click', manualScan);
+$('lockSeedBtn').addEventListener('click', toggleLock);
+$('freezeBtn').addEventListener('click', toggleFreeze);
+$('aiSelectBtn').addEventListener('click', aiSelectSeed);
+$('predictBtn').addEventListener('click', function() {
+if (freezeActive) { alert('❄️ 已冻结，请先解冻'); return; }
+if (!currentSeed) { alert('请先点击「扫描」获取模型'); return; }
+updateAll(currentSeed);
+});
+$('refreshBtn').addEventListener('click', fetchData);
+$('seedSelector').addEventListener('change', function(e) {
+if (lockState.active) { alert('🔒 锁定中无法切换'); this.value = currentSeed; return; }
+if (freezeActive) { alert('❄️ 已冻结，请先解冻'); this.value = currentSeed; return; }
+if (e.target.value) {
+aiRecommendedSeed = null; $('aiReasonBar').classList.remove('show');
+updateAll(parseInt(e.target.value)); renderAlgoStats();
+}
+});
+$('toggleModeBtn').addEventListener('click', toggleMode);
+setInterval(fetchData, 60000);
 })();
 </script>
 </body>
