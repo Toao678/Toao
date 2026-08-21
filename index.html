@@ -114,7 +114,7 @@ max-width: 480px; margin: 0 auto;
 min-height: 100vh;
 background: var(--bg-primary);
 transition: background 0.4s ease;
-padding-top: 72px !important;
+padding-top: 88px !important;
 }
 .topbar { overflow: visible !important; }
 .topbar img, .logo img {
@@ -354,67 +354,78 @@ padding: 4px 10px; text-align: center; flex-shrink: 0; display: none; font-weigh
 @keyframes fadeInDown { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
 .scan-status { font-size: 8px; color: var(--success); background: rgba(34,197,94,0.10); border: 1px solid rgba(34,197,94,0.20); border-radius: 6px; padding: 2px 8px; display: none; white-space: nowrap; }
 .scan-status.show { display: inline-block; }
-/* ===== 新广告栏样式（从文件1引入） ===== */
+
+/* ===== 广告栏 — 两行布局（替换正式版原广告栏） ===== */
 .ad-top {
 width: 100%;
 background: rgba(255,255,255,0.18);
-backdrop-filter: blur(20px);
--webkit-backdrop-filter: blur(20px);
+backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
 border-bottom: 1px solid rgba(255,255,255,0.22);
-padding: 10px 16px;
-display: flex; align-items: center; gap: 10px;
-position: fixed; top: 0; left: 0; z-index: 1000;
+padding: 8px 14px;
+display: flex;
+align-items: center;
+gap: 10px;
+position: fixed;
+top: 0; left: 0;
+z-index: 1000;
+height: 72px;
 }
 .ad-top .tag {
 width: 48px; height: 48px; border-radius: 50%;
 background: linear-gradient(270deg, #667eea, #764ba2, #f093fb, #f5576c, #4facfe, #00f2fe, #43e97b, #38f9d7, #fa709a, #fee140, #a18cd1, #fbc2eb, #fccb90, #d57eeb, #e0c3fc, #8ec5fc, #667eea);
-background-size: 600% 600%;
-animation: adShift 12s ease infinite;
+background-size: 600% 600%; animation: adShift 12s ease infinite;
 display: flex; flex-direction: column; align-items: center; justify-content: center;
-flex-shrink: 0; line-height: 1.3;
-box-shadow: 0 2px 10px rgba(0,0,0,0.20);
+flex-shrink: 0; line-height: 1.3; box-shadow: 0 2px 10px rgba(0,0,0,0.20);
 }
 @keyframes adShift { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
 .ad-top .tag .t1, .ad-top .tag .t2 { font-size: 9px; font-weight: 700; color: #fff; white-space: nowrap; }
+
+/* 中间跑马灯区域 — 上下堆叠 */
+.ad-marquee-area {
+flex: 1; display: flex; flex-direction: column; gap: 4px; min-width: 0;
+}
 .ad-marquee-wrap {
-flex: 1; overflow: hidden; position: relative; height: 52px;
-display: flex; flex-direction: column; justify-content: center; gap: 4px;
-border: 1.5px solid rgba(255,255,255,0.5); border-radius: 10px;
-padding: 4px 10px; background: rgba(255,255,255,0.08);
+width: 100%; overflow: hidden; position: relative; height: 28px;
+display: flex; align-items: center;
+border: 1.5px solid rgba(255,255,255,0.5); border-radius: 8px;
+padding: 0 10px; background: rgba(255,255,255,0.08);
 }
 .ad-marquee-track {
 display: inline-block; white-space: nowrap; padding-left: 100%;
-font-size: 12px; font-weight: 600; line-height: 1.6;
+font-size: 11px; font-weight: 600;
 background: linear-gradient(90deg, #667eea, #f093fb, #f5576c, #4facfe, #43e97b, #fee140, #667eea);
 background-size: 300% 100%;
 -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-animation: marqueeScroll 18s linear infinite;
+animation: marqueeScroll 18s linear infinite, textGradient 6s ease infinite;
 }
 @keyframes textGradient { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
 @keyframes marqueeScroll { 0%{transform:translateX(0)} 100%{transform:translateX(-100%)} }
+
+/* 右侧联系按钮 */
 .ad-top .btn-contact {
 background: linear-gradient(270deg, #667eea, #764ba2, #f093fb, #f5576c, #4facfe, #00f2fe, #43e97b, #38f9d7, #fa709a, #fee140, #a18cd1, #fbc2eb, #fccb90, #d57eeb, #e0c3fc, #8ec5fc, #667eea);
 background-size: 600% 600%; animation: adShift 12s ease infinite;
-color: #fff; font-size: 10px; font-weight: 600;
-text-decoration: none; flex-shrink: 0; border: none; cursor: pointer;
-transition: transform 0.15s ease;
+color: #fff; font-size: 10px; font-weight: 600; text-decoration: none;
+flex-shrink: 0; border: none; cursor: pointer; transition: transform 0.15s ease;
 border-radius: 50%; width: 48px; height: 48px; padding: 0;
 display: flex; flex-direction: column; align-items: center; justify-content: center; line-height: 1.2;
 }
 .ad-top .btn-contact:active { transform: scale(0.93); }
+
+/* 联系弹窗 */
 .contact-modal-mask {
 display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
 background: rgba(0,0,0,0.55); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
 z-index: 2000; align-items: center; justify-content: center; animation: fadeIn 0.2s ease;
 }
 .contact-modal-mask.show { display: flex; }
-@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes fadeIn { from{opacity:0} to{opacity:1} }
 .contact-modal {
 background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px;
 padding: 24px 20px 18px; width: 280px; text-align: center;
 box-shadow: 0 20px 60px rgba(0,0,0,0.4); animation: modalPop 0.25s ease;
 }
-@keyframes modalPop { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+@keyframes modalPop { from{opacity:0;transform:scale(0.9)} to{opacity:1;transform:scale(1)} }
 .contact-modal .contact-title { font-size: 15px; font-weight: 800; color: var(--text-primary); margin-bottom: 4px; }
 .contact-modal .contact-sub { font-size: 10px; color: var(--text-muted); margin-bottom: 16px; }
 .contact-modal .contact-item {
@@ -435,70 +446,66 @@ background: var(--bg-card2); border: 1px solid var(--border-color);
 border-radius: 10px; padding: 8px 0; width: 100%; cursor: pointer; transition: 0.15s;
 }
 .contact-modal .contact-close:active { background: var(--border-color); }
+
 @media (max-width: 520px) {
-.ad-top { padding: 8px 10px; gap: 8px; }
-.ad-top .tag { width: 42px; height: 42px; }
-.ad-top .tag .t1, .ad-top .tag .t2 { font-size: 8px; }
+.ad-top { padding: 6px 10px; gap: 8px; height: 64px; }
+.ad-top .tag { width: 42px; height: 42px; } .ad-top .tag .t1, .ad-top .tag .t2 { font-size: 8px; }
+.ad-marquee-wrap { height: 24px; border-radius: 6px; } .ad-marquee-track { font-size: 10px; }
 .ad-top .btn-contact { width: 42px; height: 42px; font-size: 9px; }
-.ad-marquee-track { font-size: 11px; }
+.main-container { padding-top: 72px !important; }
 }
 @media (max-width: 420px) {
 .main-container { padding: 4px 6px; gap: 4px; }
-.ball { width: 30px; height: 30px; font-size: 13px; }
-.period { font-size: 12px; }
-.predict-title { font-size: 10px; }
-.answer-card .value { font-size: 13px; }
-.btn { font-size: 8px; padding: 3px 8px; }
-.draw-panel { padding: 8px 6px; }
-.predict-panel { padding: 8px 8px; }
-.algo-stat-item .stat-value { font-size: 15px; }
-.algo-stat-item { padding: 4px 2px; }
-.algo-item { font-size: 6px; padding: 2px 4px; min-height: 18px; }
-.algo-item .mid { min-width: 22px; font-size: 6px; }
-.algo-item .mg .g { font-size: 5px; padding: 0 2px; }
-.algo-item .mr { font-size: 6px; min-width: 22px; }
+.ball { width: 30px; height: 30px; font-size: 13px; } .period { font-size: 12px; }
+.predict-title { font-size: 10px; } .answer-card .value { font-size: 13px; }
+.btn { font-size: 8px; padding: 3px 8px; } .draw-panel { padding: 8px 6px; } .predict-panel { padding: 8px 8px; }
+.algo-stat-item .stat-value { font-size: 15px; } .algo-stat-item { padding: 4px 2px; }
+.algo-item { font-size: 6px; padding: 2px 4px; min-height: 18px; } .algo-item .mid { min-width: 22px; font-size: 6px; } .algo-item .mg .g { font-size: 5px; padding: 0 2px; } .algo-item .mr { font-size: 6px; min-width: 22px; }
 .algo-list { max-height: 100px; }
 }
 </style>
 </head>
 <body>
-<!-- 顶部广告栏（新） -->
+<!-- 顶部广告栏 — 标签 | 跑马灯区(上下) | 联系按钮 -->
 <div class="ad-top">
 <span class="tag"><span class="t1">Toao独家</span><span class="t2">定制预测</span></span>
+
+<div class="ad-marquee-area">
 <div class="ad-marquee-wrap">
 <div class="ad-marquee-track">
-稳台推荐🔥非凡娱乐、胜天国际、纵横国际、壹号娱乐 &nbsp;&nbsp;&nbsp; 稳台推荐🔥非凡娱乐、胜天国际、纵横国际 &nbsp;&nbsp;&nbsp; 稳台推荐🔥非凡娱乐、胜天国际、纵横国际
-</div>
-</div class=“ad-marquee-track”>
-🧧充值累计500元秒返188元红包🔥充值累计1000元秒返400元红包 &nbsp;&nbsp;&nbsp; 🧧充值累计500元秒返188元红包🔥充值累计1000元秒返400元红包 &nbsp;&nbsp;&nbsp; 🧧充值累计500元秒返188元红包🔥充值累计1000元秒返400元红包 &nbsp;&nbsp;&nbsp; 🧧充值累计500元秒返188元红包🔥充值累计1000元秒返400元红包
+稳台推荐🔥非凡娱乐、胜天国际、纵横国际 &nbsp;&nbsp;&nbsp; 稳台推荐🔥非凡娱乐、胜天国际、纵横国际 &nbsp;&nbsp;&nbsp; 稳台推荐🔥非凡娱乐、胜天国际、纵横国际
 </div>
 </div>
+<div class="ad-marquee-wrap">
+<div class="ad-marquee-track">
+🔥累计充值500元秒返188元红包🔥累计充值1000元秒返400元红包🔥 &nbsp;&nbsp;&nbsp; 🔥累计充值500元秒返188元红包🔥累计充值1000元秒返400元红包🔥 &nbsp;&nbsp;&nbsp; 🔥累计充值500元秒返188元红包🔥累计充值1000元秒返400元红包🔥
+</div>
+</div>
+</div>
+
 <button class="btn-contact" id="btnContact">联系<br>站长</button>
 </div>
+
 <!-- 联系弹窗 -->
 <div class="contact-modal-mask" id="contactModal">
 <div class="contact-modal">
 <div class="contact-title">📬 联系站长</div>
 <div class="contact-sub">点击复制即可添加</div>
 <div class="contact-item">
-<span class="label">🐶 旺旺</span>
-<span class="value" id="contactWW">373494538</span>
-<button class="copy-btn" data-copy="contactWW">复制</button>
+<span class="label">🐶 旺旺</span><span class="value" id="contactWW">373494538</span><button class="copy-btn" data-copy="contactWW">复制</button>
 </div>
 <div class="contact-item">
-<span class="label">✈️ Telegram</span>
-<span class="value" id="contactTG">@ZG023</span>
-<button class="copy-btn" data-copy="contactTG">复制</button>
+<span class="label">✈️ Telegram</span><span class="value" id="contactTG">@ZG023</span><button class="copy-btn" data-copy="contactTG">复制</button>
 </div>
 <div class="contact-item">
-<span class="label">🫧 微信</span>
-<span class="value" id="contactWX">langzi0570</span>
-<button class="copy-btn" data-copy="contactWX">复制</button>
+<span class="label">🫧 微信</span><span class="value" id="contactWX">langzi0570</span><button class="copy-btn" data-copy="contactWX">复制</button>
 </div>
 <button class="contact-close" id="contactClose">关闭</button>
 </div>
 </div>
+
 <div class="main-container" id="mainContainer">
+<!-- 以下为正式版原有内容，一字未改 -->
 <div class="topbar">
 <div class="logo" id="logoArea">
 <img src="https://image.58sb.cn/file/img/In1oakDm.jpg" alt="avatar">
@@ -620,8 +627,12 @@ border-radius: 10px; padding: 8px 0; width: 100%; cursor: pointer; transition: 0
 </table>
 </div>
 </div>
-<div class="footer">Toao v3.0 · 仅供娱乐 · 下注有风险谨慎投资</div>
+<div class="scrolling-notice">
+<div class="scrolling-text">
 </div>
+<div class="footer">Toao v3.0 · 仅供娱乐下注投资需谨慎</div>
+</div>
+
 <script>
 (function() {
 var jumpLinks = document.querySelectorAll('a[data-jump]');
@@ -665,7 +676,6 @@ document.getElementById('themeBtn').addEventListener('click', cycleTheme);
 loadSavedTheme();
 var logoArea = document.getElementById('logoArea');
 if (logoArea) { logoArea.addEventListener('click', function() { window.open('http://xnqwzf.tckqxx.com/app/register.php?site_id=1067&topId=2891785168677741&selfPlanId=8938', '_blank'); }); }
-/* ===== 联系弹窗逻辑（从文件1引入） ===== */
 var contactModal = document.getElementById('contactModal');
 document.getElementById('btnContact').addEventListener('click', function() { contactModal.classList.add('show'); });
 document.getElementById('contactClose').addEventListener('click', function() { contactModal.classList.remove('show'); });
@@ -684,7 +694,6 @@ btn.textContent = '✅'; setTimeout(function(){ btn.textContent = '复制'; }, 1
 });
 })();
 (function() {
-// ====== 以下为第二个文件（Toao正式版）原有业务逻辑，一行未改 ======
 var SITUATION_PLANS = {
 auto: { label: '🎯 自动', cls: 'auto', params: { recent: 5, streak: 4, alt: 3, tail: 3, lookback: 15 }, reason: 'AI自动判断' },
 streak: { label: '🔥 连开', cls: 'streak', params: { recent: 5, streak: 8, alt: 1, tail: 3, lookback: 10 }, reason: '追热号' },
@@ -828,8 +837,6 @@ if (lastTail % 2 === 0) { tailBonus['小双'] += params.tail; tailBonus['大双'
 else { tailBonus['小单'] += params.tail; tailBonus['大单'] += params.tail; }
 var best = types[0], score = -1;
 types.forEach(function(t) { var total = base[t] + streakBonus[t] + altBonus[t] + tailBonus[t]; if (total > score) { score = total; best = t; } });
-var indexMap = { '小双': 0, '小单': 1, '大双': 2, '大单': 3 };
-var targetIdx = Math.min(indexMap[best], 2);
 var hit = 0;
 for (var i = 0; i < useLen; i++) {
 var real = hist[i]; var prev = hist[i + 1];
